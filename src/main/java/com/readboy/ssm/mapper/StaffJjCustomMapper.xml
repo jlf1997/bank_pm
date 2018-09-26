@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.StaffJjCustomMapper">
+
+ 	<select id="findStaffJjCustom" resultType="StaffJjCustom">
+ 	<![CDATA[
+	 	select hr_bas_organization.zzjc,hr_bas_staff.ygxm
+		from hr_bas_organization,hr_bas_staff,hr_bas_staff_post
+		where hr_bas_organization.zzbz=#{zzbz} and hr_bas_staff_post.yggh=#{yggh}
+		and hr_bas_staff.yggh=hr_bas_staff_post.yggh
+		and hr_bas_organization.zzbz = hr_bas_staff_post.zzbz and hr_bas_staff_post.rgrq <= #{lastDayOfMonth}
+		and (hr_bas_staff_post.lgrq is null or hr_bas_staff_post.lgrq >= #{firstDayOfMonth})
+	]]>
+	</select>
+ </mapper>
+

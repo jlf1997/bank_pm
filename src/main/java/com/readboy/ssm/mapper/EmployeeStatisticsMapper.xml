@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.readboy.ssm.mapper.EmployeeStatisticsMapper" >
+    
+    <!--根据员工姓名查询员工工号-->
+    <select id="findTELLIDByName"  resultType="String">
+        SELECT TELLID FROM sys_bas_user WHERE REALNAME = #{name}
+    </select>
+
+    <select id="judgeEmployee" resultType="Integer">
+        SELECT COUNT(TELLID) FROM sys_bas_user WHERE REALNAME = #{ygxm} AND TELLID = #{yggh}
+    </select>
+    <!--根据时间、部门、员工工号查询员工工资等详细信息-->
+    <select id="findByTDNN" resultType="EmployeeStatistics">
+        SELECT erp_wage_ygjx.* ,sys_bas_user.REALNAME,hr_bas_organization.ZZMC FROM erp_wage_ygjx,sys_bas_user,hr_bas_organization
+        <where>
+            <if test="GZRQ!=null and GZRQ!=''">
+                AND erp_wage_ygjx.GZRQ = #{GZRQ}
+            </if>
+            <if test="ZZMC!=null and ZZMC!=''">
+                AND hr_bas_organization.ZZMC = #{ZZMC}
+                AND erp_wage_ygjx.ZZBZ = hr_bas_organization.ZZBZ
+            </if>
+            <if test="YGGH!=null and YGGH!=''">
+                AND erp_wage_ygjx.YGGH = #{YGGH}
+            </if>
+            AND erp_wage_ygjx.YGGH = sys_bas_user.TELLID
+        </where>
+        order by erp_wage_ygjx.QHGZPM
+        limit #{page.currentResult},#{page.showCount}
+    </select>
+
+    <!--根据时间、部门、多个员工工号查询员工工资等详细信息-->
+    <select id="findByTDNNS" resultType="EmployeeStatistics">
+        SELECT erp_wage_ygjx.* ,sys_bas_user.REALNAME,hr_bas_organization.ZZMC FROM erp_wage_ygjx,sys_bas_user,hr_bas_organization
+        <where>
+            <if test="GZRQ!=null and GZRQ!=''">
+                AND erp_wage_ygjx.GZRQ = #{GZRQ}
+            </if>
+            <if test="ZZMC!=null and ZZMC!=''">
+                AND hr_bas_organization.ZZMC = #{ZZMC}
+                AND erp_wage_ygjx.ZZBZ = hr_bas_organization.ZZBZ
+            </if>
+            <foreach collection="YGGHS" item="YGGH" open="and (" close=")" separator="or">
+                erp_wage_ygjx.YGGH = #{YGGH}
+            </foreach>
+            AND erp_wage_ygjx.YGGH = sys_bas_user.TELLID
+        </where>
+        order by erp_wage_ygjx.QHGZPM
+        limit #{page.currentResult},#{page.showCount}
+    </select>
+
+    <select id="findOrganization" resultType="String">
+        SELECT hr_bas_organization.ZZMC FROM hr_bas_organization
+    </select>
+</mapper>

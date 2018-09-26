@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/task
+   		http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+   	
+   	<!-- 可以扫描controller、service、...
+	这里让扫描controller，指定controller的包
+	 -->
+	<context:component-scan base-package="com.readboy.ssm.controller.*"></context:component-scan>	
+	<!-- 配置Handler -->
+	<mvc:default-servlet-handler />
+	
+	<!-- 拦截器配置Start -->
+	<mvc:interceptors>
+<!-- 使用bean定义一个Interceptor，直接定义在mvc:interceptors根下面的Interceptor将拦截所有的请求 
+	<bean class="com.host.app.web.interceptor.AllInterceptor" />	 -->
+	<mvc:interceptor> 
+		<!-- /**表示拦截所有HandlerMapping路径 -->
+		<mvc:mapping path="/**" />
+			<!-- 定义在mvc:interceptor下面的表示是对特定的请求才进行拦截的 -->
+			<bean class="com.readboy.ssm.interceptor.LoginInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+	<!-- 拦截器配置End -->		 
+	
+	<!-- 读取ftp服务器配置文件的配置START -->
+	<!-- FtpUtil使用了@Value注解，所以需要扫描 -->
+	<bean id="ftpUtil" class="com.readboy.ssm.utils.FtpUtil" />
+	<context:component-scan base-package="com.readboy.ssm.utils.FtpUtil"></context:component-scan>
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
+    	<property name="location" value="classpath:ftp.properties"></property>  
+	</bean>
+	<!-- 读取ftp服务器配置文件的配置END -->
+	
+	<bean id="onApplicationStarted" class="com.readboy.ssm.timetask.OnApplicationStarted" scope="singleton"></bean>
+	
+	<!-- 定时器任务XML方式 -->
+	<bean id="timeTask" class="com.readboy.ssm.timetask.TimeTask"></bean>
+<!-- 	<task:scheduled-tasks>
+	数据导入和导出时间可以在ftp.properties中配置
+        <task:scheduled ref="timeTask" method="calendarImportAndExport1" cron="${dataImportExportTime}" />  
+    </task:scheduled-tasks> -->
+    
+		<!-- 定时器Start -->
+		 <!-- 增加定时任务插件 -->
+	     <context:annotation-config></context:annotation-config>
+	     <!-- spring 扫描注解配置 -->
+	     <context:component-scan base-package="com.readboy.ssm.timetask">
+	     </context:component-scan>
+	     <!-- 开启这个配置 spring才能识别@Scheduled注解 -->
+	     <task:annotation-driven scheduler="qbScheduler" mode="proxy"/>
+	     <task:scheduler id="qbScheduler" pool-size="10"/>
+	<!-- 定时器End -->
+	
+	<!-- 校验器Start -->  
+  <bean id="validator"
+        class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">  
+        <!-- 配置校验器的提供类，这里使用的是Hibernate的校验   -->
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator" />  
+   <!--      指定校验使用的资源文件，如果不指定则默认使用classpath下的ValidationMessages.properties   -->
+        <property name="validationMessageSource" ref="messageSource" />  
+    </bean>
+    
+    <!-- 校验错误信息配置文件   -->
+    <bean id="messageSource"  
+        class="org.springframework.context.support.ReloadableResourceBundleMessageSource">  
+        <!-- 资源文件名,这里property的name为basenames所以错误信息的配置文件CustomValidationMessages省去后缀   -->
+        <property name="basenames">     
+            <list>      
+            <value>classpath:CustomValidationMessages</value>  
+            </list>     
+        </property>  
+        <!-- 资源文件编码格式   -->
+        <property name="fileEncodings" value="UTF-8" />  
+        <property name="defaultEncoding" value="UTF-8"/>
+        <!-- 对资源文件内容缓存时间，单位秒   -->
+        <property name="cacheSeconds" value="120" />
+    </bean>  
+	<!-- 校验器End -->
+		
+	<!-- 组件扫描配置注解的Handler -->
+	<context:component-scan base-package="com.readboy.ssm.websocket,com.readboy.ssm.controller">
+	</context:component-scan>
+	
+	<!-- 自定义参数绑定 -->
+ 	<bean id="conversionService"
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<bean class="com.readboy.ssm.controller.converter.CustomDateConverter" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 另一种配置注解的适配器和映射器方式，实际开发中常用的 -->
+	<!-- 将校验器添加到适配器中-->
+	<mvc:annotation-driven conversion-service="conversionService"
+	validator="validator"></mvc:annotation-driven>
+	
+	<!-- 视图解析器 -->
+	<!-- 可以解析jsp视图 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsps/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	<!-- 静态资源文件配置 -->
+	
+	<!-- 文件解析器，配置MultipartResolver 用于文件上传 使用spring的CommosMultipartResolver -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="maxUploadSize" value="262144000" />
+	<!-- 	<property name="uploadTempDir" value="/upload" /> -->
+	</bean>
+	
+	<!-- 配置全局异常处理器 ,只要实现了HandlerExceptionResolver接口的类就是全局异常处理器-->
+<!-- 	<bean class="com.readboy.ssm.exception.CustomExceptionResolver" />-->
+
+</beans>
+

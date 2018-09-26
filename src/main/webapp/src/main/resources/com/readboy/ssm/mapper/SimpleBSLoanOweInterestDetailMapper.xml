@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.SimpleBSLoanOweInterestDetailMapper">
+    <!-- 定义sql片段 -->
+    
+ 	<select id="findSimpleBSLoanOweInterestDetail" resultType="SimpleBSLoanOweInterestDetail">
+ 		select hr_bas_organization.zzjc,
+ 		khgxgl_bsdkqxmx.khmc,khgxgl_bsdkqxmx.qxr,
+ 		khgxgl_bsdkqxmx.jxr,khgxgl_bsdkqxmx.qx
+ 		from hr_bas_organization,khgxgl_bsdkqxmx
+ 		where hr_bas_organization.ywjgdm = khgxgl_bsdkqxmx.jgdm and 
+ 		khgxgl_bsdkqxmx.bsrgh = #{bsrgh} and khgxgl_bsdkqxmx.jxr between #{ksrq} and #{dqrq}
+ 	</select>
+ 	
+ </mapper>
+

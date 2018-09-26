@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.CustomerInfoFileMapper">
+    <!-- 定义sql片段 -->
+ 	<sql id="query_customer_info_file">
+ 		select * from customer_info_file
+ 	</sql>
+ 	<sql id="insert_customer_info_file">
+ 		insert into khgxgl_dkkhyxdjb(jgdm,dkzl,khzl,zjlb,
+ 		zjhm,khmc,yxbl,sbzt,lrr,lrbz,yyrq,yggh,ygxm,sjhm) value(#{jgdm},#{dkzl},
+ 		#{khzl},#{zjlb},#{zjhm},#{khmc},#{yxbl},#{sbzt,},#{lrr},#{lrbz},#{yyrq},
+ 		#{yggh},#{ygxm},#{sjhm})
+ 	</sql>
+ 	
+ 	<select id="findCustomerInfoFile" resultType="CustomerInfoFile">
+ 		SELECT *
+		FROM customer_info_file
+		WHERE khbh = #{khbh} and ghrgh=#{ghrgh} and file_name = #{file_name} and file_type = #{file_type} 
+ 	</select>
+ 	
+ 	<select id="findAllCustomerInfoFile" resultType="CustomerInfoFile">
+ 		SELECT *
+		FROM customer_info_file
+		WHERE khbh = #{khbh} and ghrgh=#{ghrgh}
+ 	</select>
+ 	
+ 	<!-- 插入数据返回自增的主键 -->
+ 	<insert id="insertCustomerInfoFile" parameterType="CustomerInfoFile">
+		insert into customer_info_file(
+			khbh, ghrgh, upload_time, file_name, file_type, download_url)
+ 		value(
+ 			#{khbh}, #{ghrgh}, #{upload_time}, #{file_name}, #{file_type}, #{download_url})
+ 	</insert>
+ 	
+ 	<update id="updateCustomerInfoFile" parameterType="CustomerInfoFile">
+ 		update customer_info_file 
+ 		set upload_time=#{upload_time}
+ 		where khbh = #{khbh} and ghrgh = #{ghrgh} and khbh = #{khbh} and file_name = #{file_name}
+ 	</update>
+ 	
+ 	<delete id="deleteCustomerInfoFile">
+ 		delete from customer_info_file 
+ 		where khbh = #{khbh} and ghrgh = #{ghrgh} and khbh = #{khbh} and file_name = #{file_name}
+ 	</delete>
+ 	
+ </mapper>
+

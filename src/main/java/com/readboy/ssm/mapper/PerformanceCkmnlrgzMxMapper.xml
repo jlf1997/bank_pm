@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.readboy.ssm.mapper.PerformanceCkmnlrgzMxMapper">
+    <!-- 定义sql片段 -->
+ 	
+ 	<select id="findPerformanceClCkmnlrgzMx" resultType="PerformanceCkmnlrgzMx">
+ 		select ${tableName}.*,hr_bas_organization.zzjc from ${tableName},hr_bas_organization 
+ 		where yggh = #{yggh} and yxlx = #{yxlx} and tjrq = #{ksrq} and clljgz != 0
+ 		and ${tableName}.jgdm = hr_bas_organization.ywjgdm
+ 		<if test="condition != '' and condition != null">
+			and (${tableName}.zhmc like concat(concat('%',#{condition}),'%') 
+			or ${tableName}.ckzh like concat(concat('%',#{condition}),'%'))
+		</if>
+		limit #{page.currentResult},#{page.showCount}
+ 	</select>
+ 	
+ 	<select id="findClDataCount" resultType="java.lang.Integer">
+ 		select count(*) from ${tableName}
+ 		where yggh = #{yggh} and yxlx = #{yxlx} and tjrq = #{ksrq}  and clljgz != 0
+ 		<if test="condition != '' and condition != null">
+			and (${tableName}.zhmc like concat(concat('%',#{condition}),'%') 
+			or ${tableName}.ckzh like concat(concat('%',#{condition}),'%'))
+		</if>
+ 	</select>
+ 	
+ 	<select id="findPerformanceZlCkmnlrgzMx" resultType="PerformanceCkmnlrgzMx">
+ 		select ${tableName}.*,hr_bas_organization.zzjc from ${tableName},hr_bas_organization 
+ 		where yggh = #{yggh} and yxlx = #{yxlx} and tjrq = #{ksrq} and zlljgz != 0
+ 		and ${tableName}.jgdm = hr_bas_organization.ywjgdm
+ 		<if test="condition != '' and condition != null">
+			and (${tableName}.zhmc like concat(concat('%',#{condition}),'%') 
+			or ${tableName}.ckzh like concat(concat('%',#{condition}),'%'))
+		</if>
+		limit #{page.currentResult},#{page.showCount}
+ 	</select>
+ 	
+ 	<select id="findZlDataCount" resultType="Integer">
+ 		select count(*) from ${tableName}
+ 		where yggh = #{yggh} and yxlx = #{yxlx} and tjrq = #{ksrq} and zlljgz != 0
+ 		<if test="condition != '' and condition != null">
+			and (${tableName}.zhmc like concat(concat('%',#{condition}),'%') 
+			or ${tableName}.ckzh like concat(concat('%',#{condition}),'%'))
+		</if>
+ 	</select>
+ 	
+ 	<select id="findPerformanceCkmnlrgzMxByCondition" resultType="PerformanceCkmnlrgzMx">
+ 		select * from ${tableName} where tjrq = #{ksrq}
+ 	</select>
+ 	
+ 	<select id="findDataCountByCond" resultType="Integer">
+ 		select count(*) from ${tableName} where tjrq =#{ksrq}
+ 	</select>
+
+ 	<select id="findOnePerformanceCkmnlrgzMx" resultType="PerformanceCkmnlrgzMx">
+ 		select * from ${tableName} where tjrq = #{tjrq} and zzbz = #{zzbz} and
+ 		gwbz = #{gwbz} and yggh = #{yggh} and ckzh = #{ckzh}
+ 	</select>
+ 	<!-- 分页查询 -->
+ 	
+ 	<select id="pageFindPerformanceCkmnlrgzMx" resultType="PerformanceCkmnlrgzMx">
+ 		select * from ${tableName} limit #{start}, #{end}
+ 	</select>
+ 	
+ 	<select id="getNoteCount" resultType="long">
+ 		select count(*) from ${tableName}
+ 	</select>
+ 	
+ 	<select id="pageFindPerformaceClCkmnlrgzMxByCondition" resultType="PerformanceCkmnlrgzMx">
+ 		select * from ${tableName} 
+ 		<where>
+ 			${tableName}.yxlx = #{yxlx} and ${tableName}.clljgz != 0
+ 			<if test="condition !='' and condition != null">
+ 			and (${tableName}.zhmc like concat(#{condition},'%') or ${tableName}.ckzh like concat(#{condition},'%')
+ 			</if>
+ 		</where>
+ 		limit #{start}, #{end}
+ 	</select>
+ 	
+ 	<select id="pageFindPerformaceZlCkmnlrgzMxByCondition" resultType="PerformanceCkmnlrgzMx">
+ 		select * from ${tableName} 
+ 		<where>
+ 			${tableName}.yxlx = #{yxlx} and ${tableName}.clljgz != 0
+ 			<if test="condition !='' and condition != null">
+ 			and (${tableName}.zhmc like concat(#{condition},'%') or ${tableName}.ckzh like concat(#{condition},'%')
+ 			</if>
+ 		</where>
+ 		limit #{start}, #{end}
+ 	</select>
+ 	<!-- 创建表 -->
+ 	<update id="createTable" parameterType="java.lang.String">
+		CREATE TABLE if not exists ${tableName} (
+		  `TJRQ` datetime NOT NULL COMMENT '统计日期',
+		  `JGDM` varchar(30) DEFAULT NULL COMMENT '机构代码',
+		  `ZZBZ` varchar(30) NOT NULL COMMENT '组织标识',
+		  `GWBZ` decimal(10,0) NOT NULL COMMENT '岗位标识',
+		  `YGGH` varchar(10) NOT NULL COMMENT '员工工号',
+		  `CKZH` varchar(40) NOT NULL COMMENT '存款账号',
+		  `ZHMC` varchar(300) DEFAULT NULL COMMENT '账号名称',
+		  `ZHLX` varchar(20) DEFAULT NULL COMMENT '账号类型',
+		  `YXLX` decimal(1,0) DEFAULT NULL COMMENT '营销类型',
+		  `ZJHM` varchar(140) DEFAULT NULL COMMENT '证件号码',
+		  `KHRQ` datetime DEFAULT NULL COMMENT '开户日期',
+		  `DQRQ` datetime DEFAULT NULL COMMENT '到期日期',
+		  `CKYE` decimal(16,2) DEFAULT NULL COMMENT '存款余额',
+		  `LL` decimal(18,12) DEFAULT NULL COMMENT '利率',
+		  `CBL` decimal(18,12) DEFAULT NULL COMMENT '成本率',
+		  `LLC` decimal(18,12) DEFAULT NULL COMMENT '利率差',
+		  `RLLC` decimal(18,12) DEFAULT NULL COMMENT '日利率差',
+		  `FCBL` decimal(5,2) DEFAULT NULL COMMENT '分成比率',
+		  `QMMNLR` decimal(18,12) DEFAULT NULL COMMENT '期末模拟利润',
+		  `QMLJMNLR` decimal(18,12) DEFAULT NULL COMMENT '期末累计模拟利润',
+		  `CLYE` decimal(16,2) DEFAULT NULL COMMENT '存量余额',
+		  `CLMNLR` decimal(18,12) DEFAULT NULL COMMENT '存量模拟利润',
+		  `CLLJMNLR` decimal(18,12) DEFAULT NULL COMMENT '存量累计模拟利润',
+		  `CLDJ` decimal(22,6) DEFAULT NULL COMMENT '存量单价',
+		  `CLDW` decimal(16,2) DEFAULT NULL COMMENT '存量单位',
+		  `CLGZ` decimal(22,6) DEFAULT NULL COMMENT '存量工资',
+		  `CLLJGZ` decimal(22,6) DEFAULT NULL COMMENT '存量累计工资',
+		  `ZLMNLR` decimal(18,12) DEFAULT NULL COMMENT '增量模拟利润',
+		  `ZLLJMNLR` decimal(18,12) DEFAULT NULL COMMENT '增量累计模拟利润',
+		  `ZLDJ` decimal(22,6) DEFAULT NULL COMMENT '增量单价',
+		  `ZLDW` decimal(16,2) DEFAULT NULL COMMENT '增量单位',
+		  `ZLGZ` decimal(22,6) DEFAULT NULL COMMENT '增量工资',
+		  `ZLLJGZ` decimal(22,6) DEFAULT NULL COMMENT '增量累计工资',
+		  KEY `IDX_ERP_WAGE_CKMNLRGZMX` (`YGGH`,`TJRQ`,`YXLX`)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='员工存款模拟利润工资明细';
+ 	</update>
+ 	<!-- 判断表是否存在 -->
+ 	<select id="findWheatherTableExist" resultType="String">
+ 		select table_name from information_schema.tables where table_name = #{tableName}
+ 	</select>
+	
+	<insert id="batchInsertPerformanceCkmnlrgzMx">
+		insert into ${tableName}(tjrq,jgdm,zzbz,gwbz,yggh,ckzh,zhmc,zhlx,yxlx,    
+  		zjhm,khrq,dqrq,ckye,ll,cbl,llc,rllc,fcbl,qmmnlr,qmljmnlr,clye,clmnlr,clljmnlr, 
+  		cldj,cldw,clgz,clljgz,zlmnlr,zlljmnlr,zldj,zldw,zlgz,zlljgz)
+  		values
+  		<foreach collection="list" item="item" index="index" separator=",">
+  		(#{item.tjrq},#{item.jgdm,jdbcType=VARCHAR},#{item.zzbz},#{item.gwbz},#{item.yggh},
+  		#{item.ckzh},#{item.zhmc,jdbcType=VARCHAR},#{item.zhlx,jdbcType=VARCHAR},
+  		#{item.yxlx,jdbcType=INTEGER},#{item.zjhm,jdbcType=VARCHAR},#{item.khrq,jdbcType=VARCHAR},
+  		#{item.dqrq,jdbcType=VARCHAR},#{item.ckye,jdbcType=DECIMAL},#{item.ll,jdbcType=DECIMAL},
+  		#{item.cbl,jdbcType=DECIMAL},#{item.llc,jdbcType=DECIMAL},#{item.rllc,jdbcType=DECIMAL},
+  		#{item.fcbl,jdbcType=DECIMAL},#{item.qmmnlr,jdbcType=DECIMAL},#{item.qmljmnlr,jdbcType=DECIMAL},
+  		#{item.clye,jdbcType=DECIMAL},#{item.clmnlr,jdbcType=DECIMAL},#{item.clljmnlr,jdbcType=DECIMAL},
+  		#{item.cldj,jdbcType=DECIMAL},#{item.cldw,jdbcType=DECIMAL},#{item.clgz,jdbcType=DECIMAL},
+  		#{item.clljgz,jdbcType=DECIMAL},#{item.zlmnlr,jdbcType=DECIMAL},#{item.zlljmnlr,jdbcType=DECIMAL},
+  		#{item.zldj,jdbcType=DECIMAL},#{item.zldw,jdbcType=DECIMAL},#{item.zlgz,jdbcType=DECIMAL},
+  		#{item.zlljgz,jdbcType=DECIMAL})
+  		</foreach> 
+	</insert>
+ </mapper>

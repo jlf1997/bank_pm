@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.StaffJjMapper">
+
+ 	<select id="findStaffJjByCond" resultType="com.readboy.ssm.po.StaffJj">
+ 		select erp_bas_gyjjxxb.*,erp_bas_gyjjgw.jjgwmc
+ 		from erp_bas_gyjjxxb,erp_bas_gyjjgw
+ 		<where>
+ 		 	yggh = #{yggh}
+ 		 	and erp_bas_gyjjxxb.jjgw = erp_bas_gyjjgw.jjgw
+ 			<if test="jjrq != null and jjrq !=''">
+ 				and erp_bas_gyjjxxb.jjrq = #{jjrq}
+ 			</if>
+ 			<if test="jjgw != null and jjgw !=''">
+ 				and erp_bas_gyjjxxb.jjgw = #{jjgw}
+ 			</if>
+ 		</where>
+		order by jjrq desc
+		limit #{page.currentResult},#{page.showCount}
+ 	</select>
+ 	
+ 	<!--插入柜员交接条目-->
+ 	<insert id="insertStaffJj" parameterType="com.readboy.ssm.po.StaffJj">
+ 		INSERT INTO erp_bas_gyjjxxb (JJRQ,ZZBZ,YGGH,JJGW,LRSJ)
+ 		VALUES (#{jjrq},#{zzbz},#{yggh},#{jjgw},#{lrsj})
+ 	</insert>
+ </mapper>
+

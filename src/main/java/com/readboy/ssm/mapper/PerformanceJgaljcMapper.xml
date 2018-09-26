@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.readboy.ssm.mapper.PerformanceJgaljcMapper" >
+  	
+  	<select id="findPerformanceJgaljc" resultType="PerformanceJgaljc">
+ 		select * from v_wage_jgaljc
+ 		where yggh = #{yggh} and gzrq = #{ksrq} and zbid = #{zbid}
+ 	</select>
+ 	
+</mapper>

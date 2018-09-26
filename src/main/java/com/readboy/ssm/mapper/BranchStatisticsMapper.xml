@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.readboy.ssm.mapper.BranchStatisticsMapper" >
+    <!--查询支行排名前十-->
+    <select id="findEmployeesByOraganization" resultType="EmployeeStatistics">
+        SELECT erp_wage_ygjx.* ,sys_bas_user.REALNAME,hr_bas_organization.ZZMC FROM erp_wage_ygjx,sys_bas_user,hr_bas_organization
+            WHERE erp_wage_ygjx.GZRQ = #{GZRQ}
+            AND hr_bas_organization.ZZMC = #{ZZMC}
+            AND erp_wage_ygjx.ZZBZ = hr_bas_organization.ZZBZ
+            AND erp_wage_ygjx.ZHGZPM BETWEEN 1 AND 10
+            AND erp_wage_ygjx.YGGH = sys_bas_user.TELLID
+            ORDER BY erp_wage_ygjx.ZHGZPM ASC
+    </select>
+
+    <!--根据支行和日期查询支行排名的最大值-->
+    <select id="findBranchMaxNum" resultType="String">
+        SELECT MAX(ZHGZPM) FROM erp_wage_ygjx,hr_bas_organization
+        WHERE erp_wage_ygjx.GZRQ = #{GZRQ}
+        AND hr_bas_organization.ZZMC = #{ZZMC}
+        AND erp_wage_ygjx.ZZBZ = hr_bas_organization.ZZBZ
+    </select>
+
+    <!--根据支行的最大值查询倒数后十名-->
+    <select id="findLastTen" resultType="EmployeeStatistics">
+          SELECT erp_wage_ygjx.* ,sys_bas_user.REALNAME,hr_bas_organization.ZZMC FROM erp_wage_ygjx,sys_bas_user,hr_bas_organization
+            WHERE erp_wage_ygjx.GZRQ = #{GZRQ}
+            AND hr_bas_organization.ZZMC = #{ZZMC}
+            AND erp_wage_ygjx.ZZBZ = hr_bas_organization.ZZBZ
+            AND erp_wage_ygjx.ZHGZPM > (#{maxValue}-10)
+            AND erp_wage_ygjx.YGGH = sys_bas_user.TELLID
+            ORDER BY erp_wage_ygjx.ZHGZPM DESC
+    </select>
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.PerformanceJgpjMxMapper">
+    <!-- 定义sql片段 -->
+ 	<sql id="v_wage_jgpj">
+ 		select * from v_wage_jgpj where yggh = #{yggh}
+ 		and gzrq = #{gzrq} and zbid = #{zbid}
+ 	</sql>
+ 
+ 	<select id="findPerformanceJgpjMx" resultType="PerformanceJgpjMx">
+ 		<include refid="v_wage_jgpj"></include>
+ 	</select>
+ 	
+ 	<select id="findDataCountByCond" resultType="Integer">
+ 		select count(*) from v_wage_jgpj where yggh = #{yggh}
+ 		and gzrq = #{gzrq} and zbid = #{zbid}
+ 	</select>
+ </mapper>

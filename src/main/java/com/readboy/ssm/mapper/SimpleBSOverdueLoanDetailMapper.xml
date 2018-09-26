@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.SimpleBSOverdueLoanDetailMapper">
+    <!-- 定义sql片段 -->
+    
+ 	<select id="findSimpleBSOverdueLoanDetail" resultType="SimpleBSOverdueLoanDetail">
+ 		select hr_bas_organization.zzjc,
+ 		khgxgl_yqdkbsmx.khmc,khgxgl_yqdkbsmx.ffrq,khgxgl_yqdkbsmx.dqrq,
+ 		khgxgl_yqdkbsmx.ll,khgxgl_yqdkbsmx.dkje,khgxgl_yqdkbsmx.dkye,
+ 		khgxgl_yqdkbsmx.wjfl from hr_bas_organization,khgxgl_yqdkbsmx
+ 		where khgxgl_yqdkbsmx.bsrgh = #{bsrgh} and khgxgl_yqdkbsmx.tjyf = #{ksrq}
+ 		and khgxgl_yqdkbsmx.jgdm = hr_bas_organization.ywjgdm
+ 	</select>
+ 	
+ 	<select id="findDataCountByCond" resultType="Integer">
+ 		select count(*) from khgxgl_yqdkbsmx
+ 		where khgxgl_yqdkbsmx.bsrgh = #{bsrgh} and khgxgl_yqdkbsmx.tjyf = #{ksrq}
+ 	</select>
+ 	
+ </mapper>
+

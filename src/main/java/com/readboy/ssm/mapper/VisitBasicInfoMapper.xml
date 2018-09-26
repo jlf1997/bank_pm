@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.readboy.ssm.mapper.VisitBasicInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.readboy.ssm.po.VisitBasicInfo" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="TYPE" property="type" jdbcType="VARCHAR" />
+    <result column="GIFT" property="gift" jdbcType="VARCHAR" />
+    <result column="SUMMERY" property="summery" jdbcType="VARCHAR" />
+    <result column="LOCATION" property="location" jdbcType="VARCHAR" />
+    <result column="DATE" property="date" jdbcType="TIMESTAMP" />
+    <result column="VISITOR_ID" property="visitorId" jdbcType="INTEGER" />
+    <result column="CLIENT_NUM" property="clientNum" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    ID, TYPE, GIFT, SUMMERY, LOCATION, DATE, VISITOR_ID, CLIENT_NUM
+  </sql>
+
+  <!--通过主键查询一条数据-->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from visit_basic_info
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+
+  <!--通过主键删除一条数据-->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from visit_basic_info
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <!--插入一条数据-->
+  <insert id="insert" parameterType="com.readboy.ssm.po.VisitBasicInfo" >
+    insert into visit_basic_info (TYPE, GIFT, 
+      SUMMERY, LOCATION, DATE,
+      VISITOR_ID, CLIENT_NUM)
+    values (#{type,jdbcType=VARCHAR}, #{gift,jdbcType=VARCHAR}, 
+      #{summery,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}, 
+      #{visitorId,jdbcType=INTEGER}, #{clientNum,jdbcType=INTEGER})
+  </insert>
+
+  <!--通过主键进行更新-->
+  <update id="updateByPrimaryKey" parameterType="com.readboy.ssm.po.VisitBasicInfo" >
+    update visit_basic_info
+    set TYPE = #{type,jdbcType=VARCHAR},
+      GIFT = #{gift,jdbcType=VARCHAR},
+      SUMMERY = #{summery,jdbcType=VARCHAR},
+      LOCATION = #{location,jdbcType=VARCHAR},
+      DATE = #{date,jdbcType=TIMESTAMP},
+      VISITOR_ID = #{visitorId,jdbcType=INTEGER},
+      CLIENT_NUM = #{clientNum,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--通过visitorId和clientNum查询数据-->
+  <select id="selectAllByVisitorIdAndClientNum" resultMap="BaseResultMap" parameterType="Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from visit_basic_info
+    where VISITOR_ID = #{visitorId,jdbcType=INTEGER}
+    and CLIENT_NUM = #{clientNum,jdbcType=INTEGER}
+    order by DATE desc
+  </select>
+
+</mapper>

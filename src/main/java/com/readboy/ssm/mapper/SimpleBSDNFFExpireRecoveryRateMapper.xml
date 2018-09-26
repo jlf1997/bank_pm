@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.SimpleBSDNFFExpireRecoveryRateMapper">
+    <!-- 定义sql片段 -->
+    
+ 	<select id="findSimpleBSDNFFExpireRecoveryRate" resultType="SimpleBSDNFFExpireRecoveryRate">
+ 		select khgxgl_bsdnffdndqshl.nd,khgxgl_bsdnffdndqshl.dqje,
+ 		khgxgl_bsdnffdndqshl.qmje,khgxgl_bsdnffdndqshl.hsl from khgxgl_bsdnffdndqshl
+ 		where khgxgl_bsdnffdndqshl.bsrgh = #{bsrgh} and khgxgl_bsdnffdndqshl.nd = #{ksrq}
+ 	</select>
+ 	
+ 	<select id="findDataCountByCond" resultType="Integer">
+ 		select count(*) from khgxgl_bsdnffdndqshl
+ 		where khgxgl_bsdnffdndqshl.bsrgh = #{bsrgh} and khgxgl_bsdnffdndqshl.nd = #{ksrq}
+ 	</select>
+ 	
+ </mapper>
+

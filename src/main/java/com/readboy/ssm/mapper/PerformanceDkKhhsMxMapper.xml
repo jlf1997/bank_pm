@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.readboy.ssm.mapper.PerformanceDkKhhsMxMapper" >
+  
+  <select id="findPerformanceDkKhhsMx" resultType="PerformanceDkKhhsMx">
+ 		select erp_wage_dkkhhsmx.*,hr_bas_organization.zzjc from erp_wage_dkkhhsmx,hr_bas_organization 
+ 		where yggh = #{yggh} and tjrq between #{ksrq} and #{jsrq}
+ 		and erp_wage_dkkhhsmx.zzbz = hr_bas_organization.zzbz
+ 		and erp_wage_dkkhhsmx.lx = #{lx}
+ 		<if test="condition != '' and condition != null">
+			and (erp_wage_dkkhhsmx.khmc like concat(concat('%',#{condition}),'%') 
+			or erp_wage_dkkhhsmx.zjhm like concat(concat('%',#{condition}),'%'))
+		</if>
+		order by erp_wage_dkkhhsmx.tjrq desc
+		limit #{page.currentResult},#{page.showCount}
+  </select>
+  
+  
+  <select id="findDataCountByCondition" resultType="Integer">
+ 		select count(*) from erp_wage_dkkhhsmx
+ 		where yggh = #{yggh} and tjrq between #{ksrq} and #{jsrq}
+ 		and erp_wage_dkkhhsmx.lx = #{lx}
+ 		<if test="condition != '' and condition != null">
+			and (erp_wage_dkkhhsmx.khmc like concat(concat('%',#{condition}),'%') 
+			or erp_wage_dkkhhsmx.zjhm like concat(concat('%',#{condition}),'%'))
+		</if>
+  </select>
+
+</mapper>

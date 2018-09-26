@@ -1,0 +1,78 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <base href="<%=basePath%>">
+    
+    <title>My JSP 'index.jsp' starting page</title>
+    
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<meta name="viewport" content="width=device-width,initial-scale=1,
+	minimum-scale=1,maximum-scale=1,user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.css" /> 
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="bootstrap-3.3.7-dist/js/bootstrap.js"> </script> 
+	
+	<style type="text/css">
+		.glyphicon-plus{
+			font-size:50px;
+			color:red;
+		}
+		.glyphicon-asterisk{
+			font-size:60px;
+			color:green;
+		}
+	</style>
+  </head>
+  
+  <body>
+  <!-- 顶部导航 -->
+  <div class="nav nav-bar">
+  	<span class="big">银行绩效管理系统</span>
+	  	<span class="btn" ><a href="">大帅哥</a></span>
+	  	<span class="btn"><a href="">通知</a></span>
+	  	<span class="btn"><a href="">安全退出</a></span>
+  </div>
+  <hr/>
+  <!-- 左侧导航窗口 -->
+	<div id="left">
+  		<ul class="nav nav-pills nav-stacked" style="width:11%;height:88%;float:left">
+	  		<li class="active"><a href="${pageContext.request.contextPath}/queryOrganization.action" target="rightFrame">客户拜访信息管理</a></li>
+	  		<li><a href="">客户信息管理</a></li>
+	  		<li><a href="#" onclick="del()" data-toggle="collapse" data-target="#marketing">主动营销申报</a>
+	  			<div id="marketing" class="collapse">
+					<ul>
+						<li><a href="${pageContext.request.contextPath}/queryDepositMarketing.action" target="rightFrame">存款营销管理</a></li>
+						<li><a href="${pageContext.request.contextPath}/queryLoanMarketing.action" target="rightFrame">贷款营销管理</a></li>
+						<li><a href="${pageContext.request.contextPath}/queryEtcMarketing.action" target="rightFrame">ETC营销管理</a></li>
+						<li><a href="${pageContext.request.contextPath}/queryCellBankMarketing.action" target="rightFrame">手机银行营销管理</a></li>
+						<li><a href="${pageContext.request.contextPath}/queryPosMarketing.action" target="rightFrame">POS机营销管理</a></li>
+					</ul>
+				</div></li>
+	  		
+	  		<li><a href="">绩效工资查询</a></li>
+	  		<li><a href="">数据导入导出</a></li>
+	  		<li><a href="">系统管理</a></li>
+	  		<li><a href="${pageContext.request.contextPath}/messagePush.action" target="rightFrame">推送消息</li>
+  		</ul>
+  	</div>
+ 
+  	<!-- 右侧主界面 -->
+  	<div id="right" style="width:89%;height:88%;float:left;">
+  		<iframe src="home.jsp" name="rightFrame"
+  		frameborder="0" scrolling="yes" width="100%" height="100%"/>
+  	</div>
+  	
+  </body>
+</html>

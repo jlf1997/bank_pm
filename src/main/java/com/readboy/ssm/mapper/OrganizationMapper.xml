@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.OrganizationMapper">
+    <!-- 定义sql片段 -->
+ 	<sql id="query_organization_where">
+ 		select * from hr_bas_organization
+ 	</sql>
+ 	
+ 	<select id="findAllOrganizations" resultType="Organization">
+ 		<include refid="query_organization_where"></include>
+ 	</select>
+ 	
+ 	<select id="findAllSimpleOrganizations" resultType="SimpleOrganization">
+ 		select zzbz,zzjc,ywjgdm from hr_bas_organization where ywjgdm != '' and zzlb=4 or zzlb=5
+ 	</select>
+ 	
+ 	<select id="getOrganizationByZzbz" parameterType="java.lang.String" resultType="Organization">
+ 		select * from hr_bas_organization where zzbz = #{zzbz}
+ 	</select>
+ 	
+ 	<select id="getOrganizationByYwjgdm" parameterType="java.lang.String" resultType="Organization">
+ 		select * from hr_bas_organization where ywjgdm = #{ywjgdm}
+ 	</select>
+ 	
+ 	<select id="getOrganizationZzjcByYwjgdm" parameterType="java.lang.String" resultType="Organization">
+ 		select * from hr_bas_organization where ywjgdm = #{ywjgdm}
+ 	</select>
+ </mapper>

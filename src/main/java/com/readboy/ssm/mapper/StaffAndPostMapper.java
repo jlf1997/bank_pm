@@ -1,0 +1,16 @@
+package com.readboy.ssm.mapper;
+
+import org.apache.ibatis.annotations.Param;
+
+import com.readboy.ssm.po.StaffAndPost;
+
+public interface StaffAndPostMapper {
+	
+	//根据组织标志查询柜员号
+	public String findYgghByZzbz(
+			@Param("zzbz") String zzbz,@Param("rglx")int rglx) throws Exception;
+	
+	
+	public StaffAndPost findStaffAndPostByYggh(
+			@Param("yggh") String yggh) throws Exception;
+}

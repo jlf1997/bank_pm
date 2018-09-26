@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.CellBankMarketingMapper">
+    <!-- 定义sql片段 -->
+ 	<sql id="query_khgxgl_sjyhyxdjb_where">
+ 		select * from khgxgl_sjyhyxdjb
+ 	</sql>
+ 	<sql id="insert_khgxgl_sjyhyxdjb_where">
+ 		insert into khgxgl_sjyhyxdjb(jgdm,zjlb,
+ 		zjhm,khmc,yxbl,sbzt,lrr,lrbz,yyrq,yggh,ygxm,sjhm) value(#{jgdm},#{zjlb},
+ 		#{zjhm},#{khmc},#{yxbl},#{sbzt},#{lrr},
+ 		#{lrbz},#{yyrq},#{yggh},#{ygxm},#{sjhm})
+ 	</sql>
+ 	
+ 	<select id="findCellBankMarketingByYybh" parameterType = "long" resultType="CellBankMarketing">
+ 		select * from khgxgl_sjyhyxdjb where yybh = #{yybh}
+ 	</select>
+ 	
+ 	<select id="findAllCellBankMarketing" resultType="CellBankMarketing">
+ 		select * from khgxgl_sjyhyxdjb
+ 	</select>
+ 	
+ 	<select id="findCellBankMarketingByPrefix" resultType="CellBankMarketing">
+ 		select * from khgxgl_sjyhyxdjb where khgxgl_sjyhyxdjb.yybh like concat(#{prefix},'%')
+ 		and length(khgxgl_sjyhyxdjb.yybh) >= #{len}
+ 	</select>
+ 	
+ 	<select id="findCellBankMarketingByYggh" resultType="CellBankMarketing">
+ 		select jgdm, zjlb, zjhm, khmc, sjhm, yxbl, sbzt, lrr, lrbz, lrsj, yyrq, yybh, yggh, ygxm,
+		hr_bas_organization.zzjc
+		from khgxgl_sjyhyxdjb,hr_bas_organization
+		where hr_bas_organization.ywjgdm = khgxgl_sjyhyxdjb.jgdm and khgxgl_sjyhyxdjb.yggh = #{yggh}
+		<if test="condition != '' and condition != null">
+			and (khgxgl_sjyhyxdjb.khmc like concat(concat('%',#{condition}),'%') 
+			or khgxgl_sjyhyxdjb.sjhm like concat(concat('%',#{condition}),'%'))
+		</if>
+		order by khgxgl_sjyhyxdjb.yyrq desc
+		limit #{page.currentResult},#{page.showCount}
+ 	</select>
+ 	
+ 	<select id="findDataCountByCond" resultType="Integer">
+ 		select count(*)
+		from khgxgl_sjyhyxdjb
+		where khgxgl_sjyhyxdjb.yggh = #{yggh}
+		<if test="condition != '' and condition != null">
+			and (khgxgl_sjyhyxdjb.khmc like concat(concat('%',#{condition}),'%') 
+			or khgxgl_sjyhyxdjb.sjhm like concat(concat('%',#{condition}),'%'))
+		</if>
+ 	</select>
+ 	
+ 	<select id="findCellBankMarketingExits" resultType="CellBankMarketing">
+ 		select * from khgxgl_sjyhyxdjb where jgdm = #{jgdm} and zjhm = #{zjhm}
+ 		and yyrq = #{yyrq}
+ 	</select>
+ 	
+ 	<!-- 插入数据返回自增的主键 -->
+ 	<insert id="insertCellBankMarketing" parameterType="CellBankMarketing">
+  		<!-- 在插入之后返回自增生成的id -->
+	<selectKey keyProperty="yybh" resultType="long" order="AFTER">
+ 		select last_insert_id()
+ 	</selectKey>
+ 		<include refid="insert_khgxgl_sjyhyxdjb_where"></include>
+ 	</insert>
+ 	
+ 	<update id="updateCellBankMarketing" parameterType="CellBankMarketing">
+ 		update khgxgl_sjyhyxdjb set jgdm = #{jgdm},zjlb = #{zjlb},zjhm = #{zjhm},
+ 		khmc = #{khmc},yxbl = #{yxbl},sbzt = #{sbzt},lrr = #{lrr},lrbz = #{lrbz},
+ 		yyrq = #{yyrq},yggh = #{yggh},ygxm = #{ygxm},sjhm = #{sjhm} where yybh = #{yybh}
+ 	</update>
+ 	
+ 	<delete id="deleteOneCellBankMarketingByYybh" parameterType="long">
+ 		delete from khgxgl_sjyhyxdjb where yybh = #{yybh}
+ 	</delete>
+ 	
+ </mapper>
+

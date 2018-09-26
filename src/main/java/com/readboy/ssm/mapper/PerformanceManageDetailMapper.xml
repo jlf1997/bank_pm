@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.PerformanceManageDetailMapper">
+    <!-- 定义sql片段 -->
+ 	<sql id="query_erp_wage_gljxgzmx_where">
+ 		select * from erp_wage_gljxgzmx where yggh = #{yggh}
+ 	</sql>
+ 	
+ 	<select id="findPerformanceManageDetailByYggh" resultType="PerformanceManageDetail">
+ 		<include refid="query_erp_wage_gljxgzmx_where"></include>
+ 	</select>
+ 	
+ 	<select id="findDataCountByCond" resultType="Integer">
+ 		select count(*) from erp_wage_gljxgzmx where yggh = #{yggh}
+ 	</select>
+ 	
+ </mapper>

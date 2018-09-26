@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.readboy.ssm.mapper.PerformanceDkmnlrgzMxMapper">
+    <!-- 定义sql片段 -->
+ 	<sql id="erp_wage_dkkhbsmx">
+ 		select ${tableName}.*,hr_bas_organization.zzjc from ${tableName},hr_bas_organization
+ 		 where yggh = #{yggh} and tjrq = #{ksrq} and 
+ 		 ${tableName}.jgdm = hr_bas_organization.ywjgdm
+ 		 <if test="condition != '' and condition != null">
+			and (${tableName}.zhmc like concat(concat('%',#{condition}),'%')
+			or ${tableName}.dkzh like concat(concat('%',#{condition}),'%'))
+		</if>
+ 	</sql>
+ 	<select id="findPerformanceDkmnlrgzMx" resultType="PerformanceDkmnlrgzMx">
+ 		<include refid="erp_wage_dkkhbsmx"></include>
+ 		limit #{page.currentResult},#{page.showCount}
+ 	</select>
+ 	
+ 	<select id="findDataCountByCond" resultType="Integer">
+ 		select count(*) from ${tableName}
+ 		where yggh = #{yggh} and tjrq =#{ksrq}
+ 		<if test="condition != '' and condition != null">
+			and (${tableName}.zhmc like concat(concat('%',#{condition}),'%')
+			or ${tableName}.dkzh like concat(concat('%',#{condition}),'%'))
+		</if>
+ 	</select>
+ 	
+ 	<!-- 建立表格 -->
+ 	<update id="createTable" parameterType="java.lang.String">
+		CREATE TABLE if not exists ${tableName} (
+		  `TJRQ` datetime NOT NULL COMMENT '统计日期',
+		  `JGDM` varchar(30) DEFAULT NULL COMMENT '机构代码',
+		  `ZZBZ` varchar(30) NOT NULL COMMENT '组织标识',
+		  `GWBZ` decimal(10,0) NOT NULL COMMENT '岗位标识',
+		  `YGGH` varchar(10) NOT NULL COMMENT '员工工号',
+		  `DKZH` varchar(160) NOT NULL COMMENT '贷款账号',
+		  `HTH` varchar(140) DEFAULT NULL COMMENT '合同号',
+		  `ZHMC` varchar(300) DEFAULT NULL COMMENT '账号名称',
+		  `ZJHM` varchar(140) DEFAULT NULL COMMENT '证件号码',
+		  `DKJE` decimal(18,2) DEFAULT NULL COMMENT '贷款金额',
+		  `DKYE` decimal(18,2) DEFAULT NULL COMMENT '贷款余额',
+		  `FFRQ` datetime DEFAULT NULL COMMENT '发放日期',
+		  `DQRQ` datetime DEFAULT NULL COMMENT '到期日期',
+		  `WJFLBZ` decimal(1,0) DEFAULT NULL COMMENT '五级分类标识',
+		  `NCWJFLBZ` decimal(1,0) DEFAULT NULL COMMENT '年初五级分类标识',
+		  `YWZL` varchar(120) DEFAULT NULL COMMENT '业务种类',
+		  `ZZQXRQ` datetime DEFAULT NULL COMMENT '最早欠息日期',
+		  `LL` decimal(18,12) DEFAULT NULL COMMENT '利率',
+		  `CBL` decimal(18,12) DEFAULT NULL COMMENT '成本率',
+		  `LLC` decimal(18,12) DEFAULT NULL COMMENT '利率差',
+		  `RLLC` decimal(18,12) DEFAULT NULL COMMENT '日利率差',
+		  `FCBL` decimal(5,2) DEFAULT NULL COMMENT '分成比率',
+		  `QMMNLR` decimal(18,12) DEFAULT NULL COMMENT '期末模拟利润',
+		  `QMLJMNLR` decimal(18,12) DEFAULT NULL COMMENT '期末累计模拟利润',
+		  `CLYE` decimal(18,2) DEFAULT NULL COMMENT '存量余额',
+		  `CLMNLR` decimal(18,12) DEFAULT NULL COMMENT '存量模拟利润',
+		  `CLLJMNLR` decimal(18,12) DEFAULT NULL COMMENT '存量累计模拟利润',
+		  `CLDJ` decimal(22,6) DEFAULT NULL COMMENT '存量单价',
+		  `CLDW` decimal(16,2) DEFAULT NULL COMMENT '存量单位',
+		  `CLGZ` decimal(22,6) DEFAULT NULL COMMENT '存量工资',
+		  `CLLJGZ` decimal(22,6) DEFAULT NULL COMMENT '存量累计工资',
+		  `ZLMNLR` decimal(18,12) DEFAULT NULL COMMENT '增量模拟利润',
+		  `ZLLJMNLR` decimal(18,12) DEFAULT NULL COMMENT '增量累计模拟利润',
+		  `ZLDJ` decimal(22,6) DEFAULT NULL COMMENT '增量单价',
+		  `ZLDW` decimal(16,2) DEFAULT NULL COMMENT '增量单位',
+		  `ZLGZ` decimal(22,6) DEFAULT NULL COMMENT '增量工资',
+		  `ZLLJGZ` decimal(22,6) DEFAULT NULL COMMENT '增量累计工资',
+		  `YQDFMNLR` decimal(18,12) DEFAULT NULL COMMENT '延期兑付模拟利润',
+		  `YQDFLJMNLR` decimal(18,12) DEFAULT NULL COMMENT '延期兑付累计模拟利润',
+		  `YQDFGZ` decimal(18,2) DEFAULT NULL COMMENT '延期兑付工资',
+		  `YQDFLJGZ` decimal(18,2) DEFAULT NULL COMMENT '延期兑付累计工资',
+		  `YQDFFCGZ` decimal(18,2) DEFAULT NULL COMMENT '延期兑付分成工资',
+		  `DFBZ` decimal(1,0) DEFAULT NULL COMMENT '兑付标识（0：未兑付，1：已兑付）',
+		  `DFRQ` datetime DEFAULT NULL COMMENT '兑付日期',
+		  `CZLBZ` decimal(1,0) DEFAULT NULL COMMENT '存增量标识（1：存量，2：增量）',
+		  KEY `IDX_ERP_WAGE_DKMNLRGZMX` (`YGGH`,`TJRQ`)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='贷款模拟利润工资明细';
+ 	</update>
+ 	
+ 	<insert id="batchInsertPerformanceDkmnlrgzMx">
+ 	insert into ${tableName}(tjrq,jgdm,zzbz,gwbz,yggh,dkzh,hth,zhmc,zjhm,dkje,dkye
+	,ffrq,dqrq,wjflbz,ncwjflbz,ywzl,zzqxrq,ll,cbl,llc,rllc,fcbl,qmmnlr,qmljmnlr,clye
+	,clmnlr,clljmnlr,cldj,cldw,clgz,clljgz,zlmnlr,zlljmnlr,zldj,zldw,zlgz,zlljgz)
+ 	values
+ 	<foreach item="item" collection="list" index="index" separator=",">
+ 	(#{item.tjrq,jdbcType=VARCHAR},#{item.jgdm,jdbcType=VARCHAR},#{item.zzbz,jdbcType=VARCHAR},
+ 	#{item.gwbz,jdbcType=BIGINT},#{item.yggh,jdbcType=VARCHAR},#{item.dkzh,jdbcType=VARCHAR},
+ 	#{item.hth,jdbcType=VARCHAR},#{item.zhmc,jdbcType=VARCHAR},#{item.zjhm,jdbcType=VARCHAR}
+ 	,#{item.dkje,jdbcType=DECIMAL},#{item.dkye,jdbcType=DECIMAL},#{item.ffrq,jdbcType=VARCHAR},
+ 	#{item.dqrq,jdbcType=VARCHAR},#{item.wjflbz,jdbcType=INTEGER},#{item.ncwjflbz,jdbcType=INTEGER},
+ 	#{item.ywzl,jdbcType=VARCHAR},#{item.zzqxrq,jdbcType=VARCHAR},#{item.ll,jdbcType=DECIMAL},
+ 	#{item.cbl,jdbcType=DECIMAL},#{item.llc,jdbcType=DECIMAL},#{item.rllc,jdbcType=DECIMAL},
+ 	#{item.fcbl,jdbcType=DECIMAL},#{item.qmmnlr,jdbcType=DECIMAL},#{item.qmljmnlr,jdbcType=DECIMAL},
+ 	#{item.clye,jdbcType=DECIMAL},#{item.clmnlr,jdbcType=DECIMAL},#{item.clljmnlr,jdbcType=DECIMAL},
+ 	#{item.cldj,jdbcType=DECIMAL},#{item.cldw,jdbcType=DECIMAL},#{item.clgz,jdbcType=DECIMAL},
+ 	#{item.clljgz,jdbcType=DECIMAL},#{item.zlmnlr,jdbcType=DECIMAL},#{item.zlljmnlr,jdbcType=DECIMAL},
+ 	#{item.zldj,jdbcType=DECIMAL},#{item.zldw,jdbcType=DECIMAL},#{item.zlgz,jdbcType=DECIMAL},
+ 	#{item.zlljgz,jdbcType=DECIMAL})
+ 	</foreach>
+ 	</insert>
+ </mapper>

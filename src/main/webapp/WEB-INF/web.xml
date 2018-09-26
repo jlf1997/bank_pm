@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1"
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID">
+  <display-name>bank_pm</display-name>
+  
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/classes/spring/applicationContext-*.xml</param-value>
+  </context-param>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  
+   <!-- 配置前端控制器的映射 -->
+	<servlet-mapping>  
+    	<servlet-name>default</servlet-name>  
+    	<url-pattern>*.css</url-pattern>  
+	</servlet-mapping>
+	<servlet-mapping>  
+    	<servlet-name>default</servlet-name>  
+    	<url-pattern>*.js</url-pattern>  
+	</servlet-mapping>
+	<servlet-mapping>  
+    	<servlet-name>default</servlet-name>  
+    	<url-pattern>*.map</url-pattern>  
+	</servlet-mapping>
+	<servlet-mapping>  
+    	<servlet-name>default</servlet-name>  
+    	<url-pattern>*.eot</url-pattern>  
+	</servlet-mapping>
+	<servlet-mapping>  
+    	<servlet-name>default</servlet-name>  
+    	<url-pattern>*.ttf</url-pattern>  
+	</servlet-mapping>
+	<servlet-mapping>  
+    	<servlet-name>default</servlet-name>  
+    	<url-pattern>*.woff</url-pattern>  
+	</servlet-mapping>
+	<servlet-mapping>  
+    	<servlet-name>default</servlet-name>  
+    	<url-pattern>*.woff2</url-pattern>  
+	</servlet-mapping> 
+	<servlet-mapping>  
+    	<servlet-name>default</servlet-name>  
+    	<url-pattern>*.svg</url-pattern>  
+	</servlet-mapping>       
+  <servlet-mapping>
+  	  <servlet-name>springmvc</servlet-name>
+  	  <!-- 
+  	  	url模式可以配置为*.action或"/"，,*.action：DispatcherServlet访问由".action"结尾的地址
+  	  	"/"：DispatcherServlet是访问所有地址，配置静态文件需要不让DispatcherServlet解析
+  	   -->
+  	    <url-pattern>*.action</url-pattern>
+  	    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+ 
+  <!-- 配置前端控制器 -->
+  <servlet>
+  	<servlet-name>springmvc</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  	<!-- contextConfigLocation配置springmvc需要加载的配置文件位置 -->
+  	<!-- 如果不配置contextConfigLocation的值，则默认加载/WEB-INF/下的servlet名称-servlet.xml -->
+  	<init-param>
+  		<param-name>contextConfigLocation</param-name>
+  		<param-value>classpath:spring/springmvc.xml</param-value>
+  	</init-param>
+
+  	<load-on-startup>1</load-on-startup>
+  	<async-supported>true</async-supported>
+  </servlet>
+  
+  	  <!--  
+  	  <url-pattern>*.action</url-pattern>
+  	  <url-pattern>*.do</url-pattern>-->
+ 
+  
+  	<!-- POST乱码过滤 -->
+     <filter>
+        <filter-name>encodingFilter</filter-name>  
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>  
+        <init-param>  
+            <param-name>encoding</param-name>  
+            <param-value>UTF-8</param-value>  
+        </init-param>  
+        <init-param>  
+            <param-name>forceEncoding</param-name>  
+            <param-value>true</param-value>  
+        </init-param>  
+      <async-supported>true</async-supported>
+    </filter>  
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>  
+        <url-pattern>/*</url-pattern>  
+    </filter-mapping>
+
+    
+	<!-- 以分钟为单位 -->
+	<session-config>      
+		<session-timeout>180</session-timeout>
+	</session-config> 
+	   
+    <welcome-file-list>
+    	<welcome-file>index.html</welcome-file>
+    	<welcome-file>index.htm</welcome-file>
+    	<welcome-file>index.jsp</welcome-file>
+    	<welcome-file>default.html</welcome-file>
+    	<welcome-file>default.htm</welcome-file>
+    	<welcome-file>default.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>

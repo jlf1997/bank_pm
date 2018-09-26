@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.DepositAccountFamilyMapper">
+    <!-- 定义sql片段 -->
+ 	<sql id="query_khgxgl_ckzhghxx">
+ 		select * from khgxgl_ckzhghxx
+ 	</sql>
+ 	
+ 	<select id="findAllDepositAccountFamilyByKhbhAndJgdm" resultType="DepositAccountFamily">
+ 		select jgdm, khbh, khmc, zjlx, zjhm, yxlx, ckzh, zhlx, khrq, dqrq, ll, ckye, tzr, tzrq, dnrlje, lrbz, lrr, lrsj, cq, tzbl,hr_bas_organization.zzjc 
+ 		from khgxgl_ckzhghxx,hr_bas_organization 
+ 		where khbh = #{khbh} and jgdm=#{jgdm} and hr_bas_organization.ywjgdm = khgxgl_ckzhghxx.jgdm
+ 	</select>
+ 	
+ 	<select id="findDataCountByCond" resultType="Integer">
+ 		select count(*) 
+ 		from khgxgl_ckzhghxx
+ 		where khbh = #{khbh} and jgdm=#{jgdm}
+ 	</select>
+ 	
+ 	<select id="findOneDepositAccountFamilyByKhbhAndJgdm" resultType="DepositAccountFamily">
+ 		select jgdm, khbh, khmc, zjlx, zjhm, yxlx, ckzh, zhlx, khrq, dqrq, ll, ckye, tzr, tzrq, dnrlje, lrbz, lrr, lrsj, cq, tzbl,hr_bas_organization.zzjc 
+ 		from khgxgl_ckzhghxx,hr_bas_organization 
+ 		where khbh = #{khbh} and jgdm=#{jgdm} and hr_bas_organization.ywjgdm = khgxgl_ckzhghxx.jgdm 
+ 		order by khrq desc limit 1
+ 	</select>
+ 	
+ </mapper>
+

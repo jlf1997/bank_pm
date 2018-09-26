@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.readboy.ssm.mapper.VisitOtherInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.readboy.ssm.po.VisitOtherInfo" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="ATTACH_TYPE" property="attachType" jdbcType="VARCHAR" />
+    <result column="ATTACH_NAME" property="attachName" jdbcType="VARCHAR" />
+    <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+    <result column="DATE" property="date" jdbcType="VARCHAR" />
+    <result column="VISITOR_ID" property="visitorId" jdbcType="INTEGER" />
+    <result column="CLIENT_NUM" property="clientNum" jdbcType="INTEGER" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    ID, ATTACH_TYPE, ATTACH_NAME, FILE_NAME, DATE, VISITOR_ID, CLIENT_NUM
+  </sql>
+
+  <!--通过主键查询一条数据-->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from visit_other_info
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+
+
+  <!--通过主键删除一条数据-->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from visit_other_info
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+
+
+  <!--插入一条新数据-->
+  <insert id="insert" parameterType="com.readboy.ssm.po.VisitOtherInfo" >
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      select LAST_INSERT_ID()
+    </selectKey>
+    insert into visit_other_info (ID, ATTACH_TYPE, ATTACH_NAME,
+      FILE_NAME, DATE, VISITOR_ID, 
+      CLIENT_NUM)
+    values (#{id,jdbcType=INTEGER}, #{attachType,jdbcType=VARCHAR}, #{attachName,jdbcType=VARCHAR}, 
+      #{fileName,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, #{visitorId,jdbcType=INTEGER},
+      #{clientNum,jdbcType=INTEGER})
+  </insert>
+
+
+
+
+  <!--通过主键更新一条数据-->
+  <update id="updateByPrimaryKey" parameterType="com.readboy.ssm.po.VisitOtherInfo" >
+    update visit_other_info
+    set ATTACH_TYPE = #{attachType,jdbcType=VARCHAR},
+      ATTACH_NAME = #{attachName,jdbcType=VARCHAR},
+      FILE_NAME = #{fileName,jdbcType=VARCHAR},
+      DATE = #{date,jdbcType=VARCHAR},
+      VISITOR_ID = #{visitorId,jdbcType=INTEGER},
+      CLIENT_NUM = #{clientNum,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <!--根据客户编码查询所有其他信息-->
+  <select id="findListOtherInfo" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM visit_other_info
+    WHERE CLIENT_NUM = #{clientNum}
+  </select>
+
+
+</mapper>

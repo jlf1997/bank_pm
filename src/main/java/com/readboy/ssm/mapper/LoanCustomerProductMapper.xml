@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.LoanCustomerProductMapper">
+    <!-- 定义sql片段 -->
+ 	<sql id="query_app_dkkhcpxx">
+ 		select * from app_dkkhcpxx
+ 	</sql>
+ 	
+ 	<select id="findLoanProductsByKhbhAndJgdm" resultType="LoanCustomerProduct">
+ 		select * from app_dkkhcpxx where khbh = #{khbh} and jgdm = #{jgdm}
+ 	</select>
+ 	
+ 	<select id="findLoanProCount" resultType="Integer">
+ 		select count(*) from app_dkkhcpxx where khbh = #{khbh} and jgdm = #{jgdm}
+ 	</select>
+ 	
+ 	<select id="findOneLoanProductsByKhbhAndJgdm" resultType="LoanCustomerProduct">
+ 		select cpmc, jgdm, khbh, hth, dkzh, ffrq, dqrq, dkje, dkye, ll, khjlmc, five_class_type, yxr, yxbl, ghr, ghbl, bsr, bsbl, spr, spbl, dcr, dcbl, lrr, lrbz, lrsj, hr_bas_organization.zzjc 
+ 		from app_dkkhcpxx, hr_bas_organization 
+ 		where khbh = #{khbh} and jgdm = #{jgdm} and hr_bas_organization.ywjgdm = app_dkkhcpxx.jgdm 
+ 		order by ffrq desc limit 1
+ 	</select>
+ 	
+ 	<select id="findLoanProductsHthByKhbhAndJgdm" resultType="String">
+ 		select hth from app_dkkhcpxx where khbh = #{khbh} and jgdm = #{jgdm}
+ 	</select>
+ 	
+ 	<select id="findHthCount" resultType="Integer">
+ 		select count(*) from app_dkkhcpxx where khbh = #{khbh} and jgdm = #{jgdm}
+ 	</select>
+ 	
+ 	<select id="findLoanProductsByHth" resultType="LoanCustomerProduct">
+ 		select cpmc, jgdm, khbh, hth, dkzh, ffrq, dqrq, dkje, dkye, ll, khjlmc, five_class_type,
+ 		 yxr, yxbl, ghr, ghbl, bsr, bsbl, spr, spbl, dcr, dcbl, lrr, lrbz, lrsj, hr_bas_organization.zzjc 
+ 		from app_dkkhcpxx, hr_bas_organization 
+ 		where khbh = #{khbh} and jgdm = #{jgdm} and hth=#{hth} and hr_bas_organization.ywjgdm = app_dkkhcpxx.jgdm 
+ 	</select>
+ 	
+ 	<insert id="batchInsertLoanCustomerProduct" parameterType="java.util.List">
+ 		insert into app_dkkhcpxx(cpmc,jgdm,khbh,hth,dkzh,ffrq,dqrq,dkje,dkye,ll,khjlmc,five_class_type,
+ 		yxr,yxbl,ghr,ghbl,bsr,bsbl,spr,spbl,dcr,dcbl,lrr,lrbz,lrsj)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+		(#{item.cpmc},#{item.jgdm},#{item.khbh},
+		#{item.hth},#{item.dkzh},#{item.ffrq},
+		#{item.dqrq},#{item.dkje},#{item.dkye},
+		#{item.ll},#{item.khjlmc},#{item.five_class_type},
+		#{item.yxr},#{item.yxbl,jdbcType=DECIMAL},#{item.ghr},
+		#{item.ghbl,jdbcType=DECIMAL},#{item.bsr},#{item.bsbl,jdbcType=DECIMAL},
+		#{item.spr},#{item.spbl,jdbcType=DECIMAL},#{item.dcr},
+		#{item.dcbl,jdbcType=DECIMAL},#{item.lrr},#{item.lrbz,jdbcType=INTEGER},
+		#{item.lrsj,jdbcType=VARCHAR})
+		</foreach>
+ 	</insert>
+ 	
+ 	<insert id="insertLoanCustomerProduct" parameterType="LoanCustomerProduct">
+ 		insert into app_dkkhcpxx(cpmc,jgdm,khbh,hth,dkzh,ffrq,dqrq,dkje,dkye,ll,khjlmc,five_class_type,
+ 		yxr,yxbl,ghr,ghbl,bsr,bsbl,spr,spbl,dcr,dcbl,lrr,lrbz,lrsj)
+		values 
+		(#{cpmc},#{jgdm},#{khbh},
+		#{hth},#{dkzh},#{ffrq},
+		#{dqrq},#{dkje},#{dkye},
+		#{ll},#{khjlmc},#{five_class_type},
+		#{yxr},#{yxbl,jdbcType=DECIMAL},#{ghr},
+		#{ghbl,jdbcType=DECIMAL},#{bsr},#{bsbl,jdbcType=DECIMAL},
+		#{spr},#{spbl,jdbcType=DECIMAL},#{dcr},
+		#{dcbl,jdbcType=DECIMAL},#{lrr},#{lrbz,jdbcType=INTEGER},#{lrsj})
+ 	</insert> 
+ </mapper>

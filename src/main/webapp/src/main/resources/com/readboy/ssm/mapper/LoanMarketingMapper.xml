@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.LoanMarketingMapper">
+    <!-- 定义sql片段 -->
+ 	<sql id="query_khgxgl_dkkhyxdjb_where">
+ 		select * from khgxgl_dkkhyxdjb
+ 	</sql>
+ 	<sql id="insert_khgxgl_dkkhyxdjb_where">
+ 		insert into khgxgl_dkkhyxdjb(jgdm,dkzl,khzl,zjlb,
+ 		zjhm,khmc,yxbl,sbzt,lrr,lrbz,yyrq,yggh,ygxm,sjhm) value(#{jgdm},#{dkzl},
+ 		#{khzl},#{zjlb},#{zjhm},#{khmc},#{yxbl},#{sbzt,},#{lrr},#{lrbz},#{yyrq},
+ 		#{yggh},#{ygxm},#{sjhm})
+ 	</sql>
+ 	
+ 	<select id="findLoanMarketingByYybh" parameterType = "int" resultType="LoanMarketing">
+ 		select * from khgxgl_dkkhyxdjb where yybh = #{yybh}
+ 	</select>
+ 	
+ 	<select id="findAllLoanMarketing" resultType="LoanMarketing">
+ 		SELECT jgdm, dkzl, khzl, zjlb, zjhm, khmc, yxbl, sbzt, lrr, lrbz, lrsj, yyrq, yybh, yggh, ygxm, sjhm,
+		hr_bas_organization.zzjc
+		FROM khgxgl_dkkhyxdjb,hr_bas_organization
+		WHERE hr_bas_organization.YWJGDM = khgxgl_dkkhyxdjb.jgdm
+ 	</select>
+ 	
+ 	<!-- 插入数据返回自增的主键 -->
+ 	<insert id="insertLoanMarketing" parameterType="LoanMarketing">
+  		<!-- 在插入之后返回自增生成的id -->
+	<selectKey keyProperty="yybh" resultType="java.lang.Integer" order="AFTER">
+ 		select last_insert_id()
+ 	</selectKey>
+ 		<include refid="insert_khgxgl_dkkhyxdjb_where"></include>
+ 	</insert>
+ 	
+ 	<update id="updateLoanMarketing" parameterType="LoanMarketing">
+ 		update khgxgl_dkkhyxdjb set jgdm = #{jgdm},dkzl = #{dkzl},khzl = #{khzl},
+ 		zjlb = #{zjlb},zjhm = #{zjhm},khmc = #{khmc},yxbl = #{yxbl},
+ 		sbzt = #{sbzt},lrr = #{lrr},lrbz = #{lrbz},yyrq = #{yyrq},
+ 		yggh = #{yggh},ygxm = #{ygxm},sjhm = #{sjhm} where yybh = #{yybh}
+ 	</update>
+ 	
+ 	<delete id="deleteOneLoanMarketingByYybh" parameterType="int">
+ 		delete from khgxgl_dkkhyxdjb where yybh = #{yybh}
+ 	</delete>
+ 	
+ </mapper>
+

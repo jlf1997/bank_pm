@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	http://www.springframework.org/schema/util 
+	http://www.springframework.org/schema/util/spring-util-4.0.xsd">   
+	
+	<!-- 用户管理的service -->
+	<bean id="organizationService"  class="com.readboy.ssm.serviceImpl.OrganizationServiceImpl"/>
+	<bean id="depositMarketingService"  class="com.readboy.ssm.serviceImpl.DepositMarketingServiceImpl"/>
+	<bean id="loanMarketingService"  class="com.readboy.ssm.serviceImpl.LoanMarketingServiceImpl"/>
+	<bean id="etcMarketingService"  class="com.readboy.ssm.serviceImpl.EtcMarketingServiceImpl"/>
+	<bean id="cellBankMarketingService"  class="com.readboy.ssm.serviceImpl.CellBankMarketingServiceImpl"/>
+	<bean id="userService"  class="com.readboy.ssm.serviceImpl.UserServiceImpl" />
+	<bean id="customerService"  class="com.readboy.ssm.serviceImpl.CustomerServiceImpl" />
+	<bean id="customerMultipleQueryService"  class="com.readboy.ssm.serviceImpl.CustomerMultipleQueryServiceImpl" />
+	<bean id="posMarketingService"  class="com.readboy.ssm.serviceImpl.PosMarketingServiceImpl" />
+	<bean id="simpleCustomerInfoService"  class="com.readboy.ssm.serviceImpl.SimpleCustomerInfoServiceImpl" />
+	<bean id="relatedPersonService"  class="com.readboy.ssm.serviceImpl.RelatedPersonServiceImpl" />
+	<bean id="depositAccountFamilyService"  class="com.readboy.ssm.serviceImpl.DepositAccountFamilyServiceImpl" />
+	<bean id="depositAccountPersonService"  class="com.readboy.ssm.serviceImpl.DepositAccountPersonServiceImpl" />
+	<bean id="cellBankCustomerPersonService"  class="com.readboy.ssm.serviceImpl.CellBankCustomerPersonServiceImpl" />
+	<bean id="cellBankCustomerProductService"  class="com.readboy.ssm.serviceImpl.CellBankCustomerProductServiceImpl" />
+	<bean id="etcCustomerFamilyService"  class="com.readboy.ssm.serviceImpl.EtcCustomerFamilyServiceImpl" />
+	<bean id="loanCustomerPersonService"  class="com.readboy.ssm.serviceImpl.LoanCustomerPersonServiceImpl" />
+	<bean id="loanCustomerProductService"  class="com.readboy.ssm.serviceImpl.LoanCustomerProductServiceImpl" />
+	
+	<!-- 监控预警 -->
+	<bean id="simpleDepositExpireDetailService"  class="com.readboy.ssm.serviceImpl.SimpleDepositExpireDetailServiceImpl" />
+	<bean id="simpleBSLoanExpireDetailService"  class="com.readboy.ssm.serviceImpl.SimpleBSLoanExpireDetailServiceImpl" />
+	<bean id="simpleBSNewAddBadLoanDetailService"  class="com.readboy.ssm.serviceImpl.SimpleBSNewAddBadLoanDetailServiceImpl" />
+	<bean id="simpleBSLoanOweInterestDetailService"  class="com.readboy.ssm.serviceImpl.SimpleBSLoanOweInterestDetailServiceImpl" />
+	<bean id="simpleBSLNFFExpireRecoveryRateService"  class="com.readboy.ssm.serviceImpl.SimpleBSLNFFExpireRecoveryRateServiceImpl" />
+	<bean id="simpleBSDNFFExpireRecoveryRateService"  class="com.readboy.ssm.serviceImpl.SimpleBSDNFFExpireRecoveryRateServiceImpl" />
+	<bean id="simpleBSOverdueLoanDetailService"  class="com.readboy.ssm.serviceImpl.SimpleBSOverdueLoanDetailServiceImpl" />
+	
+	<bean id="customerInfoFileService"  class="com.readboy.ssm.serviceImpl.CustomerInfoFileServiceImpl" />
+	
+	<!-- 绩效 -->
+	<bean id="performanceDepositHushuMxService" class="com.readboy.ssm.serviceImpl.PerformanceDepositHushuMxServiceImpl" />
+	<bean id="performanceMxService"   			class="com.readboy.ssm.serviceImpl.PerformanceMxServiceImpl" />
+	<bean id="performanceService"     class="com.readboy.ssm.serviceImpl.PerformanceServiceImpl" />
+	<bean id="performanceBusinessDetailService" class="com.readboy.ssm.serviceImpl.PerformanceBusinessDetailServiceImpl" />
+	<bean id="performanceManageDetailService"   class="com.readboy.ssm.serviceImpl.PerformanceManageDetailServiceImpl" />
+	<bean id="performanceAreaMakeUpService"     class="com.readboy.ssm.serviceImpl.PerformanceAreaMakeUpServiceImpl" />
+	<bean id="performanceJgReductionMxService"  class="com.readboy.ssm.serviceImpl.PerformanceJgReductionMxServiceImpl" />
+	<bean id="performanceJgpjMxService"  class="com.readboy.ssm.serviceImpl.PerformanceJgpjMxServiceImpl" />
+	<bean id="performancePersonalByCountMxService"  class="com.readboy.ssm.serviceImpl.PerformancePersonalByCountMxServiceImpl" />
+	<bean id="PerformanceEtcHsgzMxService"     		class="com.readboy.ssm.serviceImpl.PerformanceEtcHsgzMxServiceImpl" />
+	<bean id="performanceCellBankTradeMxService"   class="com.readboy.ssm.serviceImpl.PerformanceCellBankTradeMxServiceImpl" />
+	<bean id="performanceCellBankHsMxService"   class="com.readboy.ssm.serviceImpl.PerformanceCellBankHsMxServiceImpl" />
+	<bean id="performanceBlqsMxService"   class="com.readboy.ssm.serviceImpl.PerformanceBlqsMxServiceImpl" />
+	<bean id="performanceDkkhbsMxService"   class="com.readboy.ssm.serviceImpl.PerformanceDkkhbsMxServiceImpl" />
+	<bean id="performanceDkmnlrgzMxService"   class="com.readboy.ssm.serviceImpl.PerformanceDkmnlrgzMxServiceImpl" />
+	<bean id="performanceCkmnlrgzMxService"   class="com.readboy.ssm.serviceImpl.PerformanceCkmnlrgzMxServiceImpl" />
+	<bean id="performanceGljxgzMxService"   class="com.readboy.ssm.serviceImpl.PerformanceGljxgzMxServiceImpl" />
+	<bean id="performanceGzhzService"   class="com.readboy.ssm.serviceImpl.PerformanceGzhzServiceImpl" />
+	<bean id="performanceGwjxgzMxCustomService"   class="com.readboy.ssm.serviceImpl.PerformanceGwjxgzMxCustomServiceImpl" />
+	<bean id="performancePhjfkgzMxCustomService"   class="com.readboy.ssm.serviceImpl.PerformancePhjfkgzMxCustomServiceImpl" />
+	<bean id="performanceGxlgzMxCustomService"   class="com.readboy.ssm.serviceImpl.PerformanceGxlgzMxCustomServiceImpl" />
+	<bean id="performanceAljcgzMxCustomService"   class="com.readboy.ssm.serviceImpl.PerformanceAljcgzMxCustomServiceImpl" />
+	<bean id="performanceCkAljcgzMxService"   class="com.readboy.ssm.serviceImpl.PerformanceCkAljcgzMxServiceImpl" />
+	<bean id="performanceCkYzkhgzMxService"   class="com.readboy.ssm.serviceImpl.PerformanceCkYzkhgzMxServiceImpl" />
+	<bean id="performanceDkKhhsMxService"   class="com.readboy.ssm.serviceImpl.PerformanceDkKhhsMxServiceImpl" />
+	<bean id="performanceDkAljcgzMxService"   class="com.readboy.ssm.serviceImpl.PerformanceDkAljcgzMxServiceImpl" />
+	<bean id="performanceDkXzbnbldkzbService"   class="com.readboy.ssm.serviceImpl.PerformanceDkXzbnbldkzbServiceImpl" />
+	<bean id="performanceDkDndqdkshlService"   class="com.readboy.ssm.serviceImpl.PerformanceDkDndqdkshlServiceImpl" />
+	<bean id="performanceDkDydklxshMxService"   class="com.readboy.ssm.serviceImpl.PerformanceDkDydklxshMxServiceImpl" />
+	<bean id="performanceDkWddkhsMxService"   class="com.readboy.ssm.serviceImpl.PerformanceDkWddkhsMxServiceImpl" />
+	<bean id="performanceCbSjyhdhlService"   class="com.readboy.ssm.serviceImpl.PerformanceCbSjyhdhlServiceImpl" />
+	<bean id="performanceCbBmkkhhsMxService"   class="com.readboy.ssm.serviceImpl.PerformanceCbBmkkhhsMxServiceImpl" />
+	<bean id="performanceYwlWdywlService"   class="com.readboy.ssm.serviceImpl.PerformanceYwlWdywlServiceImpl" />
+	<bean id="performanceGljxBmkhService"   class="com.readboy.ssm.serviceImpl.PerformanceGljxBmkhServiceImpl" />
+	<bean id="performanceGljxWdrjgzService"   class="com.readboy.ssm.serviceImpl.PerformanceGljxWdrjgzServiceImpl" />
+	<bean id="performanceGzzlService"   class="com.readboy.ssm.serviceImpl.PerformanceGzzlServiceImpl" />
+	<bean id="performanceXsxsgzService"   class="com.readboy.ssm.serviceImpl.PerformanceXsxsgzServiceImpl" />
+	<bean id="performanceJgaljcService"   class="com.readboy.ssm.serviceImpl.PerformanceJgaljcServiceImpl" />
+	<bean id="performanceJymbService"   class="com.readboy.ssm.serviceImpl.PerformanceJymbServiceImpl" />
+	<bean id="dataLogService"   class="com.readboy.ssm.serviceImpl.DataLogServiceImpl" />
+	
+	<!-- 员工和岗位 -->
+	<bean id="StaffAndPostService"   class="com.readboy.ssm.serviceImpl.StaffAndPostServiceImpl" />
+	<bean id="StaffInfoService"   class="com.readboy.ssm.serviceImpl.StaffInfoServiceImpl" />
+	<!-- 数据导入 -->
+	<bean id="DataInfoService" class="com.readboy.ssm.serviceImpl.DataInfoServiceImpl" />
+	
+	<!-- 手机端菜单 -->
+	<bean id="menuService" class="com.readboy.ssm.serviceImpl.MenuServiceImpl" />
+	
+	<!-- 资源配置 -->
+	<bean id="ResService" class="com.readboy.ssm.serviceImpl.ResServiceImpl" />
+	
+	<!-- 地区 -->
+	<bean id="AreaService" class="com.readboy.ssm.serviceImpl.AreaServiceImpl" />
+	
+	<!--拜访基本信息-->
+	<bean id="VisitBasicInfoService" class="com.readboy.ssm.serviceImpl.VisitBasicInfoServiceImpl" />
+	<bean id="VisitFamilyInfoService" class="com.readboy.ssm.serviceImpl.VisitFamilyInfoServiceImpl" />
+
+	<!--联系人信息-->
+	<bean id="visitContactInfoService" class="com.readboy.ssm.serviceImpl.VisitContactInfoServiceImpl"/>
+
+	<!--拜访其他信息-->
+	<bean id="VisitOtherInfoService" class="com.readboy.ssm.serviceImpl.VisitOtherInfoServiceImpl"/>
+
+	<!--根据日期、部门、员工编号查询员工工资信息-->
+	<bean id="EmployeeStatisticsService" class="com.readboy.ssm.serviceImpl.EmployeeStatisticsServiceImpl"/>
+
+	<!--根据日期和支行或部门信息查询支行排名前十的员工信息-->
+	<bean id="BranchStatisticsService" class="com.readboy.ssm.serviceImpl.BranchStatisticsServiceImpl"/>
+
+	<!--查询全行排名前十的员工信息-->
+	<bean id="AllStatisticService" class="com.readboy.ssm.serviceImpl.AllStatisticServiceImpl"/>
+	<!-- 柜员交接 -->
+	<bean id="StaffJjService" class="com.readboy.ssm.serviceImpl.StaffJjServiceImpl"/>
+	<!-- 员工岗位 -->	
+	<bean id="StaffJjGwService" class="com.readboy.ssm.serviceImpl.StaffJjGwServiceImpl"/>
+	<!-- 日历表 -->
+	<bean id="DataCalendarService" class="com.readboy.ssm.serviceImpl.DataCalendarServiceImpl"/>
+	</beans>

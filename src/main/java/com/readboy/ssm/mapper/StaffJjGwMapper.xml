@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.StaffJjGwMapper">
+
+ 	<select id="findStaffJjGw" resultType="StaffJjGw">
+ 		<![CDATA[
+			select * from erp_bas_gyjjgw
+		]]>
+	</select>
+
+	<select id="findOrganization" parameterType="String" resultType="com.readboy.ssm.po.Organization">
+		SELECT hr_bas_organization.* FROM hr_bas_organization, sys_bas_user
+		WHERE sys_bas_user.tellid = #{tellid} AND sys_bas_user.jgdm = hr_bas_organization.zzbz
+	</select>
+ </mapper>

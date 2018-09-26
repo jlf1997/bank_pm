@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.readboy.ssm.mapper.PerformanceDKWddkhsMxMapper" >
+
+  <select id="findPerformanceDKWddkhsMx" resultType="PerformanceDKWddkhsMx">
+  	select erp_wage_wddkhsmx.*,hr_bas_organization.zzjc from erp_wage_wddkhsmx,hr_bas_organization 
+ 		where erp_wage_wddkhsmx.tjrq =#{ksrq}
+ 		and erp_wage_wddkhsmx.zzbz = #{zzbz}
+ 		and erp_wage_wddkhsmx.zzbz = hr_bas_organization.zzbz
+  </select>
+</mapper>

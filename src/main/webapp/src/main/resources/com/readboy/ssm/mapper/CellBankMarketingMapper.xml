@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.CellBankMarketingMapper">
+    <!-- 定义sql片段 -->
+ 	<sql id="query_khgxgl_sjyhyxdjb_where">
+ 		select * from khgxgl_sjyhyxdjb
+ 	</sql>
+ 	<sql id="insert_khgxgl_sjyhyxdjb_where">
+ 		insert into khgxgl_sjyhyxdjb(jgdm,zjlb,
+ 		zjhm,khmc,yxbl,sbzt,lrr,lrbz,yyrq,yggh,ygxm,sjhm) value(#{jgdm},#{zjlb},
+ 		#{zjhm},#{khmc},#{yxbl},#{sbzt},#{lrr},
+ 		#{lrbz},#{yyrq},#{yggh},#{ygxm},#{sjhm})
+ 	</sql>
+ 	
+ 	<select id="findCellBankMarketingByYybh" parameterType = "int" resultType="CellBankMarketing">
+ 		select * from khgxgl_sjyhyxdjb where yybh = #{yybh}
+ 	</select>
+ 	
+ 	<select id="findAllCellBankMarketing" resultType="CellBankMarketing">
+ 		SELECT jgdm, zjlb, zjhm, khmc, sjhm, yxbl, sbzt, lrr, lrbz, lrsj, yyrq, yybh, yggh, ygxm,
+		hr_bas_organization.zzjc
+		FROM khgxgl_sjyhyxdjb,hr_bas_organization
+		WHERE hr_bas_organization.YWJGDM = khgxgl_sjyhyxdjb.jgdm
+ 	</select>
+ 	
+ 	<!-- 插入数据返回自增的主键 -->
+ 	<insert id="insertCellBankMarketing" parameterType="CellBankMarketing">
+  		<!-- 在插入之后返回自增生成的id -->
+	<selectKey keyProperty="yybh" resultType="java.lang.Integer" order="AFTER">
+ 		select last_insert_id()
+ 	</selectKey>
+ 		<include refid="insert_khgxgl_sjyhyxdjb_where"></include>
+ 	</insert>
+ 	
+ 	<update id="updateCellBankMarketing" parameterType="CellBankMarketing">
+ 		update khgxgl_sjyhyxdjb set jgdm = #{jgdm},zjlb = #{zjlb},zjhm = #{zjhm},
+ 		khmc = #{khmc},yxbl = #{yxbl},sbzt = #{sbzt},lrr = #{lrr},lrbz = #{lrbz},
+ 		yyrq = #{yyrq},yggh = #{yggh},ygxm = #{ygxm},sjhm = #{sjhm} where yybh = #{yybh}
+ 	</update>
+ 	
+ 	<delete id="deleteOneCellBankMarketingByYybh" parameterType="int">
+ 		delete from khgxgl_sjyhyxdjb where yybh = #{yybh}
+ 	</delete>
+ 	
+ </mapper>
+

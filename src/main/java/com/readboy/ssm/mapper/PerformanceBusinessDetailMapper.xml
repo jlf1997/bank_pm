@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.PerformanceBusinessDetailMapper">
+    <!-- 定义sql片段 -->
+ 	<sql id="query_v_wage_ywlmx_where">
+ 		select * from v_wage_ywlmx where yggh = #{yggh}
+ 		and tjrq between #{ksrq} and #{jsrq} 
+ 		order by tjrq desc
+ 	</sql>
+ 	
+ 	<select id="findPerformanceBusinessDetail" resultType="PerformanceBusinessDetail">
+ 		<include refid="query_v_wage_ywlmx_where"></include>
+ 	</select>
+ 	
+ 	<select id="findDataCountByCond" resultType="Integer">
+ 		select count(*) from v_wage_ywlmx where yggh = #{yggh}
+ 		and tjrq between #{ksrq} and #{jsrq}
+ 	</select>
+ 	
+ </mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.PerformanceMapper">
+    <!-- 定义sql片段 -->
+ 	<sql id="query_erp_wage_ygjx_where">
+ 		select * from erp_wage_ygjx
+ 	</sql>
+ 	<select id="findPerformance" resultType="Performance">
+ 		select * from erp_wage_ygjx 
+ 		where yggh = #{yggh} and gzrq between #{gzrq} and #{gzrq}
+ 	</select>
+	<select id="findAllPerformance" resultType="Performance">
+ 		<include refid="query_erp_wage_ygjx_where"></include>
+ 	</select>
+ 	
+ </mapper>
+

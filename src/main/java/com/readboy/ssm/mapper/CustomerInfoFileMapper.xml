@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.CustomerInfoFileMapper">
+    <!-- 定义sql片段 -->
+ 	<sql id="query_customer_info_file">
+ 		select * from customer_info_file
+ 	</sql>
+ 	<!-- <sql id="insert_customer_info_file">
+ 		insert into khgxgl_dkkhyxdjb(jgdm,dkzl,khzl,zjlb,
+ 		zjhm,khmc,yxbl,sbzt,lrr,lrbz,yyrq,yggh,ygxm,sjhm) value(#{jgdm},#{dkzl},
+ 		#{khzl},#{zjlb},#{zjhm},#{khmc},#{yxbl},#{sbzt,},#{lrr},#{lrbz},#{yyrq},
+ 		#{yggh},#{ygxm},#{sjhm})
+ 	</sql> -->
+ 	
+ 	<select id="findCustomerInfoFile" resultType="CustomerInfoFile">
+ 		select *
+		from customer_info_file
+		where khbh = #{khbh} and ghrgh=#{ghrgh} and file_name = #{file_name} and file_type = #{file_type} 
+ 	</select>
+ 	
+ 	<select id="findAllCustomerInfoFile" resultType="CustomerInfoFile">
+ 		select *
+		from customer_info_file
+		where khbh = #{khbh} and ghrgh=#{ghrgh}
+ 	</select>
+ 	
+ 	<select id="findDistinctCustomer" resultType="CustomerInfoFile">
+ 		select customer_info_file.khbh,customer_info_file.khmc,customer_info_file.ghrgh
+ 		from customer_info_file where ghrgh = #{ghrgh} 
+ 		<if test="condition != null and condition !=''">
+ 			and (customer_info_file.khbh like concat('%',concat(#{condition},'%')) or
+ 			customer_info_file.khmc like concat('%',concat(#{condition},'%')))
+ 		</if>
+ 		group by customer_info_file.khbh
+ 		order by customer_info_file.upload_time desc
+ 	</select>
+ 	
+ 	<select id="findCustomerPicAndVedio" resultType="CustomerInfoFile">
+ 		select * from customer_info_file where
+ 		customer_info_file.ghrgh = #{ghrgh} and customer_info_file.khbh = #{khbh}
+ 	</select>
+ 	
+ 	<select id="findOneCustomerPicAndVedio" resultType="CustomerInfoFile">
+ 		select * from customer_info_file where
+ 		ghrgh = #{ghrgh} and khbh = #{khbh} and file_name = #{file_name} and file_type = #{file_type}
+ 	</select>
+ 	
+ 	
+ 	<!-- 插入数据返回自增的主键 -->
+ 	<insert id="insertCustomerInfoFile" parameterType="CustomerInfoFile">
+		insert into customer_info_file(
+			khbh, ghrgh, upload_time, file_name, file_type, download_url, info_time, info_address)
+ 		value(
+ 			#{khbh}, #{ghrgh}, #{upload_time}, #{file_name}, #{file_type}, #{download_url}, #{info_time} , #{info_address})
+ 	</insert>
+ 	
+ 	<update id="updateCustomerInfoFile" parameterType="CustomerInfoFile">
+ 		update customer_info_file 
+ 		set upload_time=#{upload_time}, info_time=#{info_time}, info_address=#{info_address}
+ 		where khbh = #{khbh} and ghrgh = #{ghrgh} and file_name = #{file_name}
+ 	</update>
+ 	
+ 	<delete id="deleteCustomerInfoFile">
+ 		delete from customer_info_file 
+ 		where khbh = #{khbh} and ghrgh = #{ghrgh} and khbh = #{khbh} and file_name = #{file_name}
+ 	</delete>
+ 	
+ </mapper>
+

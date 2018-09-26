@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.readboy.ssm.mapper.VisitFamilyInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.readboy.ssm.po.VisitFamilyInfo" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="MEMBER_NAME" property="memberName" jdbcType="VARCHAR" />
+    <result column="CREDENTIAL_TYPE" property="credentialType" jdbcType="VARCHAR" />
+    <result column="CREDENTIAL_NUM" property="credentialNum" jdbcType="VARCHAR" />
+    <result column="RELATIONSHIP" property="relationship" jdbcType="VARCHAR" />
+    <result column="CLIENT_NUM" property="clientNum" jdbcType="INTEGER" />
+    <result column="VISITOR_ID" property="visitorId" jdbcType="INTEGER" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="MEMBER_TYPE" property="memberType" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    ID, MEMBER_NAME, CREDENTIAL_TYPE, CREDENTIAL_NUM, RELATIONSHIP, CLIENT_NUM, VISITOR_ID,
+    PHONE, MEMBER_TYPE
+  </sql>
+
+  <!--通过主键查询一条数据-->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from visit_family_info
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+
+  <!--通过主键删除一条数据-->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from visit_family_info
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <!--插入一条新数据-->
+  <insert id="insert" parameterType="com.readboy.ssm.po.VisitFamilyInfo" >
+    insert into visit_family_info (ID, MEMBER_NAME, CREDENTIAL_TYPE, 
+      CREDENTIAL_NUM, RELATIONSHIP, CLIENT_NUM, 
+      VISITOR_ID, PHONE, MEMBER_TYPE
+      )
+    values (#{id,jdbcType=INTEGER}, #{memberName,jdbcType=VARCHAR}, #{credentialType,jdbcType=VARCHAR}, 
+      #{credentialNum,jdbcType=VARCHAR}, #{relationship,jdbcType=VARCHAR}, #{clientNum,jdbcType=INTEGER}, 
+      #{visitorId,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{memberType,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <!--通过主键更新一条数据-->
+  <update id="updateByPrimaryKey" parameterType="com.readboy.ssm.po.VisitFamilyInfo" >
+    update visit_family_info
+    set MEMBER_NAME = #{memberName,jdbcType=VARCHAR},
+      CREDENTIAL_TYPE = #{credentialType,jdbcType=VARCHAR},
+      CREDENTIAL_NUM = #{credentialNum,jdbcType=VARCHAR},
+      RELATIONSHIP = #{relationship,jdbcType=VARCHAR},
+      CLIENT_NUM = #{clientNum,jdbcType=INTEGER},
+      VISITOR_ID = #{visitorId,jdbcType=INTEGER},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      MEMBER_TYPE = #{memberType,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--通过visitorId和clientNum查询数据-->
+  <select id="selectAllByMemeberTypeAndVisitorIdAndClientNum" resultMap="BaseResultMap" parameterType="Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from visit_family_info
+    where MEMBER_TYPE = #{memberType,jdbcType=VARCHAR}
+    and CLIENT_NUM = #{clientNum,jdbcType=INTEGER}
+    and VISITOR_ID = #{visitorId,jdbcType=INTEGER}
+  </select>
+
+  
+</mapper>

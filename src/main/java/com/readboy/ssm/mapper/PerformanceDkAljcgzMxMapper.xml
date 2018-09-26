@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.readboy.ssm.mapper.PerformanceDkAljcgzMxMapper" >
+
+	<select id="findPerformanceDkAljcgzMx" resultType="PerformanceDkAljcgzMx">
+ 		select ${tableName}.*,hr_bas_organization.zzjc from ${tableName},hr_bas_organization 
+ 		where ${tableName}.yggh = #{yggh} and ${tableName}.tjrq =#{ksrq}
+ 		and ${tableName}.zzbz = hr_bas_organization.zzbz and ${tableName}.ymgz != 0
+ 		<if test="condition != '' and condition != null">
+			and (${tableName}.dkzh like concat(concat('%',#{condition}),'%') 
+			or ${tableName}.zhmc like concat(concat('%',#{condition}),'%'))
+		</if>
+		order by ${tableName}.tjrq desc
+		limit #{page.currentResult},#{page.showCount}
+	</select>
+	
+	<select id="findDataCountByCond" resultType="Integer">
+ 		select count(*) 
+		from ${tableName}
+ 		where ${tableName}.yggh = #{yggh} and ${tableName}.tjrq =#{ksrq} and ${tableName}.ymgz != 0
+ 		<if test="condition != '' and condition != null">
+			and (${tableName}.dkzh like concat(concat('%',#{condition}),'%') 
+			or ${tableName}.zhmc like concat(concat('%',#{condition}),'%'))
+		</if>
+	</select>
+  
+  <update id="createTable" parameterType="java.lang.String">
+	CREATE TABLE if not exists ${tableName} (
+	  `TJRQ` datetime NOT NULL COMMENT '统计日期',
+	  `JGDM` varchar(30) DEFAULT NULL COMMENT '机构代码',
+	  `ZZBZ` varchar(30) NOT NULL COMMENT '组织标识',
+	  `GWBZ` decimal(10,0) NOT NULL COMMENT '岗位标识',
+	  `YGGH` varchar(10) NOT NULL COMMENT '员工工号',
+	  `DKZH` varchar(160) NOT NULL COMMENT '贷款账号',
+	  `HTH` varchar(140) DEFAULT NULL COMMENT '合同号',
+	  `ZHMC` varchar(300) DEFAULT NULL COMMENT '账号名称',
+	  `ZJHM` varchar(140) DEFAULT NULL COMMENT '证件号码',
+	  `DKJE` decimal(18,2) DEFAULT NULL COMMENT '贷款金额',
+	  `DKYE` decimal(18,2) DEFAULT NULL COMMENT '贷款余额',
+	  `FFRQ` datetime DEFAULT NULL COMMENT '发放日期',
+	  `DQRQ` datetime DEFAULT NULL COMMENT '到期日期',
+	  `WJFLBZ` decimal(1,0) DEFAULT NULL COMMENT '五级分类标识',
+	  `NCWJFLBZ` decimal(1,0) DEFAULT NULL COMMENT '年初五级分类标识',
+	  `YWZL` varchar(120) DEFAULT NULL COMMENT '业务种类',
+	  `ZZQXRQ` datetime DEFAULT NULL COMMENT '最早欠息日期',
+	  `LL` decimal(18,12) DEFAULT NULL COMMENT '利率',
+	  `FCBL` decimal(5,2) DEFAULT NULL COMMENT '分成比率',
+	  `CLDJ` decimal(22,6) DEFAULT NULL COMMENT '存量单价',
+	  `CLDW` decimal(16,2) DEFAULT NULL COMMENT '存量单位',
+	  `CLGZ` decimal(22,6) DEFAULT NULL COMMENT '存量工资',
+	  `ZLDJ` decimal(22,6) DEFAULT NULL COMMENT '增量单价',
+	  `ZLDW` decimal(16,2) DEFAULT NULL COMMENT '增量单位',
+	  `ZLGZ` decimal(22,6) DEFAULT NULL COMMENT '增量工资',
+	  `CLDKYE` decimal(18,2) DEFAULT NULL COMMENT '存量贷款余额',
+	  `YMDJ` decimal(22,6) DEFAULT NULL COMMENT '月末单价',
+	  `YMDW` decimal(16,2) DEFAULT NULL COMMENT '月末单位',
+	  `YMGZ` decimal(22,6) DEFAULT NULL COMMENT '月末工资',
+	  KEY `IDX_ERP_WAGE_DKALJCGZMX` (`YGGH`,`TJRQ`)
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  </update>
+</mapper>

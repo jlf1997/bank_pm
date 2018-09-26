@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.EtcMarketingMapper">
+    <!-- 定义sql片段 -->
+ 	<sql id="query_khgxgl_etcyxdjb_where">
+ 		select * from khgxgl_etcyxdjb
+ 	</sql>
+ 	<sql id="insert_khgxgl_etcyxdjb_where">
+ 		insert into khgxgl_etcyxdjb(jgdm,zjlb,zjhm,khmc,yxbl,sbzt,lrr,lrbz,yyrq,
+ 		yggh,ygxm,sjhm) value(#{jgdm},#{zjlb},#{zjhm},#{khmc},#{yxbl},#{sbzt,},#{lrr},
+ 		#{lrbz},#{yyrq},#{yggh},#{ygxm},#{sjhm})
+ 	</sql>
+ 	
+ 	<select id="findEtcMarketingByYybh" parameterType = "long" resultType="EtcMarketing">
+ 		select * from khgxgl_etcyxdjb where yybh = #{yybh}
+ 	</select>
+ 	
+ 	<select id="findEtcMarketingByPrefix" resultType="EtcMarketing">
+ 		select * from khgxgl_etcyxdjb where khgxgl_etcyxdjb.yybh like concat(#{prefix},'%')
+ 		and length(khgxgl_etcyxdjb.yybh) >= #{len}
+ 	</select>
+ 	
+ 	<select id="findAllEtcMarketing" resultType="EtcMarketing">
+ 		select * from khgxgl_etcyxdjb
+ 	</select>
+ 	
+ 	<select id="findEtcMarketingByYggh" resultType="EtcMarketing">
+		select jgdm,zjlb,zjhm,khmc,sjhm,yxbl,sbzt,lrr,lrbz,lrsj,yyrq,yybh,yggh,ygxm,
+		hr_bas_organization.zzjc
+		from khgxgl_etcyxdjb,hr_bas_organization
+		where hr_bas_organization.ywjgdm = khgxgl_etcyxdjb.jgdm and khgxgl_etcyxdjb.yggh = #{yggh}
+		<if test="condition != '' and condition != null">
+			and (khgxgl_etcyxdjb.khmc like concat(concat('%',#{condition}),'%') 
+			or khgxgl_etcyxdjb.sjhm like concat(concat('%',#{condition}),'%'))
+		</if>
+		order by khgxgl_etcyxdjb.yyrq
+		limit #{page.currentResult},#{page.showCount}
+	</select>
+	
+	<select id="findDataCountByCond" resultType="Integer">
+		select count(*)
+		from khgxgl_etcyxdjb
+		where khgxgl_etcyxdjb.yggh = #{yggh}
+		<if test="condition != '' and condition != null">
+			and (khgxgl_etcyxdjb.khmc like concat(concat('%',#{condition}),'%') 
+			or khgxgl_etcyxdjb.sjhm like concat(concat('%',#{condition}),'%'))
+		</if>
+	</select>
+	
+	<select id="findEtcMarketingExits" resultType="EtcMarketing">
+		select * khgxgl_etcyxdjb where jgdm = #{jgdm} and zjhm = #{zjhm} and yyrq = #{yyrq}
+	</select>
+ 	
+ 	<!-- 插入数据返回自增的主键 -->
+ 	<insert id="insertEtcMarketing" parameterType="EtcMarketing">
+  		<!-- 在插入之后返回自增生成的id -->
+	<selectKey keyProperty="yybh" resultType="long" order="AFTER">
+ 		select last_insert_id()
+ 	</selectKey>
+ 		<include refid="insert_khgxgl_etcyxdjb_where"></include>
+ 	</insert>
+ 	
+ 	<update id="updateEtcMarketing" parameterType="EtcMarketing">
+ 		update khgxgl_etcyxdjb set jgdm = #{jgdm},zjlb = #{zjlb},zjhm = #{zjhm},
+ 		khmc = #{khmc},yxbl = #{yxbl},sbzt = #{sbzt},lrr = #{lrr},lrbz = #{lrbz},
+ 		yyrq = #{yyrq},yggh = #{yggh},ygxm = #{ygxm},sjhm = #{sjhm} where yybh = #{yybh}
+ 	</update>
+ 	
+ 	<delete id="deleteOneEtcMarketingByYybh" parameterType="long">
+ 		delete from khgxgl_etcyxdjb where yybh = #{yybh}
+ 	</delete>
+ </mapper>

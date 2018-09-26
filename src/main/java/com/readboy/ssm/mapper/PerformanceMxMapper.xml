@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.PerformanceMxMapper">
+    <!-- 定义sql片段 -->
+ 	<sql id="query_erp_wage_ygjx_mx_where">
+ 		select * from erp_wage_ygjx_mx
+ 	</sql>
+ 	
+ 	<select id="findPerformanceMx" resultType="PerformanceMx">
+ 	<!-- 查询绩效工资明细，首页； 连表根据 指标ID 查询 指标名称 -->
+ 		select ZZBZ, GZRQ, erp_wage_ygjx_mx.ZBID, ZBDJ, ZBJG, ZBGZ, GWBZ, YGGH, erp_wage_ygjx_mx.ZBLB, erp_wage_ygjx_mx.LRSJ, erp_wage_ygjx_mx.LRBZ, erp_wage_ygjx_mx.LRR, KHWD, erp_bas_zbk.ZBMC 
+ 		from erp_wage_ygjx_mx, erp_bas_zbk 
+ 		where yggh = #{yggh} and erp_wage_ygjx_mx.zblb = #{zblb} and gzrq between #{gzrq} and #{gzrq} 
+ 		and erp_wage_ygjx_mx.zbid = erp_bas_zbk.zbid
+ 	</select>
+ </mapper>
+

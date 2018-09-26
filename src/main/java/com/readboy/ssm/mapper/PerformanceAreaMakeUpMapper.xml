@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.PerformanceAreaMakeUpMapper">
+    <!-- 定义sql片段 -->
+ 	<sql id="erp_wage_dqbcgzmx">
+ 		select erp_wage_dqbcgzmx.*,hr_bas_organization.zzjc from erp_wage_dqbcgzmx,
+ 		hr_bas_organization 
+ 		where yggh = #{yggh} and 
+ 		tjrq between #{ksrq} and #{jsrq} and erp_wage_dqbcgzmx.zzbz = hr_bas_organization.zzbz
+ 	</sql>
+ 	
+ 	<select id="findPerformanceAreaMakeUp" resultType="PerformanceAreaMakeUp">
+ 		<include refid="erp_wage_dqbcgzmx"></include>
+ 	</select>
+ 	
+ 	<select id="findDataCountByCond" resultType="Integer">
+ 		select count(*) 
+ 		from erp_wage_dqbcgzmx
+ 		where yggh = #{yggh} and tjrq =#{ksrq}
+ 	</select>
+ </mapper>

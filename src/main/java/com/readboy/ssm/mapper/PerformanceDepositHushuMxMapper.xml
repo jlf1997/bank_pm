@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.readboy.ssm.mapper.PerformanceDepositHushuMxMapper">
+    <!-- 定义sql片段 -->
+ 	<sql id="query_erp_wage_ckkhhsmx">
+ 		select * from erp_wage_ckkhhsmx
+ 	</sql>
+ 	<select id="findPerformanceDepositHushuMx" resultType="PerformanceDepositHushuMx">
+		select erp_wage_ckkhhsmx.*,hr_bas_organization.zzjc 
+		from erp_wage_ckkhhsmx,hr_bas_organization
+		where yggh = #{yggh} and tjrq = #{tjrq} and lx=#{lx} and erp_wage_ckkhhsmx.jgdm = hr_bas_organization.ywjgdm
+ 		<if test="condition != '' and condition != null">
+			and erp_wage_ckkhhsmx.khmc like concat(concat('%',#{condition}),'%')
+		</if>
+		limit #{page.currentResult},#{page.showCount}
+ 	</select>
+ 	
+ 	<select id="findDataCountByCond" resultType="Integer">
+		select count(*) from erp_wage_ckkhhsmx,hr_bas_organization
+		where yggh = #{yggh} and tjrq = #{tjrq} 
+ 		and lx=#{lx} and erp_wage_ckkhhsmx.jgdm = hr_bas_organization.ywjgdm
+ 		<if test="condition != '' and condition != null">
+			and erp_wage_ckkhhsmx.khmc like concat(concat('%',#{condition}),'%')
+		</if>
+ 	</select>
+ </mapper>
+

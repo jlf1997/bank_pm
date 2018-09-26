@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.StaffAndPostMapper">
+	
+	<!-- 根据 -->
+ 	<select id="findYgghByZzbz" resultType="java.lang.String">
+ 		select hr_bas_staff_post.yggh from hr_bas_staff_post where 
+ 		hr_bas_staff_post.zzbz = #{zzbz} and rglx = #{rglx}
+ 	</select>
+  	<select id="findStaffAndPostByYggh" resultType="StaffAndPost">
+		select * from hr_bas_staff_post as a where rgrq = (select max(b.rgrq) from hr_bas_staff_post  as b where b.yggh = #{yggh}) and yggh=#{yggh}
+ 	</select>
+ </mapper>

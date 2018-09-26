@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.readboy.ssm.mapper.PerformanceCellBankHsMxMapper">
+    <!-- 定义sql片段 -->
+ 	<sql id="erp_wage_sjyhhsmx">
+ 		select erp_wage_sjyhhsmx.*,hr_bas_organization.zzjc from erp_wage_sjyhhsmx,
+ 		hr_bas_organization where yggh = #{yggh} and yxlx = #{yxlx} and tjrq between 
+ 		#{ksrq} and #{jsrq} and erp_wage_sjyhhsmx.jgdm = hr_bas_organization.ywjgdm
+ 		 <if test="condition != '' and condition != null">
+			and (erp_wage_sjyhhsmx.KHNAME like concat(concat('%',#{condition}),'%')
+			or erp_wage_sjyhhsmx.MOBILE like concat(concat('%',#{condition}),'%'))
+		</if>
+		order by erp_wage_sjyhhsmx.tjrq desc
+		limit #{page.currentResult},#{page.showCount}
+ 	</sql>
+ 	
+ 	<select id="findPerformanceCellBankHsMx" resultType="PerformanceCellBankHsMx">
+ 		<include refid="erp_wage_sjyhhsmx"></include>
+ 	</select>
+ 	
+ 	<select id="findDataCountByCond" resultType="Integer">
+ 		select count(*) from erp_wage_sjyhhsmx
+ 		where yggh = #{yggh} and yxlx = #{yxlx} and tjrq between #{ksrq} and #{jsrq}
+ 		 <if test="condition != '' and condition != null">
+			and (erp_wage_sjyhhsmx.KHNAME like concat(concat('%',#{condition}),'%')
+			or erp_wage_sjyhhsmx.MOBILE like concat(concat('%',#{condition}),'%'))
+		</if>
+ 	</select>
+ </mapper>

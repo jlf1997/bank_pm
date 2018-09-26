@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.UploadMapper">
+	    
+	<resultMap type="UploadModel" id="uploadMapper">
+          <id property="apkid" column="apk_id" javaType="java.lang.Integer"></id>
+          <result property="apkname" column="apk_name" javaType="java.lang.String"></result>
+          <result property="apkurl" column="apk_url" javaType="java.lang.String"></result>
+          <result property="apkuploader" column="apk_uploader" javaType="java.lang.String"></result>
+          <result property="apkversion" column="apk_version" javaType="java.lang.String"></result>
+          <result property="apkuploadtime" column="apk_uploadtime" javaType="java.lang.String"></result>
+          <result property="apkpackagename" column="apk_packagename" javaType="java.lang.String"></result>
+          <result property="apkforceupdateflag" column="apk_forceupdateflag" javaType="java.lang.Integer"></result>
+	</resultMap>
+
+ 	<insert id="insertUploadModel" useGeneratedKeys="true" keyProperty="id">
+         insert into apk_update (apk_id,apk_name,apk_url, apk_uploader,apk_version,apk_uploadtime,apk_packagename,apk_forceupdateflag) values (#{apkid},#{apkname},#{apkurl},#{apkuploader},#{apkversion},#{apkuploadtime},#{apkpackagename},#{apkforceupdateflag})
+     </insert>
+    
+     <update id="updateUploadModel">
+       update apk_update set apk_id=#{apkid},apk_name=#{apkname},apk_url=#{apkurl},apk_uploader=#{apkuploader},apk_version=#{apkversion},apk_uploadtime=#{apkuploadtime},apk_packagename=#{apkpackagename},apk_forceupdateflag=#{apkforceupdateflag} where apk_id=#{apkid}
+     </update>
+     
+     <delete id="deleteUploadModel" parameterType="int">
+      delete from apk_update where apk_id=#{id}  
+     </delete>
+     
+     <select id="selectUploadModelById" parameterType="int" resultMap="uploadMapper">
+      select * from apk_update where apk_id=#{id}
+     </select>
+   
+     <select id="selectUploadModelByPkg" parameterType="java.lang.String" resultMap="uploadMapper">
+      select * from apk_update where apk_packagename=#{id}
+     </select>   
+     
+     <select id="selectAllUploadModel" resultMap="uploadMapper">
+      select * from apk_update
+     </select>
+</mapper>

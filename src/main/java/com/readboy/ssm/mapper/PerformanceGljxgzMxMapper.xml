@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.PerformanceGljxgzMxMapper">
+
+ 	<resultMap type="PerformanceGljxgzMx" id="performanceGljxgzMxResultMap">
+ 			<result column="zzjc" property="zzjc"/>
+			<result column="gwmc" property="gwmc"/>
+			<!-- 映射单个关联的单个对象 -->
+ 		<association property="performanceManageDetail" javaType="PerformanceManageDetail">
+			<id column="tjrq" property="tjrq"/>
+			<id column="zzbz" property="zzbz"/>
+			<id column="gwbz" property="gwbz"/>
+			<id column="yggh" property="yggh"/>
+			<result column="zgts" property="zgts"/>
+			<result column="bzjx" property="bzjx"/>
+			<result column="zhjydf" property="zhjydf"/>
+			<result column="gz" property="gz"/>
+		</association>
+
+ 	</resultMap>
+ 	<!-- 联合查询管理绩效工资明细 -->
+ 	<select id="findPerformanceGljxgzMx" resultMap="performanceGljxgzMxResultMap">
+ 		select erp_wage_gljxgzmx.zgts,erp_wage_gljxgzmx.bzjx,erp_wage_gljxgzmx.zhjydf,
+ 		erp_wage_gljxgzmx.gz,hr_bas_organization.zzjc,hr_bas_post.gwmc
+ 		from erp_wage_gljxgzmx,hr_bas_organization,hr_bas_post where
+ 		erp_wage_gljxgzmx.yggh = #{yggh} and erp_wage_gljxgzmx.tjrq = #{tjrq}
+ 		and erp_wage_gljxgzmx.zzbz = hr_bas_organization.zzbz 
+ 		and hr_bas_post.gwbz = erp_wage_gljxgzmx.gwbz
+ 	</select>
+ 	
+ 	<select id="findDataCountByCond" resultType="Integer">
+ 		select count(*)
+ 		from erp_wage_gljxgzmx
+ 		where
+ 		erp_wage_gljxgzmx.yggh = #{yggh} and erp_wage_gljxgzmx.tjrq = #{tjrq}
+ 	</select>
+ 	
+ </mapper>

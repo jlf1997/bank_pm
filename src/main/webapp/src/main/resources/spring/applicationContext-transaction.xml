@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	http://www.springframework.org/schema/util 
+	http://www.springframework.org/schema/util/spring-util-4.0.xsd"> 
+	
+	<!-- spring的事务控制,spring使用jdbc的事物控制-->
+<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
+	<!-- 数据源,dataSource在applicationContext-dao.xml中已经配置-->
+	<property name="dataSource" ref="dataSource" />
+</bean>
+	<!-- 通知，暂时不知道干嘛用的,下面这些通知由事务管理器管理 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="save*" propagation="REQUIRED"/>
+			<tx:method name="insert" propagation="REQUIRED"/>
+			<tx:method name="delete" propagation="REQUIRED"/>
+			<tx:method name="update" propagation="REQUIRED"/>
+			<tx:method name="get" propagation="SUPPORTS"/>
+			<tx:method name="find" propagation="SUPPORTS"/>
+			<tx:method name="select" propagation="SUPPORTS"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- AOP -->
+	<aop:config>
+	<!-- 这里AOP引用上面定义的通知 ,pointcut是切点，
+	会去切com.readboy.ssm.serviceImpl中的所有类的所有方法-->
+		<aop:advisor advice-ref="txAdvice" 
+		pointcut="execution(* com.readboy.ssm.serviceImpl.*.*(..))"/>
+	</aop:config>
+	
+</beans>
+

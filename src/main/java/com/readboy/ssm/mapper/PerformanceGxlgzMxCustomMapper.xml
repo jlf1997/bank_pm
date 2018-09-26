@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.PerformanceGxlgzMxCustomMapper">
+
+ 	<select id="findPerformanceGxlgzMxCustom" resultType="PerformanceGxlgzMxCustom">
+ 		select erp_wage_gw_gxl.*,erp_bas_zbk.zbmc from erp_wage_gw_gxl,erp_bas_zbk
+ 		where 
+ 		erp_wage_gw_gxl.yggh = #{yggh} and erp_wage_gw_gxl.gzyf between #{ksrq} and #{jsrq} 
+ 		and erp_wage_gw_gxl.zzbz = #{zzbz} and erp_wage_gw_gxl.gwbz = #{gwbz}
+ 		and erp_wage_gw_gxl.zbid = erp_bas_zbk.zbid
+ 		group by erp_wage_gw_gxl.zzbz,erp_wage_gw_gxl.khwd,erp_wage_gw_gxl.gzyf,erp_wage_gw_gxl.zbid,
+ 		erp_bas_zbk.zbmc
+ 		order by erp_wage_gw_gxl.zbgz desc
+ 	</select>
+ 	
+ 	<select id="findDataCountByCond" resultType="Integer">
+ 		select count(*)
+ 		from erp_wage_gw_gxl
+ 		where
+ 		erp_wage_gw_gxl.yggh = #{yggh}
+ 		and erp_wage_gw_gxl.gzyf between #{ksrq} and #{jsrq} 
+ 		and erp_wage_gw_gxl.zzbz = #{zzbz} 
+ 		and erp_wage_gw_gxl.gwbz = #{gwbz}
+ 	</select>
+ 	
+ </mapper>

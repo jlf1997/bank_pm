@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.readboy.ssm.mapper.PerformanceCkAljcgzMxMapper" >
+
+<select id="findPerformanceCkAljcgzMx" resultType="PerformanceCkAljcgzMx">
+ 		select hr_bas_organization.zzjc,${tableName}.* from ${tableName},hr_bas_organization 
+ 		where yggh = #{yggh} and tjrq = #{ksrq}
+ 		and ${tableName}.zzbz = hr_bas_organization.zzbz
+ 		<if test="type == 'cl'">
+ 			and ${tableName}.clyrpljgz != 0
+ 		</if>
+ 		<if test="type == 'zl'">
+ 			and ${tableName}.zlyrpljgz != 0
+ 		</if>
+ 		<if test="condition != '' and condition != null">
+			and (${tableName}.zhmc like concat(concat('%',#{condition}),'%') 
+			or ${tableName}.ckzh like concat(concat('%',#{condition}),'%'))
+		</if>
+		limit #{page.currentResult},#{page.showCount}
+ </select>
+ 
+ <select id="findDataCountByCond" resultType="Integer">
+ 		select count(*) from ${tableName}
+ 		where yggh = #{yggh} and tjrq = #{ksrq}
+ 		<if test="type == 'cl'">
+ 			and ${tableName}.clyrpljgz != 0
+ 		</if>
+ 		<if test="type == 'zl'">
+ 			and ${tableName}.zlyrpljgz != 0
+ 		</if>
+ 		<if test="condition != '' and condition != null">
+			and (${tableName}.zhmc like concat(concat('%',#{condition}),'%') 
+			or ${tableName}.ckzh like concat(concat('%',#{condition}),'%'))
+		</if>
+ </select>
+ 
+ <update id="createTable" parameterType="java.lang.String">
+	CREATE TABLE if not exists ${tableName} (
+	  `TJRQ` datetime NOT NULL COMMENT '统计日期',
+	  `JGDM` varchar(30) NOT NULL COMMENT '机构代码',
+	  `ZZBZ` varchar(30) NOT NULL COMMENT '组织标志',
+	  `GWBZ` decimal(10,0) NOT NULL COMMENT '岗位标志',
+	  `YGGH` varchar(10) NOT NULL COMMENT '员工工号',
+	  `KHBH` varchar(50) NOT NULL COMMENT '客户编号',
+	  `CKZH` varchar(40) NOT NULL COMMENT '存款账户',
+	  `ZJHM` varchar(30) DEFAULT NULL COMMENT '证件号码',
+	  `ZHLX` varchar(20) DEFAULT NULL COMMENT '账户类型',
+	  `CLYE` decimal(18,2) DEFAULT NULL COMMENT '存量余额',
+	  `QMYE` decimal(18,2) DEFAULT NULL COMMENT '期末余额',
+	  `ZLYE` decimal(18,2) DEFAULT NULL COMMENT '增量余额',
+	  `CLYRP` decimal(18,2) DEFAULT NULL COMMENT '存量月日平',
+	  `CLNRP` decimal(18,2) DEFAULT NULL COMMENT '存量年日平',
+	  `QMYRP` decimal(18,2) DEFAULT NULL COMMENT '期末月日平',
+	  `QMNRP` decimal(18,2) DEFAULT NULL COMMENT '期末年日平',
+	  `ZLYRP` decimal(18,2) DEFAULT NULL COMMENT '增量月日平',
+	  `ZLNRP` decimal(18,2) DEFAULT NULL COMMENT '增量年日平',
+	  `CLYRPDJ` decimal(22,6) DEFAULT NULL COMMENT '存量月日平单价',
+	  `CLYRPGZ` decimal(22,6) DEFAULT NULL COMMENT '存量月日平工资',
+	  `QMYRPDJ` decimal(22,6) DEFAULT NULL COMMENT '期末月日平单价',
+	  `QMYRPGZ` decimal(22,6) DEFAULT NULL COMMENT '期末月日平工资',
+	  `ZLYRPDJ` decimal(22,6) DEFAULT NULL COMMENT '增量月日平单价',
+	  `ZLYRPGZ` decimal(22,6) DEFAULT NULL COMMENT '增量月日平工资',
+	  `CLYRPDW` decimal(18,2) DEFAULT NULL COMMENT '存量月日平单位',
+	  `ZLYRPDW` decimal(18,2) DEFAULT NULL COMMENT '增量月日平单位',
+	  `QMYRPDW` decimal(18,2) DEFAULT NULL COMMENT '期末月日平单位',
+	  `ZHMC` varchar(300) DEFAULT NULL COMMENT '账户名称',
+	  `GHBL` decimal(5,2) DEFAULT NULL COMMENT '管户比例',
+	  `CLYRPLJGZ` decimal(22,6) DEFAULT NULL COMMENT '存量月日平累计工资',
+	  `QMYRPLJGZ` decimal(22,6) DEFAULT NULL COMMENT '期末月日平累计工资',
+	  `ZLYRPLJGZ` decimal(22,6) DEFAULT NULL COMMENT '增量月日平累计工资',
+	  KEY `IDX_ERP_WAGE_CKALJCGZMX` (`YGGH`,`TJRQ`)
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ </update>
+</mapper>

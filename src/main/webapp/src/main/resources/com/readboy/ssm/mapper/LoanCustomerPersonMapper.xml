@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.LoanCustomerPersonMapper">
+    <!-- 定义sql片段 -->
+ 	<sql id="query_khgxgl_dkkhghlsb">
+ 		select * from khgxgl_dkkhghlsb
+ 	</sql>
+ 	
+ 	<select id="findLoanPersonsByKhbhAndJgdm" resultType="LoanCustomerPerson">
+ 		select JGDM, KHBH, HTH, GHLX, GHR, GHBL, KSRQ, JSRQ, LRBZ, LRR, LRSJ, hr_bas_staff.ygxm 
+ 		from khgxgl_dkkhghlsb , hr_bas_staff 
+ 		where khbh = #{khbh} and jgdm = #{jgdm} and hth = #{hth} and khgxgl_dkkhghlsb.ghr = hr_bas_staff.yggh
+ 	</select>
+ 
+ </mapper>
+

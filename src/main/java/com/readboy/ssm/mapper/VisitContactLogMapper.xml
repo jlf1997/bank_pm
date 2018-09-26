@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.readboy.ssm.mapper.VisitContactLogMapper" >
+  <resultMap id="BaseResultMap" type="com.readboy.ssm.po.VisitContactLog" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="FILENAME" property="fileName" jdbcType="VARCHAR" />
+    <result column="DATE" property="date" jdbcType="VARCHAR" />
+    <result column="VISITORID" property="visitorId" jdbcType="INTEGER" />
+    <result column="CLIENTNUM" property="clientNum" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    ID, NAME, PHONE, FILENAME, DATE, VISITORID, CLIENTNUM
+  </sql>
+
+  <!--通过主键查询一条数据-->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from visit_contact_log
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+
+  <!--通过主键ID删除一条数据-->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from visit_contact_log
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <!--插入一条数据-->
+  <insert id="insert" parameterType="com.readboy.ssm.po.VisitContactLog" >
+    insert into visit_contact_log (NAME, PHONE,
+      FILENAME, DATE, VISITORID, 
+      CLIENTNUM)
+    values (#{name}, #{phone},#{fileName},#{date}, #{visitorId},#{clientNum})
+  </insert>
+
+  <!--通过主键更新一条数据-->
+  <update id="updateByPrimaryKey" parameterType="com.readboy.ssm.po.VisitContactLog" >
+    update visit_contact_log
+    set NAME = #{name,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      FILENAME = #{fileName,jdbcType=VARCHAR},
+      DATE = #{date,jdbcType=VARCHAR},
+      VISITORID = #{visitorId,jdbcType=INTEGER},
+      CLIENTNUM = #{clientNum,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--通过客户编号查询通话记录列表-->
+  <select id="findListContactLogByClientNum" parameterType="java.lang.Integer" resultType="com.readboy.ssm.po.VisitContactLog">
+    select * from visit_contact_log
+    where CLIENTNUM = #{clientNum}
+  </select>
+
+</mapper>

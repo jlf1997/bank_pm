@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.MenuMapper">
+
+ 	<select id="findMenus" resultType="Menu">
+ 		select * 
+ 		from apk_menu 
+ 		order by id asc
+ 	</select>
+ 	
+ 	<update id="updateMenus" parameterType="java.util.List">
+ 		<foreach collection="list" item="item" index="index" separator=";">
+ 			update apk_menu
+ 			<set>
+ 				apk_menu.name = #{item.name,jdbcType=VARCHAR},
+ 				apk_menu.show = #{item.show,jdbcType=INTEGER}
+ 			</set>
+ 			where apk_menu.id = #{item.id}
+ 		</foreach>
+ 	</update>
+ 	
+ 	<update id="updateMenu" parameterType="Menu">
+ 		update apk_menu set apk_menu.name = #{name},apk_menu.show = #{show}
+ 		where id = #{id}
+ 	</update>
+ </mapper>
+

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.DepositMarketingMapper">
+    <!-- 定义sql片段 -->
+ 	<sql id="query_khgxgl_ckkhyxdjb_where">
+ 		select * from khgxgl_ckkhyxdjb
+ 	</sql>
+ 	<sql id="insert_khgxgl_ckkhyxdjb_where">
+ 		insert into khgxgl_ckkhyxdjb(jgdm,ckzl,khzl,zjlb,
+ 		zjhm,khmc,yxbl,sbzt,lrr,lrbz,yyrq,yggh,ygxm,sjhm) value(#{jgdm},
+ 		#{ckzl},#{khzl},#{zjlb},
+ 		#{zjhm},#{khmc},#{yxbl},#{sbzt,},#{lrr},
+ 		#{lrbz},#{yyrq},#{yggh},#{ygxm},#{sjhm})
+ 	</sql>
+ 	
+ 	<select id="findDepositMarketingByYybh" resultType="DepositMarketing">
+ 		select * from khgxgl_ckkhyxdjb where yybh = #{yybh}
+ 	</select>
+ 	
+ 	<select id="findAllDepositMarketing" resultType="DepositMarketing">
+ 		select * from khgxgl_ckkhyxdjb
+ 	</select>
+ 	<select id="findDepositMarketingByPrefix" resultType="DepositMarketing">
+ 		select * from khgxgl_ckkhyxdjb where khgxgl_ckkhyxdjb.yybh like concat(#{prefix},'%')
+ 		and length(khgxgl_ckkhyxdjb.yybh) >= #{len}
+ 	</select>
+ 	
+ 	<select id="findDepositMarketingByYggh" resultType="DepositMarketing">
+ 		select jgdm, ckzl, khzl, zjlb, zjhm, khmc, yxbl, sbzt, lrr, lrbz, lrsj, yyrq, yybh, yggh, ygxm, sjhm, hr_bas_organization.zzjc 
+ 		from khgxgl_ckkhyxdjb,hr_bas_organization
+ 		where
+ 		khgxgl_ckkhyxdjb.yggh = #{yggh}
+ 		and hr_bas_organization.YWJGDM = khgxgl_ckkhyxdjb.jgdm 
+ 		<if test="condition != null  and condition != ''">
+ 			and (khmc like concat('%',concat(#{condition},'%')) or sjhm like concat('%',concat(#{condition},'%')))
+ 		</if>
+ 		order by khgxgl_ckkhyxdjb.yyrq desc
+ 		limit #{page.currentResult},#{page.showCount}
+ 	</select>
+ 	
+ 	<select id="findDataCountByCond" resultType="java.lang.Integer">
+ 		select count(*)
+ 		from khgxgl_ckkhyxdjb
+ 		where khgxgl_ckkhyxdjb.yggh = #{yggh}
+ 		<if test="condition != null  and condition != ''">
+ 			and (khmc like concat('%',concat(#{condition},'%')) or sjhm like concat('%',concat(#{condition},'%')))
+ 		</if>
+ 	</select>
+ 	
+ 	<select id="findDepoditMarketingExits" resultType="DepositMarketing">
+ 		select * from khgxgl_ckkhyxdjb where jgdm = #{jgdm} and zjhm = #{zjhm} and yyrq = #{yyrq}
+ 	</select>
+ 	
+ 	<!-- 插入数据返回自增的主键 -->
+ 	<insert id="insertDepositMarketing" parameterType="DepositMarketing" useGeneratedKeys="true">
+  		<!-- 在插入之后返回自增生成的id -->
+	<selectKey keyProperty="yybh" resultType="long" order="AFTER">
+ 		select last_insert_id()
+ 	</selectKey>
+ 		<include refid="insert_khgxgl_ckkhyxdjb_where"></include>
+ 	</insert>
+ 	
+ 	<update id="updateDepositMarketing" parameterType="DepositMarketing">
+ 		update khgxgl_ckkhyxdjb set jgdm = #{jgdm},ckzl = #{ckzl},khzl = #{khzl},
+ 		zjlb = #{zjlb},zjhm = #{zjhm},khmc = #{khmc},yxbl = #{yxbl},
+ 		sbzt = #{sbzt},lrr = #{lrr},lrbz = #{lrbz},yyrq = #{yyrq},
+ 		yggh = #{yggh},ygxm = #{ygxm},sjhm = #{sjhm} where yybh = #{yybh}
+ 	</update>
+ 	
+ 	
+ 	<delete id="deleteOneDepositMarketingByYybh" parameterType="long">
+ 		delete from khgxgl_ckkhyxdjb where yybh = #{yybh}
+ 	</delete>
+ 	
+ </mapper>
+
+

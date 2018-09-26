@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.CellBankCustomerProductMapper">
+    <!-- 定义sql片段 -->
+ 	<sql id="query_app_sjyhcpxx">
+ 		select * from app_sjyhcpxx
+ 	</sql>
+ 	
+ 	<select id="findCellBankProductsByKhbhAndJgdm" resultType="CellBankCustomerProduct">
+ 		select jgdm, khmc, khbh, zjhm, sjhm, khrq, tpjgdm, tpkh, tprq, jhsj, zxrq, yxlx, tzr, tzbl, ghr, ghbl, lrr, lrbz, lrsj, hr_bas_organization.zzjc 
+ 		from app_sjyhcpxx ,hr_bas_organization
+ 		where khbh = #{khbh} and jgdm = #{jgdm} and hr_bas_organization.ywjgdm = app_sjyhcpxx.jgdm
+ 	</select>
+ 	
+ 	<select id="findDataCountByCond" resultType="Integer">
+ 		select count(*)
+ 		from app_sjyhcpxx ,hr_bas_organization
+ 		where khbh = #{khbh} and jgdm = #{jgdm}
+ 	</select>
+ 	
+ 	<select id="findOneCellBankProductsByKhbhAndJgdm" resultType="CellBankCustomerProduct">
+ 		select jgdm, khmc, khbh, zjhm, sjhm, khrq, tpjgdm, tpkh, tprq, jhsj, zxrq, yxlx, tzr, tzbl, ghr, ghbl, lrr, lrbz, lrsj, hr_bas_organization.zzjc 
+ 		from app_sjyhcpxx ,hr_bas_organization
+ 		where khbh = #{khbh} and jgdm = #{jgdm} and hr_bas_organization.ywjgdm = app_sjyhcpxx.jgdm 
+ 		order by khrq desc limit 1
+ 	</select>
+ 
+ </mapper>
+

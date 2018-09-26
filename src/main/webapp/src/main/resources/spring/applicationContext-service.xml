@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	http://www.springframework.org/schema/util 
+	http://www.springframework.org/schema/util/spring-util-4.0.xsd">   
+	
+	<!-- 用户管理的service -->
+	<bean id="organizationService"  class="com.readboy.ssm.serviceImpl.OrganizationServiceImpl"/>
+	<bean id="depositMarketingService"  class="com.readboy.ssm.serviceImpl.DepositMarketingServiceImpl"/>
+	<bean id="loanMarketingService"  class="com.readboy.ssm.serviceImpl.LoanMarketingServiceImpl"/>
+	<bean id="etcMarketingService"  class="com.readboy.ssm.serviceImpl.EtcMarketingServiceImpl"/>
+	<bean id="cellBankMarketingService"  class="com.readboy.ssm.serviceImpl.CellBankMarketingServiceImpl"/>
+	<bean id="userService"  class="com.readboy.ssm.serviceImpl.UserServiceImpl" />
+	<bean id="customerService"  class="com.readboy.ssm.serviceImpl.CustomerServiceImpl" />
+	<bean id="customerMultipleQueryService"  class="com.readboy.ssm.serviceImpl.CustomerMultipleQueryServiceImpl" />
+	<bean id="posMarketingService"  class="com.readboy.ssm.serviceImpl.PosMarketingServiceImpl" />
+	<bean id="simpleCustomerInfoService"  class="com.readboy.ssm.serviceImpl.SimpleCustomerInfoServiceImpl" />
+	<bean id="relatedPersonService"  class="com.readboy.ssm.serviceImpl.RelatedPersonServiceImpl" />
+	<bean id="depositAccountFamilyService"  class="com.readboy.ssm.serviceImpl.DepositAccountFamilyServiceImpl" />
+	<bean id="depositAccountPersonService"  class="com.readboy.ssm.serviceImpl.DepositAccountPersonServiceImpl" />
+	<bean id="cellBankCustomerPersonService"  class="com.readboy.ssm.serviceImpl.CellBankCustomerPersonServiceImpl" />
+	<bean id="cellBankCustomerProductService"  class="com.readboy.ssm.serviceImpl.CellBankCustomerProductServiceImpl" />
+	<bean id="etcCustomerFamilyService"  class="com.readboy.ssm.serviceImpl.EtcCustomerFamilyServiceImpl" />
+	<bean id="loanCustomerPersonService"  class="com.readboy.ssm.serviceImpl.LoanCustomerPersonServiceImpl" />
+	<bean id="loanCustomerProductService"  class="com.readboy.ssm.serviceImpl.LoanCustomerProductServiceImpl" />
+	<bean id="simpleDepositExpireDetailService"  class="com.readboy.ssm.serviceImpl.SimpleDepositExpireDetailServiceImpl" />
+	<bean id="simpleBSLoanExpireDetailService"  class="com.readboy.ssm.serviceImpl.SimpleBSLoanExpireDetailServiceImpl" />
+	<bean id="simpleBSNewAddBadLoanDetailService"  class="com.readboy.ssm.serviceImpl.SimpleBSNewAddBadLoanDetailServiceImpl" />
+	<bean id="simpleBSLoanOweInterestDetailService"  class="com.readboy.ssm.serviceImpl.SimpleBSLoanOweInterestDetailServiceImpl" />
+	<bean id="simpleBSLNFFExpireRecoveryRateService"  class="com.readboy.ssm.serviceImpl.SimpleBSLNFFExpireRecoveryRateServiceImpl" />
+	<bean id="simpleBSDNFFExpireRecoveryRateService"  class="com.readboy.ssm.serviceImpl.SimpleBSDNFFExpireRecoveryRateServiceImpl" />
+	<bean id="simpleBSOverdueLoanDetailService"  class="com.readboy.ssm.serviceImpl.SimpleBSOverdueLoanDetailServiceImpl" />
+	
+	<bean id="customerInfoFileService"  class="com.readboy.ssm.serviceImpl.CustomerInfoFileServiceImpl" />
+
+	
+</beans>

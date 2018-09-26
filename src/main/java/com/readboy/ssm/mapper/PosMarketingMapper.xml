@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.PosMarketingMapper">
+    <!-- 定义sql片段 -->
+ 	<sql id="query_khgxgl_posyxdjb_where">
+ 		select * from khgxgl_posyxdjb
+ 	</sql>
+ 	<sql id="insert_khgxgl_posyxdjb_where">
+ 		insert into khgxgl_posyxdjb(jgdm,zjlb,zjhm,khmc,yxbl,sbzt,lrr,lrbz,yyrq,
+ 		yggh,ygxm,sjhm,khckzh) value(#{jgdm},#{zjlb},#{zjhm},#{khmc},#{yxbl},#{sbzt,},#{lrr},
+ 		#{lrbz},#{yyrq},#{yggh},#{ygxm},#{sjhm},#{khckzh})
+ 	</sql>
+ 	
+ 	<select id="findPosMarketingByYybh"  resultType="PosMarketing">
+ 		select * from khgxgl_posyxdjb where yybh = #{yybh}
+ 	</select>
+ 	
+ 	<select id="findAllPosMarketing"  resultType="PosMarketing">
+ 		select * from khgxgl_posyxdjb
+ 	</select>
+ 	
+ 	<select id="findPosMarketingByPrefix" resultType="PosMarketing">
+ 		select * from khgxgl_posyxdjb where khgxgl_posyxdjb.yybh like concat(#{prefix},'%')
+ 		and length(khgxgl_posyxdjb.yybh) >= #{len}
+ 	</select>
+ 	
+ 	<select id="findPosMarketingByYggh" resultType="PosMarketing">
+ 		SELECT jgdm, zjlb, zjhm, khmc, sjhm, yxbl, sbzt, lrr, lrbz, lrsj, yyrq, yybh, yggh, ygxm, khckzh,
+		hr_bas_organization.zzjc
+		FROM khgxgl_posyxdjb,hr_bas_organization
+		WHERE hr_bas_organization.YWJGDM = khgxgl_posyxdjb.jgdm and khgxgl_posyxdjb.yggh = #{yggh}
+		<if test="condition != null and condition != ''">
+			and (khgxgl_posyxdjb.khmc like concat(concat('%',#{condition}),'%') or
+			khgxgl_posyxdjb.sjhm like concat(concat('%',#{condition}),'%'))
+		</if>
+		order by khgxgl_posyxdjb.yyrq desc
+		limit #{page.currentResult},#{page.showCount}
+ 	</select>
+ 	
+ 	<!-- 记录条数 -->
+ 	<select id="findDataCountByCond" resultType="Integer">
+ 		SELECT count(*)
+		FROM khgxgl_posyxdjb
+		WHERE khgxgl_posyxdjb.yggh = #{yggh}
+		<if test="condition != null and condition != ''">
+			and (khgxgl_posyxdjb.khmc like concat(concat('%',#{condition}),'%') or
+			khgxgl_posyxdjb.sjhm like concat(concat('%',#{condition}),'%'))
+		</if>
+ 	</select>
+ 	
+ 	<select id="findPosMarketingExits" resultType="PosMarketing">
+ 		select * from khgxgl_posyxdjb where jgdm = #{jgdm} and zjhm = #{zjhm} and yyrq = #{yyrq}
+ 	</select>
+ 	
+ 	<!-- 插入数据返回自增的主键 -->
+ 	<insert id="insertPosMarketing" parameterType="PosMarketing">
+  		<!-- 在插入之后返回自增生成的id -->
+	<selectKey keyProperty="yybh" resultType="long" order="AFTER">
+ 		select last_insert_id()
+ 	</selectKey>
+ 		<include refid="insert_khgxgl_posyxdjb_where"></include>
+ 	</insert>
+ 	<update id="updatePosMarketing" parameterType="PosMarketing">
+ 		update khgxgl_posyxdjb set jgdm = #{jgdm},zjlb = #{zjlb},zjhm = #{zjhm},
+ 		khmc = #{khmc},yxbl = #{yxbl},sbzt = #{sbzt},lrr = #{lrr},lrbz = #{lrbz},
+ 		yyrq = #{yyrq},yggh = #{yggh},ygxm = #{ygxm},sjhm = #{sjhm},khckzh = #{khckzh}
+ 		where yybh = #{yybh}
+ 	</update>
+ 	
+ 	<delete id="deleteOnePosMarketingByYybh" parameterType="long">
+ 		delete from khgxgl_posyxdjb where yybh = #{yybh}
+ 	</delete>
+ </mapper>
+

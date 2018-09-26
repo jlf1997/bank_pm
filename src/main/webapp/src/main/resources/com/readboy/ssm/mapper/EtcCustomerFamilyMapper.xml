@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.EtcCustomerFamilyMapper">
+	<!-- 定义sql片段 -->
+	<sql id="query_khgxgl_etckhgl">
+		select * from khgxgl_etckhgl
+	</sql>
+
+	<select id="findEtcCustomerFamilysByKhbhAndJgdm" resultType="EtcCustomerFamily">
+		select KHBH, KHMC, ZJLX, ZJHM, LXDH, KHDH, DLJGM, JGDM, KZBZ, KH, ZH, ZHXH, DFZH, DFZHXH, DFJE, XTKKH, GY, SQR, RQ, RJBRQ, BZ, LRR, LRBZ, LRSJ, TXDZ, YXLX, TZR, TZBL, AZR, AZBL, hr_bas_organization.zzjc 
+		from khgxgl_etckhgl, hr_bas_organization 
+		where khbh = #{khbh} and jgdm = #{jgdm} and hr_bas_organization.YWJGDM = khgxgl_etckhgl.jgdm 
+	</select>
+
+	<select id="findOneEtcCustomerFamilysByKhbhAndJgdm" resultType="EtcCustomerFamily">
+		select KHBH, KHMC, ZJLX, ZJHM, LXDH, KHDH, DLJGM, JGDM, KZBZ, KH, ZH, ZHXH, DFZH, DFZHXH, DFJE, XTKKH, GY, SQR, RQ, RJBRQ, BZ, LRR, LRBZ, LRSJ, TXDZ, YXLX, TZR, TZBL, AZR, AZBL, hr_bas_organization.zzjc 
+		from khgxgl_etckhgl, hr_bas_organization 
+		where khbh = #{khbh} and jgdm = #{jgdm} and hr_bas_organization.YWJGDM = khgxgl_etckhgl.jgdm 
+		order by rq desc limit 1
+	</select>
+
+</mapper>
+

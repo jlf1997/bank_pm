@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.SimpleBSLNFFExpireRecoveryRateMapper">
+    
+ 	<select id="findSimpleBSLNFFExpireRecoveryRate" resultType="SimpleBSLNFFExpireRecoveryRate">
+ 		select khgxgl_bslnffdndqshl.nd,khgxgl_bslnffdndqshl.dqje,
+ 		khgxgl_bslnffdndqshl.qmje,khgxgl_bslnffdndqshl.hsl from khgxgl_bslnffdndqshl
+ 		where khgxgl_bslnffdndqshl.bsrgh = #{bsrgh} and khgxgl_bslnffdndqshl.nd = #{ksrq}
+ 	</select>
+ 	
+ 	<select id="findDataCountByCond" resultType="Integer">
+ 		select count(*) from khgxgl_bslnffdndqshl
+ 		where khgxgl_bslnffdndqshl.bsrgh = #{bsrgh} and khgxgl_bslnffdndqshl.nd = #{ksrq}
+ 	</select>
+ 	
+ </mapper>
+

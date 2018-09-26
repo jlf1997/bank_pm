@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.readboy.ssm.mapper.AllStatisticMapper" >
+
+    <!--根据日期查询全行排名前十员工-->
+    <select id="findEmployeesByTime" parameterType="String" resultType="EmployeeStatistics">
+        SELECT erp_wage_ygjx.* ,sys_bas_user.REALNAME,hr_bas_organization.ZZMC FROM erp_wage_ygjx,sys_bas_user,hr_bas_organization
+        WHERE erp_wage_ygjx.GZRQ = #{GZRQ}
+        AND erp_wage_ygjx.QHGZPM BETWEEN 1 AND 10
+        AND erp_wage_ygjx.ZZBZ = hr_bas_organization.ZZBZ
+        AND erp_wage_ygjx.YGGH = sys_bas_user.TELLID
+        ORDER BY erp_wage_ygjx.QHGZPM ASC
+    </select>
+
+
+    <!--根据日期查询全行排名的最大值-->
+    <select id="findAllMaxNum" resultType="String">
+        SELECT MAX(QHGZPM) FROM erp_wage_ygjx WHERE erp_wage_ygjx.GZRQ = #{GZRQ}
+    </select>
+
+    <!--根据日期和排名最大值查找全行排名后十名-->
+    <select id="findAllLastTen" resultType="EmployeeStatistics">
+        SELECT erp_wage_ygjx.* ,sys_bas_user.REALNAME,hr_bas_organization.ZZMC FROM erp_wage_ygjx,sys_bas_user,hr_bas_organization
+        WHERE erp_wage_ygjx.GZRQ = #{GZRQ}
+        AND erp_wage_ygjx.QHGZPM > (#{maxValue}-10)
+        AND erp_wage_ygjx.ZZBZ = hr_bas_organization.ZZBZ
+        AND erp_wage_ygjx.YGGH = sys_bas_user.TELLID
+        ORDER BY erp_wage_ygjx.QHGZPM DESC
+    </select>
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.CustomerMapper">
+    <!-- 定义sql片段 -->
+ 	<sql id="query_app_mycust_where">
+ 		select * from app_mycust
+ 	</sql>
+ 	
+ 	<select id="findAllCustomerByKhlx" resultType="Customer">
+ 		select * from app_mycust where khlx = #{khlx} and ghrgh=#{gyh}
+ 	</select>
+ 	
+ 	<select id="findCustomerByKhbhAndGhrgh"  resultType="Customer">
+ 		select JGDM, KHBH, KHMC, ZJHM, ZZ, CPXX, SSDJ, SJHM, GHRGH, GHRXM, KHLX, hr_bas_organization.zzjc
+ 		from app_mycust ,hr_bas_organization
+ 		where khbh = #{khbh} and ghrgh = #{ghrgh} and hr_bas_organization.YWJGDM = app_mycust.jgdm
+ 	</select>
+
+ 	
+ </mapper>
+

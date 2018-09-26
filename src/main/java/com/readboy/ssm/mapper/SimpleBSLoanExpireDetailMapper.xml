@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.SimpleBSLoanExpireDetailMapper">
+    <!-- 定义sql片段 -->
+    
+ 	<select id="findSimpleBSLoanExpireDetail" resultType="SimpleBSLoanExpireDetail">
+ 		select hr_bas_organization.zzjc,
+ 		khgxgl_bsdkdqmx.khmc,khgxgl_bsdkdqmx.ffrq,khgxgl_bsdkdqmx.dqrq,
+ 		khgxgl_bsdkdqmx.ll,khgxgl_bsdkdqmx.dkje,khgxgl_bsdkdqmx.dkye,khgxgl_bsdkdqmx.wjfl
+ 		from hr_bas_organization,khgxgl_bsdkdqmx
+ 		where hr_bas_organization.ywjgdm = khgxgl_bsdkdqmx.jgdm and 
+ 		khgxgl_bsdkdqmx.bsrgh = #{bsrgh} and khgxgl_bsdkdqmx.tjyf = #{ksrq}
+ 	</select>
+ 	
+ 	<select id="findDataCountByCond" resultType="Integer">
+ 		select count(*)
+ 		from khgxgl_bsdkdqmx
+ 		where 
+ 		khgxgl_bsdkdqmx.bsrgh = #{bsrgh} and khgxgl_bsdkdqmx.tjyf = #{ksrq}
+ 	</select>
+ </mapper>
+

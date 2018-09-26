@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.readboy.ssm.mapper.DataCalendarMapper" >
+
+	<select id="findDataCalendarByCond" resultType="com.readboy.ssm.po.DataCalendar">
+		select * from sys_bas_data_calendar
+		where data_time = #{data_time} and data_type = #{data_type} 
+		and data_status = #{data_status}
+	</select>
+	
+	<select id="pageFindDataCalendarByCond" resultType="com.readboy.ssm.po.DataCalendar">
+		select * from sys_bas_data_calendar
+		<where>
+			<if test="data_time != null and data_time !=''">
+				and data_time = #{data_time}
+			</if>
+			<if test="data_type != null and data_type !=''">
+				and data_type = #{data_type}
+			</if>
+			<if test="data_status != null and data_status !=''">
+				and data_status = #{data_status}
+			</if>
+		</where>
+		limit #{page.currentResult},#{page.showCount}
+	</select>
+	
+	<select id="pageFindDataCountByCond" resultType="java.lang.Integer">
+		select count(*) from sys_bas_data_calendar
+		<where>
+			<if test="data_time != null and data_time !=''">
+				and data_time = #{data_time}
+			</if>
+			<if test="data_type != null and data_type !=''">
+				and data_type = #{data_type}
+			</if>
+			<if test="data_status != null and data_status !=''">
+				and data_status = #{data_status}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findDataCalendarExistByCond" resultType="java.lang.Long">
+		select data_id from sys_bas_data_calendar 
+		where
+		data_time = #{data_time} and data_type = #{data_type}
+	</select>
+	
+	<!-- 查询导入未成功的最小日期 -->
+	<select id="findMinDateByCond" resultType="java.lang.String">
+		select data_time from sys_bas_data_calendar 
+		where
+		data_time >= #{data_time} and data_type = #{data_type} and data_status = 0
+		order by data_time asc limit 1
+	</select>
+	
+	<insert id="insertDataCalendar" parameterType="com.readboy.ssm.po.DataCalendar">
+		<![CDATA[ 
+			insert into sys_bas_data_calendar(data_time,start_time,
+			end_time,data_type,fail_cause,consume_time,data_status)
+			values(#{data_time},#{start_time},#{end_time},#{data_type},
+			#{fail_cause},#{consume_time},#{data_status})
+		]]>
+	</insert>
+	
+	<update id="updateDataCalendar" >
+		<![CDATA[ 
+			update sys_bas_data_calendar set data_status = #{data_status}
+			where data_type = #{data_type} and data_time = #{data_time}
+		]]>
+	</update>
+	
+	<update id="updateEntireDataCalendar" parameterType="com.readboy.ssm.po.DataCalendar">
+		<![CDATA[ 
+			update sys_bas_data_calendar
+			set start_time = #{start_time},end_time = #{end_time}
+			,fail_cause = #{fail_cause},consume_time = #{consume_time}
+			,data_status = #{data_status}
+			where data_id = #{data_id}
+		]]>
+	</update>
+</mapper>

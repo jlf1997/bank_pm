@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.CustomerMultipleQueryMapper">
+    <!-- 定义sql片段 -->
+ 	
+ 	<select id="findCustomedCustomerInfo" parameterType="java.lang.String" resultMap="CustomerMultipleQueryResultMap">
+ 		select app_mycust.jgdm,app_mycust.khbh,app_mycust.khmc,app_mycust.khlx,app_mycust.sjhm,app_mycust.cpxx,
+		khgxgl_khzlgl_glrxx.glrlx,khgxgl_khzlgl_glrxx.glrxm,khgxgl_khzlgl_glrxx.lxfs,
+		khgxgl_ckzhghxx.jgdm,khgxgl_ckzhghxx.ckzh,khgxgl_ckzhghxx.khmc,khgxgl_ckzhghxx.khrq,khgxgl_ckzhghxx.dqrq,khgxgl_ckzhghxx.yxlx,
+		khgxgl_ckzhghxx.ll,khgxgl_ckzhghxx.ckye,khgxgl_ckzhghxx.tzr,khgxgl_ckzhghxx.tzbl,
+		app_dkkhcpxx.cpmc,app_dkkhcpxx.jgdm,app_dkkhcpxx.hth,app_dkkhcpxx.dkzh,app_dkkhcpxx.dkje,app_dkkhcpxx.dkye,app_dkkhcpxx.ffrq,
+		app_dkkhcpxx.dqrq,app_dkkhcpxx.khjlmc,app_dkkhcpxx.five_class_type,app_dkkhcpxx.ll,
+		app_sjyhcpxx.jgdm,app_sjyhcpxx.sjhm,app_sjyhcpxx.khmc,app_sjyhcpxx.khrq,app_sjyhcpxx.zxrq,app_sjyhcpxx.yxlx,
+		khgxgl_etckhgl.jgdm,khgxgl_etckhgl.khmc,khgxgl_etckhgl.xtkkh,khgxgl_etckhgl.rq,khgxgl_etckhgl.dfje,khgxgl_etckhgl.yxlx
+		from app_mycust,khgxgl_khzlgl_glrxx,khgxgl_ckzhghxx,app_dkkhcpxx,app_sjyhcpxx,khgxgl_etckhgl
+		<where>
+			<if test="_parameter !=null and _parameter!= ''">
+				app_mycust.khbh = #{khbh} and khgxgl_khzlgl_glrxx.khbh = #{khbh} 
+				and khgxgl_ckzhghxx.khbh = #{khbh} and app_dkkhcpxx.khbh = #{khbh} 
+				and app_sjyhcpxx.khbh = #{khbh} and khgxgl_etckhgl.khbh = #{khbh}
+			</if>
+		</where>
+ 	</select>
+ 	
+<resultMap type="com.readboy.ssm.po.CustomerMultipleQuery" id="CustomerMultipleQueryResultMap">
+ 		 <!-- 客户基本信息 -->
+ 		 <association property="customer" javaType="com.readboy.ssm.po.Customer">
+ 		 	<id column="khbh" property="khbh"/>  
+            <result column="jgdm" property="jgdm"/>  
+            <result column="khmc" property="khmc"/>  
+           	<result column="khlx" property="khlx"/>
+            <result column="sjhm" property="sjhm"/>
+            <result column="cpxx" property="cpxx"/>      
+	     </association>
+	     
+	     <collection property="relatedPerson" ofType="com.readboy.ssm.po.RelatedPerson">
+	     	<id column="khbh" property="khbh"/>
+	      	<result column="glrlx" property="glrlx"/>
+	      	<result column="glrxm" property="glrxm"/>
+	      	<result column="lxfs" property="lxfs"/>
+	     </collection>
+	     <!-- 持有产品信息之存款 -->
+	     <collection property="depositAccountFamily" ofType="com.readboy.ssm.po.DepositAccountFamily">
+	     	<id column="khbh" property="khbh"/>
+	      	<result column="jgdm" property="jgdm"/>
+	      	<result column="ckzh" property="ckzh"/>
+	      	<result column="khmc" property="khmc"/>
+	      	<result column="khrq" property="khrq"/>
+	      	<result column="dqrq" property="dqrq"/>
+	      	<result column="yxlx" property="yxlx"/>
+	      	<result column="ll" property="ll"/>
+	      	<result column="ckye" property="ckye"/>
+	      	<result column="tzr" property="tzr"/>
+	      	<result column="tzbl" property="tzbl"/>
+	     </collection>
+	     
+	       <!-- 持有产品信息之贷款客户产品信息 -->
+	     <collection property="loanCustomerProduct" ofType="com.readboy.ssm.po.LoanCustomerProduct">
+	     	<id column="khbh" property="khbh"/>
+	      	<result column="cpmc" property="cpmc"/>
+	      	<result column="jgdm" property="jgdm"/>
+	      	<result column="hth" property="hth"/>
+	      	<result column="dkzh" property="dkzh"/>
+	      	<result column="dkje" property="dkje"/>
+	      	<result column="dkye" property="dkye"/>
+	      	<result column="ffrq" property="ffrq"/>
+	      	<result column="dqrq" property="dqrq"/>
+	      	<result column="khjlmc" property="khjlmc"/>
+	      	<result column="five_class_type" property="five_class_type"/>
+	      	<result column="ll" property="ll"/>
+	     </collection>
+	     <!-- 持有产品之手机银行客户产品 -->
+	     <collection property="cellBankCustomerProduct" ofType="com.readboy.ssm.po.CellBankCustomerProduct">
+	     	<id column="khbh" property="khbh"/>
+	      	<result column="jgdm" property="jgdm"/>
+	      	<result column="sjhm" property="sjhm"/>
+	      	<result column="khmc" property="khmc"/>
+	      	<result column="khrq" property="khrq"/>
+	      	<result column="zxrq" property="zxrq"/>
+	      	<result column="yxlx" property="yxlx"/>
+	     </collection>
+	     
+	        <!-- 持有产品之ETC客户管户信息 -->
+	     <collection property="etcCustomerFamily" ofType="com.readboy.ssm.po.EtcCustomerFamily">
+	     	<id column="khbh" property="khbh"/>
+	      	<result column="jgdm" property="jgdm"/>
+	      	<result column="khmc" property="khmc"/>
+	      	<result column="xtkkh" property="xtkkh"/>
+	      	<result column="rq" property="rq"/>
+	      	<result column="dfje" property="dfje"/>
+	      	<result column="yxlx" property="yxlx"/>
+	     </collection>
+	     
+ 	</resultMap>
+ 	
+<!--  	<ResultMap type="com.readboy.ssm.po.Customer" id="CustomerResultMap">
+ 		<id column="khbh" property="khbh" />
+ 		<result column="sjhm" property="sjhm"/>  
+ 		<result column="khmc" property="khmc"/>  
+ 	</ResultMap> -->
+ </mapper>
+

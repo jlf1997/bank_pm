@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.readboy.ssm.mapper.PerformanceBlqsMxMapper">
+    <!-- 定义sql片段 -->
+ 	<sql id="query_v_wage_blqsmx_where">
+ 		select * from v_wage_blqsmx where shrgh = #{shrgh}
+ 		and gzrq between #{ksrq} and #{jsrq}
+		<if test="condition != '' and condition != null">
+			and (v_wage_blqsmx.khmc like concat(concat('%',#{condition}),'%')
+			or v_wage_blqsmx.dkzh like concat(concat('%',#{condition}),'%'))
+		</if>
+		order by v_wage_blqsmx.gzrq desc
+		limit #{page.currentResult},#{page.showCount}
+ 	</sql>
+ 	
+ 	<select id="findPerformanceBlqsMx" resultType="PerformanceBlqsMx">
+ 		<include refid="query_v_wage_blqsmx_where"></include>
+ 		
+ 	</select>
+ 	
+ 	<select id="findDataCountByCond" resultType="Integer">
+ 		select count(*) from v_wage_blqsmx where shrgh = #{shrgh}
+ 		and gzrq between #{ksrq} and #{jsrq}
+		<if test="condition != '' and condition != null">
+			and (v_wage_blqsmx.khmc like concat(concat('%',#{condition}),'%')
+			or v_wage_blqsmx.dkzh like concat(concat('%',#{condition}),'%'))
+		</if>
+ 	</select>
+ 	
+ </mapper>
