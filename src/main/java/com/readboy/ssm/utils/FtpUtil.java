@@ -23,7 +23,6 @@ public class FtpUtil {
 //	public static final String ftpPath = "appdata/service/";
 //	public static final String ftpPathClient = "appdata/client/";
 //	public static final String uploadPath = System.getProperty("user.dir");
-	
 	public static String ftpHost;
 	public static String ftpUserName;
 	public static String ftpPassword;
@@ -247,13 +246,17 @@ public class FtpUtil {
             	ftpClient.enterLocalPassiveMode();
             	//先去创建存放需要移动文件的文件
             	//String curRoot = ftpClient.printWorkingDirectory();
-            	ftpClient.changeWorkingDirectory(downloadPath);
+            	ftpClient.changeWorkingDirectory(ftpPath);
             	String s1 = ftpClient.printWorkingDirectory();
-            	boolean d = ftpClient.makeDirectory(yearMonth);
+            	System.out.println(s1);
+            	ftpClient.changeWorkingDirectory(yearMonth);
+//            	boolean d = ftpClient.makeDirectory(yearMonth);
+            	
             	String s = ftpClient.printWorkingDirectory();
-            	ftpClient.changeWorkingDirectory("../");
-            	String s2 = ftpClient.printWorkingDirectory();
-            	ftpClient.changeWorkingDirectory(yearMonth+"/");
+            	System.out.println(s);
+//            	ftpClient.changeWorkingDirectory("../");
+//            	String s2 = ftpClient.printWorkingDirectory();
+//            	ftpClient.changeWorkingDirectory(yearMonth+"/");
             	//移动文件到另一个路径,下面使用的是相对路径
             	String s3 = ftpClient.printWorkingDirectory();
             	isSuccess = ftpClient.rename(srcFileName, "../download/"+yearMonth+"/"+srcFileName);

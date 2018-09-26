@@ -195,14 +195,18 @@ public class OnApplicationStarted implements InitializingBean{
 				if(importFlag){
 					System.out.println(rq+"数据导入成功");
 					String zipFileName = "app_"+yearMonthDay+".zip";
-					boolean res = FtpUtil.moveFiles(ftpUtil.ftpHost, ftpUtil.ftpUserName, ftpUtil.ftpPassword, 
-							ftpUtil.ftpPort,ftpUtil.ftpPath, ftpUtil.downloadPath, yearMonth, zipFileName);
+//					boolean res = FtpUtil.moveFiles(ftpUtil.ftpHost, ftpUtil.ftpUserName, ftpUtil.ftpPassword, 
+//							ftpUtil.ftpPort,ftpUtil.ftpPath, ftpUtil.downloadPath, yearMonth, zipFileName);
 					//若文件移动失败，休息5s再尝试移动
-					while(res == false){
-						Thread.sleep(5000);
-						res = FtpUtil.moveFiles(ftpUtil.ftpHost, ftpUtil.ftpUserName, ftpUtil.ftpPassword, 
+					while(true){
+						boolean res = FtpUtil.moveFiles(ftpUtil.ftpHost, ftpUtil.ftpUserName, ftpUtil.ftpPassword, 
 								ftpUtil.ftpPort,ftpUtil.ftpPath, ftpUtil.downloadPath, yearMonth, zipFileName);
-						FileHelper.writeLog(sdf2.format(new Date())+" "+rq+"数据文件移动到"+ftpUtil.downloadPath+yearMonth+"下失败");
+						if(res) {
+							break;
+						}else {
+							Thread.sleep(5000);
+						}
+//						FileHelper.writeLog(sdf2.format(new Date())+" "+rq+"数据文件移动到"+ftpUtil.downloadPath+yearMonth+"下失败");
 					}
 					FileHelper.writeLog(sdf2.format(new Date())+" "+rq+"数据文件移动到"+ftpUtil.downloadPath+yearMonth+"下成功");
 					FileHelper.writeLog("");
