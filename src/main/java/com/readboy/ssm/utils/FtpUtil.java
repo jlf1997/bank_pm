@@ -139,6 +139,11 @@ public class FtpUtil {
             //切换到服务器的指定路径下
             ftpClient.changeWorkingDirectory(ftpPath);
             //创建要下载的文件
+            File localFileDir = new File(localPath);
+            if(!FileUtil.canWrite(localFileDir)) {
+            	log.error("无写入权限");
+            	return false;
+            }
             File localFile = new File(localPath+fileName);
             if(!localFile.exists()){
             	localFile.createNewFile();
@@ -168,6 +173,8 @@ public class FtpUtil {
             return false;
         }
     }
+    
+    
 
     /**
      * Description: 向FTP服务器上传文件

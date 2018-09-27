@@ -211,8 +211,8 @@ public class OnApplicationStarted implements InitializingBean{
 						if(res) {
 							break;
 						}else {
-							int sleepTime = 5+5*(moveTimes/100);
-							Thread.sleep(1000*sleepTime);
+//							int sleepTime = 5+5*(moveTimes/100);
+							Thread.sleep(1000*5);
 							
 						}
 //						FileHelper.writeLog(sdf2.format(new Date())+" "+rq+"数据文件移动到"+ftpUtil.downloadPath+yearMonth+"下失败");
