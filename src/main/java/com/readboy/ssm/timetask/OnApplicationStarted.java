@@ -17,6 +17,8 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
@@ -51,9 +53,12 @@ import com.readboy.ssm.utils.Constants;
 import com.readboy.ssm.utils.DateHelper;
 import com.readboy.ssm.utils.FileHelper;
 import com.readboy.ssm.utils.FtpUtil;
+import com.readboy.ssm.utils.LogsUtil;
 import com.readboy.ssm.utils.Zipper;
 @Service
 public class OnApplicationStarted implements InitializingBean{
+	
+	private static final Logger log = LoggerFactory.getLogger(OnApplicationStarted.class);
 	
 	private static final long serialVersionUID = 1L;
 	private final  String separator = System.getProperty("line.separator","\n");
@@ -96,6 +101,7 @@ public class OnApplicationStarted implements InitializingBean{
 	@Override
 	public void afterPropertiesSet(){
 		// TODO Auto-generated method stub
+		log.info("===============项目启动========================");
 		dealWithData();
 	}
 	
@@ -106,8 +112,8 @@ public class OnApplicationStarted implements InitializingBean{
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("您的数据导入导出开始时间设置有误，请重新设置！");
-			FileHelper.writeLog("您的数据导入导出开始时间设置有误，请重新设置！");
+			log.error("您的数据导入导出开始时间设置有误，请重新设置！");
+//			FileHelper.writeLog("您的数据导入导出开始时间设置有误，请重新设置！");
 			return;
 		}
 		Timer importTimer = new Timer();
@@ -121,8 +127,7 @@ public class OnApplicationStarted implements InitializingBean{
 				try {
 					calendarImport1();
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					log.error(LogsUtil.getStackTrace(e));
 					FileHelper.writeLog("["+sdf2.format(new Date())+"] "+"数据处理出现未知异常");
 				}
 			}
@@ -145,7 +150,7 @@ public class OnApplicationStarted implements InitializingBean{
     }
     
     public void calendarImport1() throws Exception{
-    	System.out.println("进入数据处理...");
+    	log.info("进入数据处理...");
 		String startDateTime = ftpUtil.start_date;
 		//数据导入开始和结束的日期
 		Date startDate = sdf.parse(startDateTime);
@@ -174,7 +179,7 @@ public class OnApplicationStarted implements InitializingBean{
 					data_time = dataCalendarService.findMinDateByCond(sdf.format(originalDate), 1);
 					queryException = false;
 				}catch(Exception e){
-					e.printStackTrace();
+					log.error(LogsUtil.getStackTrace(e));
 					Thread.sleep(3000);
 				}
 			}
@@ -193,24 +198,29 @@ public class OnApplicationStarted implements InitializingBean{
 				importFlag = dataImport(yearMonthDay,yearMonth,rq);
 				//如果数据导入成功了，把ftp上的文件移动到download目录下
 				if(importFlag){
-					System.out.println(rq+"数据导入成功");
+					log.info(rq+"数据导入成功");
 					String zipFileName = "app_"+yearMonthDay+".zip";
 //					boolean res = FtpUtil.moveFiles(ftpUtil.ftpHost, ftpUtil.ftpUserName, ftpUtil.ftpPassword, 
 //							ftpUtil.ftpPort,ftpUtil.ftpPath, ftpUtil.downloadPath, yearMonth, zipFileName);
-					//若文件移动失败，休息5s再尝试移动
+					//若文件移动失败，休息一段时间再尝试移动
+					int moveTimes = 0;
 					while(true){
 						boolean res = FtpUtil.moveFiles(ftpUtil.ftpHost, ftpUtil.ftpUserName, ftpUtil.ftpPassword, 
 								ftpUtil.ftpPort,ftpUtil.ftpPath, ftpUtil.downloadPath, yearMonth, zipFileName);
+						moveTimes++;
 						if(res) {
 							break;
 						}else {
-							Thread.sleep(5000);
+							int sleepTime = 5+5*(moveTimes/100);
+							Thread.sleep(1000*sleepTime);
+							
 						}
 //						FileHelper.writeLog(sdf2.format(new Date())+" "+rq+"数据文件移动到"+ftpUtil.downloadPath+yearMonth+"下失败");
 					}
 					FileHelper.writeLog(sdf2.format(new Date())+" "+rq+"数据文件移动到"+ftpUtil.downloadPath+yearMonth+"下成功");
 					FileHelper.writeLog("");
 				}else{
+					log.error("导入失败");
 					//导入不成功，休息30S
 					Thread.sleep(30000);
 				}
@@ -459,17 +469,20 @@ public class OnApplicationStarted implements InitializingBean{
 		//删除解密文件夹里残余的文件
 		FileHelper.deleteFilesInDirectory(deCryptFiles);
 		String fileName = "app_"+yearMonthDay+".zip";
-		System.out.println("开始下载..."+new Date());
+		log.info("开始下载"+fileName+"...文件保存到:"+localPath);
 		boolean isDownload = FtpUtil.downloadFtpFile(FtpUtil.ftpHost,
 				FtpUtil.ftpUserName, FtpUtil.ftpPassword,
 				FtpUtil.ftpPort, FtpUtil.ftpPath+yearMonth+"/", localPath, fileName);
-		System.out.println("下载结束..."+new Date());
+		log.info("下载结束..."+new Date());
 		if(isDownload){ //下载成功
+			log.info(fileName+"下载成功");
 			//解压
 			try{
 				Zipper.unzip(localPath+fileName, localPath);
+				log.info(fileName+"解压成功");
 			}catch(Exception e){
-				e.printStackTrace();
+				log.error(fileName+"解压失败");
+				log.error(LogsUtil.getStackTrace(e));
 				if(data_id == null){
 					insertDataCalendar(dataCalendar,"文件解压失败",1,0,startMillions);
 				}else{
@@ -483,9 +496,9 @@ public class OnApplicationStarted implements InitializingBean{
 //			File files[] = deCryptFiles.listFiles();
 			File files[] = file.listFiles();
 		    //执行数据导入
-			System.out.println("开始数据导入");
+			log.info("开始数据导入");
 			if(dataImort(rq,files)){
-				System.out.println("导入成功！");
+				log.info("导入成功！");
 				if(data_id == null){
 					insertDataCalendar(dataCalendar,null,1,1,startMillions);
 				}else{
@@ -494,6 +507,7 @@ public class OnApplicationStarted implements InitializingBean{
 				}
 				return true;
 			}else{
+				log.error("导入失败！");
 			    //再尝试一次下载和导入
 				if(data_id == null){
 					insertDataCalendar(dataCalendar,"数据导入失败",1,0,startMillions);
@@ -504,6 +518,7 @@ public class OnApplicationStarted implements InitializingBean{
 			}
 		}else{ 
 			//下载失败
+			log.error(fileName+"下载失败");
 			//再尝试一次下载和导入
 			if(data_id == null){
 				insertDataCalendar(dataCalendar,"下载失败",1,0,startMillions);
@@ -579,40 +594,35 @@ public class OnApplicationStarted implements InitializingBean{
 						try {
 							performanceDkmnlrgzMxService.createTable(tableName);
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							log.error(LogsUtil.getStackTrace(e));
 							continue;
 						}
 					}else if (tableName.contains(Constants.table_ckmnlrgzmx)) {
 						try {
 							performanceCkmnlrgzMxService.createTable(tableName);
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							log.error(LogsUtil.getStackTrace(e));
 							continue;
 						}
 					}else if(tableName.contains("erp_wage_ckaljcgzmx")){
 						try {
 							performanceCkAljcgzMxService.createTable(tableName);
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							log.error(LogsUtil.getStackTrace(e));
 							continue;
 						}
 					}else if(tableName.contains("erp_wage_ckyzkhgzmx")){
 						try {
 							performanceCkYzkhgzMxService.createTable(tableName);
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							log.error(LogsUtil.getStackTrace(e));
 							continue;
 						}
 					}else if(tableName.contains("erp_wage_dkaljcgzmx")){
 						try {
 							performanceDkAljcgzMxService.createTable(tableName);
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							log.error(LogsUtil.getStackTrace(e));
 							continue;
 						}
 					}
@@ -623,7 +633,7 @@ public class OnApplicationStarted implements InitializingBean{
 							dataInfoService.deleteMarketingData(tableName, minNum);
 							
 						} catch (Exception e) {
-							e.printStackTrace();
+							log.error(LogsUtil.getStackTrace(e));
 							continue;
 						}
 					}else if(fName.equals("erp_wage_ygjx.txt") || fName.equals("erp_wage_ygjx_mx.txt")){
@@ -631,8 +641,7 @@ public class OnApplicationStarted implements InitializingBean{
 							dataInfoService.deleteTableDataByrq(tableName, zd[0], ksrq, jsrq);
 
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							log.error(LogsUtil.getStackTrace(e));
 							continue;
 						}
 					}else if(fName.contains("erp_wage_ckmnlrgzmx_") || fName.equals("erp_wage_ckkhhsmx.txt")
@@ -643,16 +652,14 @@ public class OnApplicationStarted implements InitializingBean{
 						try {
 							dataInfoService.deleteTableDataByrq(tableName, zd[1], ksrq, jsrq);
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							log.error(LogsUtil.getStackTrace(e));
 							continue;
 						}
 					}else{
 						try {
 							dataInfoService.deleteTableData(tableName);
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							log.error(LogsUtil.getStackTrace(e));
 							continue;
 						}
 					}
@@ -662,14 +669,14 @@ public class OnApplicationStarted implements InitializingBean{
 						FileHelper.writeLog(sdf2.format(new Date())+" 日期为"+rq+"的表"+tableName+"数据导入成功");
 						list.remove(0);
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						log.error(LogsUtil.getStackTrace(e));
 						FileHelper.writeLog(sdf2.format(new Date())+ "日期为"+rq+"的表"+tableName+"数据导入失败");
 					}
 				}
 				cnt++;
 				//导入次数太多，跳出循环，避免无限循环
 				if(cnt > 200){
+					log.error(rq+"的数据循环导入次数太多，退出导入..");
 					FileHelper.writeLog(rq+"的数据循环导入次数太多，退出导入..");
 					break;
 				}
@@ -720,8 +727,7 @@ public class OnApplicationStarted implements InitializingBean{
 					try {
 						file.createNewFile();
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						log.error(LogsUtil.getStackTrace(e));
 						return false;
 					}
 				}
@@ -732,8 +738,7 @@ public class OnApplicationStarted implements InitializingBean{
 					try {
 						list = depositMarketingService.findDepositMarketingByPrefix("99", 12);
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						log.error(LogsUtil.getStackTrace(e));
 						//记录为空就插入，否则就更新错误信息
 						if(failNote == null){
 							insertDataCalendar(dataCalendar,"数据库访问失败",0,0,startMillions);
@@ -767,8 +772,7 @@ public class OnApplicationStarted implements InitializingBean{
 					try {
 						list = cellBankMarketingService.findCellBankMarketingByPrefix("99", 12);
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						log.error(LogsUtil.getStackTrace(e));
 						//记录为空就插入，否则就更新错误信息
 						if(failNote == null){
 							insertDataCalendar(dataCalendar,"数据库访问失败",0,0,startMillions);
@@ -800,8 +804,7 @@ public class OnApplicationStarted implements InitializingBean{
 					try {
 						list = etcMarketingService.findEtcMarketingByPrefix("99", 12);
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						log.error(LogsUtil.getStackTrace(e));
 						//记录为空就插入，否则就更新错误信息
 						if(failNote == null){
 							insertDataCalendar(dataCalendar,"数据库访问失败",0,0,startMillions);
@@ -833,8 +836,7 @@ public class OnApplicationStarted implements InitializingBean{
 					try {
 						list = posMarketingService.findPosMarketingByPrefix("99",12);
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						log.error(LogsUtil.getStackTrace(e));
 						//记录为空就插入，否则就更新错误信息
 						if(failNote == null){
 							insertDataCalendar(dataCalendar,"数据库访问失败",0,0,startMillions);
@@ -869,8 +871,7 @@ public class OnApplicationStarted implements InitializingBean{
 					try {
 						file.createNewFile();
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						log.error(LogsUtil.getStackTrace(e));
 						if(failNote == null){
 							insertDataCalendar(dataCalendar,"文件创建失败",0,0,startMillions);
 						}else{
@@ -886,8 +887,7 @@ public class OnApplicationStarted implements InitializingBean{
 					fos.flush();
 					fos.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					log.error(LogsUtil.getStackTrace(e));
 					if(failNote == null){
 						insertDataCalendar(dataCalendar,"导出数据写文件失败",0,0,startMillions);
 					}else{
@@ -914,7 +914,7 @@ public class OnApplicationStarted implements InitializingBean{
 			try{
 				Zipper.zip(zipParent.getAbsolutePath(),zipFile.getAbsolutePath());
 			}catch(Exception e){
-				e.printStackTrace();
+				log.error(LogsUtil.getStackTrace(e));
 				if(failNote == null){
 					insertDataCalendar(dataCalendar,"文件压缩失败",0,0,startMillions);
 				}else{
@@ -929,11 +929,11 @@ public class OnApplicationStarted implements InitializingBean{
 			boolean flag = FtpUtil.uploadFile(FtpUtil.ftpHost, FtpUtil.ftpUserName, FtpUtil.ftpPassword,
 					FtpUtil.ftpPort, FtpUtil.ftpPathClient, zipName, input,yearMonthDay.substring(0,yearMonthDay.length()-2));
 			if(flag){
-				System.out.println("上传成功!");
+				log.info(zipName+"上传成功!");
 				insertDataCalendar(dataCalendar,null,0,1,startMillions);
 			}else{
 				//导出失败
-				System.out.println("上传失败!");
+				log.error(zipName+"上传失败!");
 				if(failNote == null){
 					insertDataCalendar(dataCalendar,"上传失败",0,0,startMillions);
 				}else{
