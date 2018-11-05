@@ -13,6 +13,7 @@
 	<!-- 配置Handler -->
 	 
 	<mvc:default-servlet-handler />
+	<mvc:annotation-driven/>
 	
     <mvc:annotation-driven />
     	<mvc:interceptors>
@@ -57,4 +58,10 @@
 		<property name="defaultEncoding" value="UTF-8" />
 		<property name="maxUploadSize" value="20971520" />
 	</bean>
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name = "prefix" value="/META-INF/resources/"></property>
+        <property name = "suffix" value = ""></property>
+    </bean>
+    
 </beans>

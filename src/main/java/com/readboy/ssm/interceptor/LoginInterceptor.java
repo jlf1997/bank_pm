@@ -36,7 +36,14 @@ public class LoginInterceptor implements HandlerInterceptor{
 		}
 		if(url.indexOf("/DownloadApk") >= 0){
 			return true;
-		}		
+		}	
+		if(url.indexOf("/swagger-ui.html") >= 0 || url.indexOf(".png")>=0 ) {
+			return true;
+		}
+		
+		if(url.indexOf("/configuration/ui") >= 0) {
+			return true;
+		}
 		
 //		if(url.indexOf("/UploadApkView") >= 0){
 //			return true;
