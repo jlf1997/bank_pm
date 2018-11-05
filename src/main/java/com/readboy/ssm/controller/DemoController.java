@@ -12,8 +12,8 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/swaggerDemo")
 public class DemoController {
 
-	@ApiOperation(value = "获取盈豆数量", notes = "获取盈豆数量", httpMethod = "POST")
-	@RequestMapping(value="getBeansNumber", method=RequestMethod.POST)
+	@ApiOperation(value = "获取盈豆数量", notes = "获取盈豆数量", httpMethod = "GET")
+	@RequestMapping(value="getBeansNumber", method=RequestMethod.GET)
 	public String demo() {
 		return "demo";
 	}
