@@ -49,6 +49,16 @@ public class TB_TJFX_BLDKKHService extends Finder<TB_TJFX_BLDKKH, Long>{
 	}
 
 	
-
+	public int getCount(String yggh,int khlx) {
+		TB_TJFX_BLDKKH t = new TB_TJFX_BLDKKH();
+		t.setYggh(yggh);
+		t.setKhlx(khlx);
+		List list = findAll(t);
+		if(list!=null) {
+			return list.size();
+		}
+		return 0;
+		
+	}
 	
 }

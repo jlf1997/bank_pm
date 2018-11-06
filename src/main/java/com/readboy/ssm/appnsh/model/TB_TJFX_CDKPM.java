@@ -3,10 +3,18 @@ package com.readboy.ssm.appnsh.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.Table;
+/**
+ * 存贷金额排名
+ * @author Administrator
+ *
+ */
+@Table(name="TB_TJFX_CDKPM")
+@Entity
 public class TB_TJFX_CDKPM {
 	
 	@Id
