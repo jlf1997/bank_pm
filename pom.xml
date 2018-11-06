@@ -16,6 +16,9 @@
 		<mybatis.version>3.3.0</mybatis.version>
 		<slf4j.version>1.7.12</slf4j.version>
 		<log4j.version>1.2.17</log4j.version>
+		 <version-hibernate.validator>4.3.1.Final</version-hibernate.validator>
+	    <version-hibernate.jpa>1.0.1.Final</version-hibernate.jpa>
+	    <version-hibernate>4.2.6.Final</version-hibernate>
 	</properties>
 	<!--  
     <parent>
@@ -324,7 +327,55 @@
         
         <!-- swagger end -->
         
-        
+        <dependency>
+	      <groupId>org.springframework.data</groupId>
+	      <artifactId>spring-data-jpa</artifactId>
+	      <version>1.6.2.RELEASE</version>
+	    </dependency>
+	  <dependency>
+    <groupId>org.javassist</groupId>
+    <artifactId>javassist</artifactId>
+    <version>3.21.0-GA</version>
+</dependency>
+		
+		 <!--hibernate的包-->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>${version-hibernate}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-entitymanager</artifactId>
+      <version>${version-hibernate}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>cglib</artifactId>
+          <groupId>cglib</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>dom4j</artifactId>
+          <groupId>dom4j</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>${version-hibernate.validator}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate.javax.persistence</groupId>
+      <artifactId>hibernate-jpa-2.0-api</artifactId>
+      <version>${version-hibernate.jpa}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-ehcache</artifactId>
+      <version>${version-hibernate}</version>
+    </dependency>
+
+	    
         
 	</dependencies>
 	

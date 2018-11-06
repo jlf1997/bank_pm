@@ -21,6 +21,10 @@
 	<!-- 数据源,dataSource在applicationContext-dao.xml中已经配置-->
 	<property name="dataSource" ref="dataSource" />
 </bean>
+
+
+	
+	
 	<!-- 通知，暂时不知道干嘛用的,下面这些通知由事务管理器管理 -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
@@ -41,6 +45,16 @@
 		<aop:advisor advice-ref="txAdvice" 
 		pointcut="execution(* com.readboy.ssm.serviceImpl.*.*(..))"/>
 	</aop:config>
+	
+	<bean id="jpaTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+	<property name="entityManagerFactory" ref="entityManagerFactory"/>
+</bean>
+	<!-- 使用annotation定义事务 -->
+	<tx:annotation-driven transaction-manager="jpaTransactionManager" proxy-target-class="true" />
+
+
+	<!-- 定义aspectj -->
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
 	
 </beans>
 

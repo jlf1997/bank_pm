@@ -5,6 +5,8 @@
 	xmlns:aop="http://www.springframework.org/schema/aop" 
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 	http://www.springframework.org/schema/context
@@ -14,6 +16,10 @@
 	http://www.springframework.org/schema/tx 
 	http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 	http://www.springframework.org/schema/util 
+	 http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+	http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd 
+	 http://www.springframework.org/schema/data/repository
+   http://www.springframework.org/schema/data/repository/spring-repository-1.6.xsd
 	http://www.springframework.org/schema/util/spring-util-4.0.xsd">    
 	
 	<!-- mybatis与spring整合配置 -->
@@ -43,4 +49,14 @@
 		<property name="basePackage" value="com.readboy.ssm.mapper"/>
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
 	</bean>
+	
+	<!-- 配置EntityManagerFactory -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+         <property name="dataSource" ref="dataSource"/> 
+         <property name="persistenceUnitName" value="test" />
+         <property name="persistenceXmlLocation" value="classpath:jpa/persistence.xml"></property>
+    	 <property name="packagesToScan" value="com.readboy.ssm.*.model" />
+    </bean>
+    
+    
 </beans>
