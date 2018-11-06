@@ -12,39 +12,43 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Service;
 
-import com.readboy.ssm.appnsh.jpa.TB_TJFX_CDZLJpa;
+import com.readboy.ssm.appnsh.jpa.TB_TJFX_BLDKKHJpa;
+import com.readboy.ssm.appnsh.model.TB_TJFX_BLDKKH;
 import com.readboy.ssm.appnsh.model.TB_TJFX_CDZL;
 import com.readboy.ssm.appnsh.util.Finder;
 
 @Service
-public class TB_TJFX_CDZLService extends Finder<TB_TJFX_CDZL, Long>{
+public class TB_TJFX_BLDKKHService extends Finder<TB_TJFX_BLDKKH, Long>{
 	
 	@Autowired
-	private TB_TJFX_CDZLJpa jpa;
+	private TB_TJFX_BLDKKHJpa jpa;
 
 	@Override
-	public JpaSpecificationExecutor<TB_TJFX_CDZL> specjpa() {
+	public JpaSpecificationExecutor<TB_TJFX_BLDKKH> specjpa() {
 		// TODO Auto-generated method stub
 		return jpa;
 	}
 
 	@Override
-	public JpaRepository<TB_TJFX_CDZL, Long> jpa() {
+	public JpaRepository<TB_TJFX_BLDKKH, Long> jpa() {
 		// TODO Auto-generated method stub
 		return jpa;
 	}
 
 	@Override
-	public void addWhere(TB_TJFX_CDZL[] t, List<Predicate> predicates, Root<TB_TJFX_CDZL> root, CriteriaQuery<?> query,
-			CriteriaBuilder cb) {
+	public void addWhere(TB_TJFX_BLDKKH[] t, List<Predicate> predicates, Root<TB_TJFX_BLDKKH> root,
+			CriteriaQuery<?> query, CriteriaBuilder cb) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void setSelect(TB_TJFX_CDZL t) {
+	public void setSelect(TB_TJFX_BLDKKH t) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	
+
+	
 }
