@@ -45,6 +45,10 @@ public class LoginInterceptor implements HandlerInterceptor{
 			return true;
 		}
 		
+		if(url.indexOf("/demo/") >= 0) {
+			return true;
+		}
+		
 //		if(url.indexOf("/UploadApkView") >= 0){
 //			return true;
 //		}
