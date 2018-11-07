@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.readboy.ssm.appnsh.jpa.TB_TJFX_CDKPMJpa;
 import com.readboy.ssm.appnsh.model.TB_TJFX_CDKPM;
+import com.readboy.ssm.appnsh.model.TB_TJFX_DKDQKH;
 import com.readboy.ssm.appnsh.util.Finder;
 
 @Service
@@ -46,6 +47,7 @@ public class TB_TJFX_CDKPMService extends Finder<TB_TJFX_CDKPM, Long>{
 		// TODO Auto-generated method stub
 		
 	}
+
 
 
 }

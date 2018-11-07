@@ -12,41 +12,39 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Service;
 
-import com.readboy.ssm.appnsh.jpa.TB_TJFX_CDZLJpa;
-import com.readboy.ssm.appnsh.model.TB_TJFX_CDZL;
-import com.readboy.ssm.appnsh.model.TB_TJFX_DKDQKH;
+import com.readboy.ssm.appnsh.jpa.OrgJpa;
+import com.readboy.ssm.appnsh.model.Org;
 import com.readboy.ssm.appnsh.util.Finder;
 
 @Service
-public class TB_TJFX_CDZLService extends Finder<TB_TJFX_CDZL, Long>{
-	
+public class OrgService extends Finder<Org, String>{
+
 	@Autowired
-	private TB_TJFX_CDZLJpa jpa;
-
+	private OrgJpa jpa;
+	
 	@Override
-	public JpaSpecificationExecutor<TB_TJFX_CDZL> specjpa() {
+	public JpaSpecificationExecutor<Org> specjpa() {
 		// TODO Auto-generated method stub
 		return jpa;
 	}
 
 	@Override
-	public JpaRepository<TB_TJFX_CDZL, Long> jpa() {
+	public JpaRepository<Org, String> jpa() {
 		// TODO Auto-generated method stub
 		return jpa;
 	}
 
 	@Override
-	public void addWhere(TB_TJFX_CDZL[] t, List<Predicate> predicates, Root<TB_TJFX_CDZL> root, CriteriaQuery<?> query,
+	public void addWhere(Org[] t, List<Predicate> predicates, Root<Org> root, CriteriaQuery<?> query,
 			CriteriaBuilder cb) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void setSelect(TB_TJFX_CDZL t) {
+	public void setSelect(Org t) {
 		// TODO Auto-generated method stub
 		
 	}
-
 
 }

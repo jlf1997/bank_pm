@@ -12,8 +12,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Service;
 
+import com.readboy.ssm.appnsh.dto.TB_TJFX_YQDKKHDto;
 import com.readboy.ssm.appnsh.jpa.TB_TJFX_YQDKKHJpa;
-import com.readboy.ssm.appnsh.model.TB_TJFX_CDZL;
 import com.readboy.ssm.appnsh.model.TB_TJFX_YQDKKH;
 import com.readboy.ssm.appnsh.util.Finder;
 
@@ -22,6 +22,9 @@ public class TB_TJFX_YQDKKHService extends Finder<TB_TJFX_YQDKKH, Long>{
 	
 	@Autowired
 	private TB_TJFX_YQDKKHJpa jpa;
+	
+	@Autowired
+	private OrgService orgService;
 
 	@Override
 	public JpaSpecificationExecutor<TB_TJFX_YQDKKH> specjpa() {
@@ -48,5 +51,24 @@ public class TB_TJFX_YQDKKHService extends Finder<TB_TJFX_YQDKKH, Long>{
 		
 	}
 
-
+	public int getCount(String yggh,int khlx) {
+		TB_TJFX_YQDKKH t = new TB_TJFX_YQDKKH();
+		t.setYggh(yggh);
+		t.setKhlx(khlx);
+		List<TB_TJFX_YQDKKH> list = findAll(t);
+		if(list!=null) {
+			return list.size();
+		}
+		return 0;
+		
+	}
+	
+	public List<TB_TJFX_YQDKKHDto> getTB_TJFX_BLDKKHByYgghAndKHLX(String yggh,Integer khlx){
+		TB_TJFX_YQDKKH t = new TB_TJFX_YQDKKH();
+		t.setKhlx(khlx);
+		t.setYggh(yggh);
+		List<TB_TJFX_YQDKKH> list = this.findAll(t);
+		return TB_TJFX_YQDKKHDto.copyList(list,orgService);
+		
+	}
 }
