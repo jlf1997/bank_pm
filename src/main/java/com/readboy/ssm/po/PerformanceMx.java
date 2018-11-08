@@ -18,6 +18,7 @@ public class PerformanceMx {
 	private String gzrq;			//工资日期
 	@Id
 	private String zbid;			//指标ID
+	
 	private String zbmc;			//指标名称，从表erp_bas_zbk中获取
 	private BigDecimal zbdj;		//指标单价
 	private BigDecimal zbjg;		//指标结果
