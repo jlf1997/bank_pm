@@ -1,75 +1,34 @@
 package com.readboy.ssm.po;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * 员工信息，对应表 hr_bas_staff
  * @author Administrator
  *
  */
+@Entity
+@Table(name = "hr_bas_staff")
 public class Staff {
+	@Id
 	private String yggh;	//员工工号
 	private String ygxm;	//员工姓名
-	private int yglx;		//员工类型
-	private int ygzt;		//员工状态
-	private int xb;			//性别
+	private Integer yglx;		//员工类型
+	private Integer ygzt;		//员工状态
+	private Integer xb;			//性别
 	private String sfzh;	//身份证号
 	private String sjhm;	//手机号码
 	private String gzkh;	//工资卡号
 	private String rzrq;	//入职日期
 	private String zzrq;	//转正日期
 	private String lzrq;	//离职日期
-	private int scbz;		//删除标志
+	private Integer scbz;		//删除标志
 	private String scsj;	//删除时间
 	private String scczy;	//删除操作员
 	private String gyh;		//柜员号
 	private String khjlbh;	//客户经理编号
-	public String getYggh() {
-		return yggh;
-	}
-	public void setYggh(String yggh) {
-		this.yggh = yggh;
-	}
-	public String getYgxm() {
-		return ygxm;
-	}
-	public void setYgxm(String ygxm) {
-		this.ygxm = ygxm;
-	}
-	public int getYglx() {
-		return yglx;
-	}
-	public void setYglx(int yglx) {
-		this.yglx = yglx;
-	}
-	public int getYgzt() {
-		return ygzt;
-	}
-	public void setYgzt(int ygzt) {
-		this.ygzt = ygzt;
-	}
-	public int getXb() {
-		return xb;
-	}
-	public void setXb(int xb) {
-		this.xb = xb;
-	}
-	public String getSfzh() {
-		return sfzh;
-	}
-	public void setSfzh(String sfzh) {
-		this.sfzh = sfzh;
-	}
-	public String getSjhm() {
-		return sjhm;
-	}
-	public void setSjhm(String sjhm) {
-		this.sjhm = sjhm;
-	}
-	public String getGzkh() {
-		return gzkh;
-	}
-	public void setGzkh(String gzkh) {
-		this.gzkh = gzkh;
-	}
 	public String getRzrq() {
 		if(rzrq != null && rzrq.length() > 10){
 			return rzrq.substring(0,10);
@@ -100,8 +59,53 @@ public class Staff {
 	public int getScbz() {
 		return scbz;
 	}
-	public void setScbz(int scbz) {
-		this.scbz = scbz;
+	public String getYggh() {
+		return yggh;
+	}
+	public void setYggh(String yggh) {
+		this.yggh = yggh;
+	}
+	public String getYgxm() {
+		return ygxm;
+	}
+	public void setYgxm(String ygxm) {
+		this.ygxm = ygxm;
+	}
+	public Integer getYglx() {
+		return yglx;
+	}
+	public void setYglx(Integer yglx) {
+		this.yglx = yglx;
+	}
+	public Integer getYgzt() {
+		return ygzt;
+	}
+	public void setYgzt(Integer ygzt) {
+		this.ygzt = ygzt;
+	}
+	public Integer getXb() {
+		return xb;
+	}
+	public void setXb(Integer xb) {
+		this.xb = xb;
+	}
+	public String getSfzh() {
+		return sfzh;
+	}
+	public void setSfzh(String sfzh) {
+		this.sfzh = sfzh;
+	}
+	public String getSjhm() {
+		return sjhm;
+	}
+	public void setSjhm(String sjhm) {
+		this.sjhm = sjhm;
+	}
+	public String getGzkh() {
+		return gzkh;
+	}
+	public void setGzkh(String gzkh) {
+		this.gzkh = gzkh;
 	}
 	public String getScsj() {
 		return scsj;
@@ -127,6 +131,11 @@ public class Staff {
 	public void setKhjlbh(String khjlbh) {
 		this.khjlbh = khjlbh;
 	}
+	public void setScbz(Integer scbz) {
+		this.scbz = scbz;
+	}
+	
+	
 	
 	
 }
