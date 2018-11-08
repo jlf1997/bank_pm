@@ -30,7 +30,7 @@ import com.readboy.ssm.appnsh.service.TB_TJFX_DKDQKHService;
 import com.readboy.ssm.appnsh.service.TB_TJFX_YQDKKHService;
 
 @RestController
-@RequestMapping("/demo/mobile/customer")
+@RequestMapping("/mobile/customer")
 public class AppIndexCustomerController {
 
 	@Autowired
