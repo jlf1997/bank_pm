@@ -1,5 +1,7 @@
 package com.readboy.ssm.appjx.service;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -13,42 +15,55 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Service;
 
 import com.readboy.ssm.appjx.jpa.ErpWageYgjxJpa;
-import com.readboy.ssm.appjx.model.JXPK;
+import com.readboy.ssm.appjx.model.ErpWageYgjx;
+import com.readboy.ssm.appjx.model.pk.JXPK;
 import com.readboy.ssm.appnsh.util.Finder;
-import com.readboy.ssm.po.Performance;
+import com.readboy.ssm.utils.TimeUtil;
 
 @Service
-public class ErpWageYgjxService extends Finder<Performance, JXPK>{
+public class ErpWageYgjxService extends Finder<ErpWageYgjx, JXPK>{
 	
 	
 	@Autowired
 	private ErpWageYgjxJpa jpa;
 
 	@Override
-	public JpaSpecificationExecutor<Performance> specjpa() {
+	public JpaSpecificationExecutor<ErpWageYgjx> specjpa() {
 		// TODO Auto-generated method stub
 		return jpa;
 	}
 
 	@Override
-	public JpaRepository<Performance, JXPK> jpa() {
+	public JpaRepository<ErpWageYgjx, JXPK> jpa() {
 		// TODO Auto-generated method stub
 		return jpa;
 	}
 
 	@Override
-	public void addWhere(Performance[] t, List<Predicate> predicates, Root<Performance> root, CriteriaQuery<?> query,
+	public void addWhere(ErpWageYgjx[] t, List<Predicate> predicates, Root<ErpWageYgjx> root, CriteriaQuery<?> query,
 			CriteriaBuilder cb) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void setSelect(Performance t) {
+	public void setSelect(ErpWageYgjx t) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	
+	/**
+	 * 获取当月
+	 * @param month
+	 * @param yggh
+	 * @return
+	 */
+	public BigDecimal getMonthZj(Date month,String yggh) {
+		Date b = TimeUtil.getTheFirstDayOfMonth(month);
+		Date e = TimeUtil.getTheLastDayOfMonth(month);
+		return jpa.getMonthZj(b, e, yggh);
+	}
 
 	
 	

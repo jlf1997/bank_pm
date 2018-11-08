@@ -1,4 +1,4 @@
-package com.readboy.ssm.appjx.model;
+package com.readboy.ssm.appjx.model.pk;
 
 import java.io.Serializable;
 

@@ -13,7 +13,7 @@ import com.readboy.ssm.appjx.model.pk.ErpBasZbkPk;
 
 
 @Table
-@Entity(name="erp_assessdata_jg_phjfk")
+@Entity(name="erp_bas_zbk")
 @IdClass(ErpBasZbkPk.class)
 public class ErpBasZbk{
     
