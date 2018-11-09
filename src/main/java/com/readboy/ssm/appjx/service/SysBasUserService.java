@@ -35,15 +35,17 @@ public class SysBasUserService extends Finder<User, Long>{
 		return jpa;
 	}
 
+	
+
 	@Override
-	public void addWhere(User[] t, List<Predicate> predicates, Root<User> root, CriteriaQuery<?> query,
-			CriteriaBuilder cb) {
+	public void setSelect(User t) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void setSelect(User t) {
+	public void addWhere(Object[] t, List<Predicate> predicates, Root<User> root, CriteriaQuery<?> query,
+			CriteriaBuilder cb) {
 		// TODO Auto-generated method stub
 		
 	}

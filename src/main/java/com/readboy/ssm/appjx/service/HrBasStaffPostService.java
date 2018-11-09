@@ -35,15 +35,17 @@ public class HrBasStaffPostService extends Finder<StaffAndPost, Long>{
 		return jpa;
 	}
 
+	
+
 	@Override
-	public void addWhere(StaffAndPost[] t, List<Predicate> predicates, Root<StaffAndPost> root, CriteriaQuery<?> query,
-			CriteriaBuilder cb) {
+	public void setSelect(StaffAndPost t) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void setSelect(StaffAndPost t) {
+	public void addWhere(Object[] t, List<Predicate> predicates, Root<StaffAndPost> root, CriteriaQuery<?> query,
+			CriteriaBuilder cb) {
 		// TODO Auto-generated method stub
 		
 	}

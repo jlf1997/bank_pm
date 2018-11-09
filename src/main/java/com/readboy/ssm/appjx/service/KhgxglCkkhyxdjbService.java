@@ -35,15 +35,17 @@ public class KhgxglCkkhyxdjbService extends Finder<DepositMarketing, Long>{
 		return jpa;
 	}
 
+
+
 	@Override
-	public void addWhere(DepositMarketing[] t, List<Predicate> predicates, Root<DepositMarketing> root,
-			CriteriaQuery<?> query, CriteriaBuilder cb) {
+	public void setSelect(DepositMarketing t) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void setSelect(DepositMarketing t) {
+	public void addWhere(Object[] t, List<Predicate> predicates, Root<DepositMarketing> root, CriteriaQuery<?> query,
+			CriteriaBuilder cb) {
 		// TODO Auto-generated method stub
 		
 	}

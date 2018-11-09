@@ -39,12 +39,6 @@ public class ErpWageYgjxService extends Finder<ErpWageYgjx, JXPK>{
 		return jpa;
 	}
 
-	@Override
-	public void addWhere(ErpWageYgjx[] t, List<Predicate> predicates, Root<ErpWageYgjx> root, CriteriaQuery<?> query,
-			CriteriaBuilder cb) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void setSelect(ErpWageYgjx t) {
@@ -65,6 +59,24 @@ public class ErpWageYgjxService extends Finder<ErpWageYgjx, JXPK>{
 		return jpa.getMonthZj(b, e, yggh);
 	}
 
+	/**
+	 * 获取当日
+	 * @param day
+	 * @param yggh
+	 * @return
+	 */
+	public ErpWageYgjx findPerformance(Date day,String yggh) {
+		Date b = TimeUtil.getStartTime(day);
+		Date e = TimeUtil.getEndTime(day);
+		return jpa.findPerformance(b, e, yggh);
+	}
+
+	@Override
+	public void addWhere(Object[] t, List<Predicate> predicates, Root<ErpWageYgjx> root, CriteriaQuery<?> query,
+			CriteriaBuilder cb) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

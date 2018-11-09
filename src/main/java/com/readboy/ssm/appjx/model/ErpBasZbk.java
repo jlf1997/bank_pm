@@ -179,6 +179,7 @@ public class ErpBasZbk{
 	public void setZBLB(Integer zBLB) {
 		ZBLB = zBLB;
 	}
+
     
     
     

@@ -171,6 +171,19 @@ public class TimeUtil {
 		return now.getTime();
 	}
 	
+	/**
+	 * 获取给定日期 day天后的时间
+	 * @param date
+	 * @param day
+	 * @return
+	 */
+	public static Date getDay(Date date,int day) {
+		Calendar newDate = Calendar.getInstance();
+		newDate.setTime(date);
+		newDate.add(Calendar.DATE , day);
+		return newDate.getTime();
+	}
+	
 	public static Date getHour(Date date,int hour) {
 		Calendar now = Calendar.getInstance();
 		now.setTime(date);

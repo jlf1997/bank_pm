@@ -33,7 +33,7 @@ public abstract class Finder<T,ID extends Serializable> {
 	/**
 	 * 追加查询条件
 	 */
-	public abstract void addWhere(T[] t,List<Predicate>  predicates,Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb);
+	public abstract void addWhere(Object[] t,List<Predicate>  predicates,Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb);
 	
 
 	/**
@@ -83,7 +83,7 @@ public abstract class Finder<T,ID extends Serializable> {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public List<T> findAll(SpringDataJpaFinder<T> sdjFinder,T...t) {
+	public List<T> findAll(SpringDataJpaFinder<T> sdjFinder,Object...t) {
 		return findAll(sdjFinder,(Sort)null,t);
 	}
 	
@@ -110,7 +110,7 @@ public abstract class Finder<T,ID extends Serializable> {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<T> findAll(SpringDataJpaFinder<T> sdjFinder,String sortStr,
-			Direction direction,T...t) {
+			Direction direction,Object...t) {
 		Sort sort = null;
 		if(sortStr!=null && direction!=null) {
 			String[] sorStrArray = sortStr.split(",");
@@ -127,7 +127,7 @@ public abstract class Finder<T,ID extends Serializable> {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public List<T> findAll(SpringDataJpaFinder<T> sdjFinder,Sort sort,T... t){		
+	public List<T> findAll(SpringDataJpaFinder<T> sdjFinder,Sort sort,Object... t){		
 		List<T> list =  specjpa().findAll(getSpecification(sdjFinder,t),sort);
 		setSelect(list);
 		return list;
@@ -145,8 +145,8 @@ public abstract class Finder<T,ID extends Serializable> {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public Page<T> findAllPage(SpringDataJpaFinder<T> sdjFinder, Integer pageSize, Integer pageIndex,T...t) {		
-		return findAllPage((SpringDataJpaFinder<T>)null,(String)null,(Direction)null,pageSize,pageIndex,t);
+	public Page<T> findAllPage(SpringDataJpaFinder<T> sdjFinder, Integer pageSize, Integer pageIndex,Object...t) {		
+		return findAllPage(sdjFinder,(String)null,(Direction)null,pageSize,pageIndex,t);
 	}
 	
 	
@@ -162,7 +162,7 @@ public abstract class Finder<T,ID extends Serializable> {
 	 */
 	@SuppressWarnings("unchecked")
 	public Page<T> findAllPage(SpringDataJpaFinder<T> sdjFinder,String sortStr,
-			Direction direction, Integer pageSize, Integer pageIndex,T...t) {
+			Direction direction, Integer pageSize, Integer pageIndex,Object...t) {
 		Sort sort = null;
 		if(sortStr!=null && direction!=null) {
 			String[] sorStrArray = sortStr.split(",");
@@ -183,7 +183,7 @@ public abstract class Finder<T,ID extends Serializable> {
 	 */
 	@SuppressWarnings("unchecked")	
 	public Page<T> findAllPage(String sortStr,
-			Direction direction, Integer pageSize, Integer pageIndex,T...t) {				
+			Direction direction, Integer pageSize, Integer pageIndex,Object...t) {				
 		return findAllPage((SpringDataJpaFinder<T>)null,sortStr,direction,pageSize,pageIndex,t);
 	}	
 	
@@ -194,7 +194,7 @@ public abstract class Finder<T,ID extends Serializable> {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public Page<T> findAllPage(PageRequest pageRequest,T...t) {		
+	public Page<T> findAllPage(PageRequest pageRequest,Object...t) {		
 		return findAllPage((SpringDataJpaFinder<T>)null,pageRequest,t);
 	}
 	
@@ -206,7 +206,7 @@ public abstract class Finder<T,ID extends Serializable> {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public Page<T> findAllPage(SpringDataJpaFinder<T> sdjFinder, PageRequest pageRequest,T...t) {
+	public Page<T> findAllPage(SpringDataJpaFinder<T> sdjFinder, PageRequest pageRequest,Object...t) {
 		Page<T> page =  specjpa().findAll(getSpecification(sdjFinder,t),pageRequest);	
 		setSelect(page);
 		return page;
@@ -442,7 +442,7 @@ public abstract class Finder<T,ID extends Serializable> {
 	 * @param updTimeEntity
 	 * @return
 	 */
-	 private  Specification<T> getSpecification(SpringDataJpaFinder<T> sdjFinder,T... t){
+	 private  Specification<T> getSpecification(SpringDataJpaFinder<T> sdjFinder,Object... t){
 			return new Specification<T>() {
 			@Override
 			public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
@@ -476,7 +476,7 @@ public abstract class Finder<T,ID extends Serializable> {
 	 * @param updTimeEntity
 	 * @return
 	 */
-	private List<Predicate> getPredicates(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb,T...t) {
+	private List<Predicate> getPredicates(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb,Object...t) {
 		List<Predicate>  predicates = new ArrayList<>();		
 		
 			

@@ -9,6 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 
+/**
+ * 机构业绩表
+ * @author Administrator
+ *
+ */
 @Table
 @Entity(name="erp_assessdata_jg_phjfk")
 public class ErpAssessDataJgPhjfk {

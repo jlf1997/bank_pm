@@ -20,4 +20,7 @@ public interface ErpWageYgjxJpa extends JpaRepository<ErpWageYgjx, JXPK>,JpaSpec
     
 	@Query(value="select sum(gzhj) from erp_wage_ygjx where GZRQ BETWEEN ?1 and ?2 and yggh=?3",nativeQuery=true)
 	public BigDecimal getMonthZj(Date b,Date e,String yggh );
+	
+	@Query(value="select * from erp_wage_ygjx where GZRQ BETWEEN ?1 and ?2 and yggh=?3",nativeQuery=true)
+	public ErpWageYgjx findPerformance(Date b,Date e,String yggh);
 }

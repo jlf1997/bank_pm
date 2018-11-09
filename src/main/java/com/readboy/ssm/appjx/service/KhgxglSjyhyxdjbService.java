@@ -35,15 +35,17 @@ public class KhgxglSjyhyxdjbService extends Finder<CellBankMarketing, Long>{
 		return jpa;
 	}
 
+	
+
 	@Override
-	public void addWhere(CellBankMarketing[] t, List<Predicate> predicates, Root<CellBankMarketing> root,
-			CriteriaQuery<?> query, CriteriaBuilder cb) {
+	public void setSelect(CellBankMarketing t) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void setSelect(CellBankMarketing t) {
+	public void addWhere(Object[] t, List<Predicate> predicates, Root<CellBankMarketing> root, CriteriaQuery<?> query,
+			CriteriaBuilder cb) {
 		// TODO Auto-generated method stub
 		
 	}

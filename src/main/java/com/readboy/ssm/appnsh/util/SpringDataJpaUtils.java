@@ -41,7 +41,7 @@ public class SpringDataJpaUtils {
 	 * @param cb
 	 * @param t
 	 */
-	public static <T > void where(List<Predicate>  predicates,Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb,T...t) {
+	public static <T > void where(List<Predicate>  predicates,Root<T> root, CriteriaQuery<?> query, CriteriaBuilder cb,Object...t) {
 		if(t!=null&&t.length>0) {	
 			Class<?> classT = t[0].getClass();
 			Field[] fields = classT.getDeclaredFields();

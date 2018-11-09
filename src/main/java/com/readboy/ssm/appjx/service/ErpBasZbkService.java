@@ -1,4 +1,4 @@
-package com.readboy.ssm.appnsh.service;
+package com.readboy.ssm.appjx.service;
 
 import java.util.List;
 
@@ -12,41 +12,44 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Service;
 
-import com.readboy.ssm.appnsh.jpa.OrgJpa;
-import com.readboy.ssm.appnsh.model.Org;
+import com.readboy.ssm.appjx.jpa.ErpBasZbkJpa;
+import com.readboy.ssm.appjx.model.ErpBasZbk;
+import com.readboy.ssm.appjx.model.pk.ErpBasZbkPk;
 import com.readboy.ssm.appnsh.util.Finder;
 
 @Service
-public class OrgService extends Finder<Org, String>{
-
+public class ErpBasZbkService extends Finder<ErpBasZbk, ErpBasZbkPk>{
+	
+	
 	@Autowired
-	private OrgJpa jpa;
-	
+	private ErpBasZbkJpa jpa;
+
 	@Override
-	public JpaSpecificationExecutor<Org> specjpa() {
+	public JpaSpecificationExecutor<ErpBasZbk> specjpa() {
 		// TODO Auto-generated method stub
 		return jpa;
 	}
 
 	@Override
-	public JpaRepository<Org, String> jpa() {
+	public JpaRepository<ErpBasZbk, ErpBasZbkPk> jpa() {
 		// TODO Auto-generated method stub
 		return jpa;
 	}
 
-	
-
 	@Override
-	public void setSelect(Org t) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void addWhere(Object[] t, List<Predicate> predicates, Root<Org> root, CriteriaQuery<?> query,
+	public void addWhere(Object[] t, List<Predicate> predicates, Root<ErpBasZbk> root, CriteriaQuery<?> query,
 			CriteriaBuilder cb) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	@Override
+	public void setSelect(ErpBasZbk t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	
+	
 }

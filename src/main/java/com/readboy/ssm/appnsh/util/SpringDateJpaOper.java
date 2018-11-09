@@ -51,6 +51,8 @@ public class SpringDateJpaOper<T> {
 	}
 	
 	
+	
+	
 	/**
 	 * 不等于
 	 * @param attributeName

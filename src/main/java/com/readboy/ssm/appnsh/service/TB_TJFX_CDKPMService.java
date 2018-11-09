@@ -35,15 +35,17 @@ public class TB_TJFX_CDKPMService extends Finder<TB_TJFX_CDKPM, Long>{
 		return jpa;
 	}
 
+	
+
 	@Override
-	public void addWhere(TB_TJFX_CDKPM[] t, List<Predicate> predicates, Root<TB_TJFX_CDKPM> root,
-			CriteriaQuery<?> query, CriteriaBuilder cb) {
+	public void setSelect(TB_TJFX_CDKPM t) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void setSelect(TB_TJFX_CDKPM t) {
+	public void addWhere(Object[] t, List<Predicate> predicates, Root<TB_TJFX_CDKPM> root, CriteriaQuery<?> query,
+			CriteriaBuilder cb) {
 		// TODO Auto-generated method stub
 		
 	}

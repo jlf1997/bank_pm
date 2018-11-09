@@ -35,15 +35,17 @@ public class ErpAssessdataJgPhjfkService extends Finder<ErpAssessDataJgPhjfk, Lo
 		return jpa;
 	}
 
+	
+
 	@Override
-	public void addWhere(ErpAssessDataJgPhjfk[] t, List<Predicate> predicates, Root<ErpAssessDataJgPhjfk> root,
-			CriteriaQuery<?> query, CriteriaBuilder cb) {
+	public void setSelect(ErpAssessDataJgPhjfk t) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void setSelect(ErpAssessDataJgPhjfk t) {
+	public void addWhere(Object[] t, List<Predicate> predicates, Root<ErpAssessDataJgPhjfk> root,
+			CriteriaQuery<?> query, CriteriaBuilder cb) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -38,12 +38,7 @@ public class TB_TJFX_YQDKKHService extends Finder<TB_TJFX_YQDKKH, Long>{
 		return jpa;
 	}
 
-	@Override
-	public void addWhere(TB_TJFX_YQDKKH[] t, List<Predicate> predicates, Root<TB_TJFX_YQDKKH> root,
-			CriteriaQuery<?> query, CriteriaBuilder cb) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public void setSelect(TB_TJFX_YQDKKH t) {
@@ -69,6 +64,13 @@ public class TB_TJFX_YQDKKHService extends Finder<TB_TJFX_YQDKKH, Long>{
 		t.setYggh(yggh);
 		List<TB_TJFX_YQDKKH> list = this.findAll(t);
 		return TB_TJFX_YQDKKHDto.copyList(list,orgService);
+		
+	}
+
+	@Override
+	public void addWhere(Object[] t, List<Predicate> predicates, Root<TB_TJFX_YQDKKH> root, CriteriaQuery<?> query,
+			CriteriaBuilder cb) {
+		// TODO Auto-generated method stub
 		
 	}
 }
