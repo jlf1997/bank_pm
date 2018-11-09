@@ -3,9 +3,13 @@ package com.readboy.ssm.appjx.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -24,7 +28,11 @@ public class ErpAssessDataJgPhjfk {
 	private String zzbz;//	组织标识
 	private BigDecimal khqz;//	考核权重
 	private String khwd;//	考核维度
-	private String zbid;//	指标ID
+	
+	@JoinColumn(name="ZBID",foreignKey= @ForeignKey(value=ConstraintMode.NO_CONSTRAINT,foreignKeyDefinition="none"))
+	@ManyToOne
+	private ErpBasZbk zb;//	指标ID
+	
 	private BigDecimal zbqz;//	指标权重
 	private BigDecimal zbjg;//	指标结果
 	private BigDecimal zbdf;//	指标得分
@@ -60,11 +68,12 @@ public class ErpAssessDataJgPhjfk {
 	public void setKhwd(String khwd) {
 		this.khwd = khwd;
 	}
-	public String getZbid() {
-		return zbid;
+	
+	public ErpBasZbk getZb() {
+		return zb;
 	}
-	public void setZbid(String zbid) {
-		this.zbid = zbid;
+	public void setZb(ErpBasZbk zb) {
+		this.zb = zb;
 	}
 	public BigDecimal getZbqz() {
 		return zbqz;

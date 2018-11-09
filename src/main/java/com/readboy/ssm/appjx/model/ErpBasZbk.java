@@ -1,10 +1,12 @@
 package com.readboy.ssm.appjx.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -64,6 +66,14 @@ public class ErpBasZbk{
     private Date LRSJ;
 
     private Integer LRBZ;
+    
+    
+    /**
+     *	 机构业绩
+     */
+    @OneToMany(mappedBy = "zb")
+	@org.hibernate.annotations.ForeignKey(name = "none")
+	private List<ErpAssessDataJgPhjfk> erpAssessDataJgPhjfks;
 
 
     /**
@@ -178,6 +188,14 @@ public class ErpBasZbk{
 
 	public void setZBLB(Integer zBLB) {
 		ZBLB = zBLB;
+	}
+
+	public List<ErpAssessDataJgPhjfk> getErpAssessDataJgPhjfks() {
+		return erpAssessDataJgPhjfks;
+	}
+
+	public void setErpAssessDataJgPhjfks(List<ErpAssessDataJgPhjfk> erpAssessDataJgPhjfks) {
+		this.erpAssessDataJgPhjfks = erpAssessDataJgPhjfks;
 	}
 
     
