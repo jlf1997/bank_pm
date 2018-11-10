@@ -65,11 +65,6 @@ public class AllStatisticController {
         return jsonObject.toJSONString();
     }
 
-    @RequestMapping(value = "/test.action",produces = "text/json;charset=UTF-8")
-    @ResponseBody
-    public Object test(){
-        System.out.println("你是傻逼哟！");
-        return "你是傻逼哦！";
-    }
+  
 
 }

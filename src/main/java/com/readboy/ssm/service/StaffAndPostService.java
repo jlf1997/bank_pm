@@ -1,7 +1,10 @@
 package com.readboy.ssm.service;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
+import com.readboy.ssm.appjx.dto.MyInfo;
 import com.readboy.ssm.po.StaffAndPost;
 
 /*
@@ -11,5 +14,11 @@ public interface StaffAndPostService {
 	
 	public String findYgghByZzbz(String zzbz,int rglx) throws Exception;
 	public StaffAndPost findStaffAndPostByYggh(
+			@Param("yggh") String yggh) throws Exception;
+	
+	public List<MyInfo> findStaffAndPostsByYggh(
+			@Param("yggh") String yggh) throws Exception;
+	
+	public MyInfo findStaffAndPostsByYgghNow(
 			@Param("yggh") String yggh) throws Exception;
 }

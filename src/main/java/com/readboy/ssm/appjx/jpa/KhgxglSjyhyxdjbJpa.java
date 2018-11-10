@@ -3,7 +3,7 @@ package com.readboy.ssm.appjx.jpa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-import com.readboy.ssm.po.CellBankMarketing;
+import com.readboy.ssm.appjx.model.KhgxglSjyhyxdjb;
 
 
 /**
@@ -11,6 +11,6 @@ import com.readboy.ssm.po.CellBankMarketing;
  * @author suhuanzhao 2018-11-08 17:24:15
  */
 
-public interface KhgxglSjyhyxdjbJpa extends JpaRepository<CellBankMarketing, Long>,JpaSpecificationExecutor<CellBankMarketing>  {
+public interface KhgxglSjyhyxdjbJpa extends JpaRepository<KhgxglSjyhyxdjb, Long>,JpaSpecificationExecutor<KhgxglSjyhyxdjb>  {
     
 }

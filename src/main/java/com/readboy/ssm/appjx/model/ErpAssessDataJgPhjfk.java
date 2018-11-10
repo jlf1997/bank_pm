@@ -9,6 +9,7 @@ import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -27,11 +28,22 @@ public class ErpAssessDataJgPhjfk {
 	private Long id;
 	private String zzbz;//	组织标识
 	private BigDecimal khqz;//	考核权重
+	
+	
 	private String khwd;//	考核维度
 	
-	@JoinColumn(name="ZBID",foreignKey= @ForeignKey(value=ConstraintMode.NO_CONSTRAINT,foreignKeyDefinition="none"))
-	@ManyToOne
-	private ErpBasZbk zb;//	指标ID
+//	@ManyToOne
+//	@JoinColumns({
+//        // 分别匹配主表联合主键的字段
+//		@JoinColumn(name="ZBID",foreignKey= @ForeignKey(value=ConstraintMode.NO_CONSTRAINT,foreignKeyDefinition="none")),
+//		@JoinColumn(name="ZBWD",foreignKey= @ForeignKey(value=ConstraintMode.NO_CONSTRAINT,foreignKeyDefinition="none")),
+//		@JoinColumn(name="ZBDX",foreignKey= @ForeignKey(value=ConstraintMode.NO_CONSTRAINT,foreignKeyDefinition="none")),
+//		@JoinColumn(name="KHFS",foreignKey= @ForeignKey(value=ConstraintMode.NO_CONSTRAINT,foreignKeyDefinition="none"))
+//	})
+//	private ErpBasZbk erpBasZbk;
+	
+	
+	private String zbid;//	指标ID
 	
 	private BigDecimal zbqz;//	指标权重
 	private BigDecimal zbjg;//	指标结果
@@ -44,6 +56,8 @@ public class ErpAssessDataJgPhjfk {
 	private BigDecimal gwjzqz;//	岗位竞争权重
 	private BigDecimal zbfz;//	指标分值
 	private BigDecimal zbrw;//	指标任务
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -61,19 +75,6 @@ public class ErpAssessDataJgPhjfk {
 	}
 	public void setKhqz(BigDecimal khqz) {
 		this.khqz = khqz;
-	}
-	public String getKhwd() {
-		return khwd;
-	}
-	public void setKhwd(String khwd) {
-		this.khwd = khwd;
-	}
-	
-	public ErpBasZbk getZb() {
-		return zb;
-	}
-	public void setZb(ErpBasZbk zb) {
-		this.zb = zb;
 	}
 	public BigDecimal getZbqz() {
 		return zbqz;
@@ -141,6 +142,19 @@ public class ErpAssessDataJgPhjfk {
 	public void setZbrw(BigDecimal zbrw) {
 		this.zbrw = zbrw;
 	}
+	public String getKhwd() {
+		return khwd;
+	}
+	public void setKhwd(String khwd) {
+		this.khwd = khwd;
+	}
+	public String getZbid() {
+		return zbid;
+	}
+	public void setZbid(String zbid) {
+		this.zbid = zbid;
+	}
+
 	
 	
 

@@ -3,7 +3,7 @@ package com.readboy.ssm.appjx.jpa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-import com.readboy.ssm.po.DepositMarketing;
+import com.readboy.ssm.appjx.model.KhgxglCkkhyxdjb;
 
 
 /**
@@ -11,6 +11,6 @@ import com.readboy.ssm.po.DepositMarketing;
  * @author suhuanzhao 2018-11-08 17:24:15
  */
 
-public interface KhgxglCkkhyxdjbJpa extends JpaRepository<DepositMarketing, Long>,JpaSpecificationExecutor<DepositMarketing>  {
+public interface KhgxglCkkhyxdjbJpa extends JpaRepository<KhgxglCkkhyxdjb, Long>,JpaSpecificationExecutor<KhgxglCkkhyxdjb>  {
     
 }

@@ -1,12 +1,16 @@
-package com.readboy.ssm.po;
+package com.readboy.ssm.appjx.model;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-/*
+/**
  * 存款营销
- * */
-
-public class DepositMarketing extends Marketing{
+ * @author Administrator
+ *
+ */
+@Entity
+@Table(name = "khgxgl_ckkhyxdjb")
+public class KhgxglCkkhyxdjb extends KhgxglBase{
 	
 	private Integer ckzl;		//存款种类
 	private Integer khzl;		//客户种类
@@ -24,6 +28,4 @@ public class DepositMarketing extends Marketing{
 	}
 	
 	
-	
-
 }

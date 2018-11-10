@@ -9,8 +9,7 @@ import javax.persistence.Table;
  * @author Administrator
  *
  */
-@Entity
-@Table(name = "khgxgl_sjyhyxdjb")
+
 public class CellBankMarketing extends Marketing
 {
 

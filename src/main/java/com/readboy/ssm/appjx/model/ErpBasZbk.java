@@ -68,12 +68,12 @@ public class ErpBasZbk{
     private Integer LRBZ;
     
     
-    /**
-     *	 机构业绩
-     */
-    @OneToMany(mappedBy = "zb")
-	@org.hibernate.annotations.ForeignKey(name = "none")
-	private List<ErpAssessDataJgPhjfk> erpAssessDataJgPhjfks;
+//    /**
+//     *	 机构业绩
+//     */
+//    @OneToMany(mappedBy = "erpBasZbk")
+//	@org.hibernate.annotations.ForeignKey(name = "none")
+//	private List<ErpAssessDataJgPhjfk> erpAssessDataJgPhjfks;
 
 
     /**
@@ -190,13 +190,15 @@ public class ErpBasZbk{
 		ZBLB = zBLB;
 	}
 
-	public List<ErpAssessDataJgPhjfk> getErpAssessDataJgPhjfks() {
-		return erpAssessDataJgPhjfks;
-	}
+//	public List<ErpAssessDataJgPhjfk> getErpAssessDataJgPhjfks() {
+//		return erpAssessDataJgPhjfks;
+//	}
+//
+//	public void setErpAssessDataJgPhjfks(List<ErpAssessDataJgPhjfk> erpAssessDataJgPhjfks) {
+//		this.erpAssessDataJgPhjfks = erpAssessDataJgPhjfks;
+//	}
 
-	public void setErpAssessDataJgPhjfks(List<ErpAssessDataJgPhjfk> erpAssessDataJgPhjfks) {
-		this.erpAssessDataJgPhjfks = erpAssessDataJgPhjfks;
-	}
+	
 
     
     

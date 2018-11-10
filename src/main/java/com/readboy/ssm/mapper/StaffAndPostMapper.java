@@ -1,7 +1,10 @@
 package com.readboy.ssm.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
+import com.readboy.ssm.appjx.dto.MyInfo;
 import com.readboy.ssm.po.StaffAndPost;
 
 public interface StaffAndPostMapper {
@@ -12,5 +15,12 @@ public interface StaffAndPostMapper {
 	
 	
 	public StaffAndPost findStaffAndPostByYggh(
+			@Param("yggh") String yggh) throws Exception;
+	
+	
+	public List<MyInfo> findStaffAndPostsByYggh (
+			@Param("yggh") String yggh) throws Exception;
+	
+	public MyInfo findStaffAndPostsByYgghNow(
 			@Param("yggh") String yggh) throws Exception;
 }

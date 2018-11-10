@@ -17,7 +17,7 @@ public class StaffAndPost {
 	private String zzbz;		//组织标志
 	private String yggh;		//员工工号
 	private Long gwbz;			//岗位标志
-	private Integer rglx;			//入岗类型
+	private Integer rglx;		//入岗类型
 	private String rgrq;		//入岗日期
 	private String lgrq;		//离岗日期
 	private String khjlbz;		//客户经理标志

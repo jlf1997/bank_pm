@@ -58,6 +58,16 @@ public abstract class Finder<T,ID extends Serializable> {
 	}
 	
 	/**
+	 * 获取总数
+	 * @param sdjFinder
+	 * @param t
+	 * @return
+	 */
+	public Long count(SpringDataJpaFinder<T> sdjFinder,Object...t) {
+		return specjpa().count(getSpecification(sdjFinder,t));
+	}
+	
+	/**
 	 * 自定义查询条件
 	 */
 	
