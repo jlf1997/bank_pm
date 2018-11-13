@@ -36,7 +36,7 @@ public class JxController {
 	 * @param zblb 指标类别
 	 * @param gzrq 工作日期
 	 */
-	@RequestMapping(value="detail.action",method=RequestMethod.GET)
+	@RequestMapping(value="detail.action")
 	public List<YgjxMxDto> findYgyjMx(
 			@RequestParam("yggh") String yggh,
 			@RequestParam("zblb") Integer zblb,
@@ -52,7 +52,7 @@ public class JxController {
 	 * @param zblb 指标类别
 	 * @param gzrq 工作日期
 	 */
-	@RequestMapping(value="detailPage.action",method=RequestMethod.GET)
+	@RequestMapping(value="detailPage.action")
 	public PageModel findYgyjMxPage(
 			@RequestParam("yggh") String yggh,
 			@RequestParam("zblb") Integer zblb,
@@ -70,7 +70,7 @@ public class JxController {
 	 * @param gzrq
 	 * @return
 	 */
-	@RequestMapping(value="index.action",method=RequestMethod.GET)
+	@RequestMapping(value="index.action")
 	public YgjxDto findYgjx(
 			@RequestParam("yggh") String yggh,
 			@RequestParam("gzrq") Long gzrq

@@ -46,7 +46,7 @@ public class YjController {
 	 * @param tjrq 统计日期
 	 * @throws Exception 
 	 */
-	@RequestMapping(value="/day/jgyjIndex.action",method=RequestMethod.GET)
+	@RequestMapping(value="/day/jgyjIndex.action")
 	public JGYJDto findYgyjMxDayPage(
 			@RequestParam("yggh") String yggh,
 			@RequestParam("tjrq") Long tjrq,
@@ -76,7 +76,7 @@ public class YjController {
 	 * @param tjrq 统计日期 
 	 * @throws Exception 
 	 */
-	@RequestMapping(value="/month/jgyjIndex.action",method=RequestMethod.GET)
+	@RequestMapping(value="/month/jgyjIndex.action")
 	public JGYJDto findYgyjMxMonthPage(
 			@RequestParam("yggh") String yggh,
 			@RequestParam("tjrq") Long tjrq,
@@ -106,7 +106,7 @@ public class YjController {
 	 * @param tjrq
 	 * @return
 	 */
-	@RequestMapping(value="/gryjIndex.action",method=RequestMethod.GET)
+	@RequestMapping(value="/gryjIndex.action")
 	public CDZLDto getGryj(
 			@RequestParam("yggh") String yggh,
 			@RequestParam("tjrq") Long tjrq
@@ -124,7 +124,7 @@ public class YjController {
 	 * 预约业绩
 	 * @return
 	 */
-	@RequestMapping(value="/yyyjIndex.action",method=RequestMethod.GET)
+	@RequestMapping(value="/yyyjIndex.action")
 	public Map<String,Object> getYyyj(
 			@RequestParam("yggh") String yggh
 			){

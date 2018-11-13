@@ -27,7 +27,7 @@ public class MyInfoController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/info.action",method=RequestMethod.GET)
+	@RequestMapping(value="/info.action")
 	public Map<String,Object> findYgyjMxDayPage(
 			@RequestParam("yggh") String yggh
 			) throws Exception {
