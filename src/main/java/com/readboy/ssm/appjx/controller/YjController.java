@@ -116,7 +116,10 @@ public class YjController {
 		t.setTjrq(TimeUtil.getStartTime(new Date(tjrq)));
 		t = tB_TJFX_CDZLService.find(t);
 		CDZLDto res = new CDZLDto();
-		BeanUtils.copyProperties(t, res);
+		if(t!=null) {
+			BeanUtils.copyProperties(t, res);
+		}
+		
 		return res;
 		
 	}

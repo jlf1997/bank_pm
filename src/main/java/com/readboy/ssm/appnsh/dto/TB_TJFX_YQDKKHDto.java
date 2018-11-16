@@ -150,7 +150,8 @@ public class TB_TJFX_YQDKKHDto {
 		List<TB_TJFX_YQDKKHDto> target = new ArrayList<>();
 		for(int i=0;i<source.size();i++) {
 			TB_TJFX_YQDKKHDto dto = new TB_TJFX_YQDKKHDto();
-			BeanUtils.copyProperties(source.get(i), dto);
+			if(source.get(i)!=null)
+				BeanUtils.copyProperties(source.get(i), dto);
 			Org org = new Org();
 			org.setYwjgdm(source.get(i).getJgdm());
 			org = orgService.find(org);

@@ -31,8 +31,10 @@ public class TB_TJFX_CDKPMDto {
 		List<TB_TJFX_CDKPMDto> target = new ArrayList<>();
 		for(int i=0;i<source.size();i++) {
 			TB_TJFX_CDKPMDto dto = new TB_TJFX_CDKPMDto();
-			BeanUtils.copyProperties(source.get(i), dto);
-			target.add(dto);
+			if(source.get(i)!=null) {
+				BeanUtils.copyProperties(source.get(i), dto);
+				target.add(dto);
+			}
 		}
 		return target;
 	}

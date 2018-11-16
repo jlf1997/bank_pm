@@ -61,7 +61,10 @@ public class AppIndexCustomerController {
 		List<TB_TJFX_CDZL>  cdzlList = tB_TJFX_CDZLService.findAll(t);
 		if(cdzlList!=null && cdzlList.size()==1) {
 			CDZLDto dto = new CDZLDto();
-			BeanUtils.copyProperties(tB_TJFX_CDZLService.findAll(t).get(0), dto);
+			List<TB_TJFX_CDZL> list = tB_TJFX_CDZLService.findAll(t);
+			if(list!=null && list.size()>0 && list.get(0)!=null) {
+				BeanUtils.copyProperties(list.get(0), dto);
+			}
 			res.setCdzl(dto);
 		}
 		//个人客户

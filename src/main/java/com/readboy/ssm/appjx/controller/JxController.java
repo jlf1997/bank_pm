@@ -79,7 +79,8 @@ public class JxController {
 			YgjxDto dto = new YgjxDto();
 			Date d = new Date(gzrq);
 			ErpWageYgjx now = erpWageYgjxService.findPerformance(d, yggh);
-			BeanUtils.copyProperties(now, dto);
+			if(now!=null)
+				BeanUtils.copyProperties(now, dto);
 			BigDecimal dygz = erpWageYgjxService.getMonthZj(d, yggh);
 			dto.setDygz(dygz);
 			if(now!=null) {

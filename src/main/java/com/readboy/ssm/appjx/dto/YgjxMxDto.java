@@ -77,7 +77,9 @@ public class YgjxMxDto {
 		List<YgjxMxDto> target = new ArrayList<>();
 		for(int i=0;i<source.size();i++) {
 			YgjxMxDto dto = new YgjxMxDto();
-			BeanUtils.copyProperties(source.get(i), dto);
+			if(source.get(i)!=null) {
+				BeanUtils.copyProperties(source.get(i), dto);
+			}
 			ErpBasZbk zbk = new ErpBasZbk();
 			zbk.setZBID(source.get(i).getZbid());
 			zbk = service.find(zbk);

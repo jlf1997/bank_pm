@@ -85,7 +85,9 @@ public class ErpAssessDataJgPhjfkDto {
 		ErpBasZbk erpBasZbk ;
 		for(int i=0;i<source.size();i++) {
 			ErpAssessDataJgPhjfkDto dto = new ErpAssessDataJgPhjfkDto();
-			BeanUtils.copyProperties(source.get(i), dto);
+			if(source.get(i)!=null) {
+				BeanUtils.copyProperties(source.get(i), dto);
+			}
 			erpBasZbk = new ErpBasZbk();
 			erpBasZbk.setZBID(source.get(i).getZbid());
 			erpBasZbk = erpBasZbkService.find(erpBasZbk);
