@@ -2,6 +2,7 @@ package com.readboy.ssm.appjx.controller;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
@@ -111,13 +112,12 @@ public class YjController {
 			@RequestParam("yggh") String yggh,
 			@RequestParam("tjrq") Long tjrq
 			) {
-		TB_TJFX_CDZL t = new TB_TJFX_CDZL();
-		t.setYggh(yggh);
-		t.setTjrq(TimeUtil.getStartTime(new Date(tjrq)));
-		t = tB_TJFX_CDZLService.find(t);
+		Date b = TimeUtil.getStartTime(new Date(tjrq));
+		Date e = TimeUtil.getEndTime(new Date(tjrq));
+		List<TB_TJFX_CDZL> list = tB_TJFX_CDZLService.findByTime(yggh, b, e);
 		CDZLDto res = new CDZLDto();
-		if(t!=null) {
-			BeanUtils.copyProperties(t, res);
+		if(list!=null && list.size()>0 && list.get(0)!=null) {
+			BeanUtils.copyProperties(list.get(0), res);
 		}
 		
 		return res;
