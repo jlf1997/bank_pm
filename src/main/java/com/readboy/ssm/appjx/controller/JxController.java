@@ -2,13 +2,13 @@ package com.readboy.ssm.appjx.controller;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -52,16 +52,23 @@ public class JxController {
 	 * @param zblb 指标类别
 	 * @param gzrq 工作日期
 	 */
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="detailPage.action")
-	public PageModel findYgyjMxPage(
+	public Map findYgyjMxPage(
 			@RequestParam("yggh") String yggh,
 			@RequestParam("zblb") Integer zblb,
 			@RequestParam("gzrq") Long gzrq,
 			@RequestParam("pageSize") Integer pageSize,
 			@RequestParam("pageIndex") Integer pageIndex
 			) {
-			return erpWageYgjxMxService.findMxPage(pageSize,pageIndex,yggh, new Date(gzrq), zblb);
-		
+			BigDecimal zj = erpWageYgjxMxService.getZj(yggh, new Date(gzrq), zblb);
+			PageModel p =  erpWageYgjxMxService.findMxPage(pageSize,pageIndex,yggh, new Date(gzrq), zblb);
+			Map map = new HashMap<>();
+			map.put("zj", zj);
+			map.put("content", p.getContent());
+			map.put("totalPages", p.getTotalPages());
+			map.put("totalSize", p.getTotalSize());
+			return map;
 	}
 	
 	/**

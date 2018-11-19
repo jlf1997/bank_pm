@@ -1,5 +1,6 @@
 package com.readboy.ssm.appjx.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -86,6 +87,19 @@ public class ErpWageYgjxMxService extends Finder<ErpWageYgjxMx, String>{
 		PageModel pm = new PageModel(res);
 		pm.setContent(list);
 		return pm;
+	}
+	
+	/**
+	 * 获取绩效总计
+	 * @param yggh
+	 * @param date
+	 * @param zblb
+	 * @return
+	 */
+	public BigDecimal getZj(String yggh,Date date,Integer zblb) {
+		Date b = TimeUtil.getTheFirstDayOfMonth(date);
+		Date e = TimeUtil.getTheLastDayOfMonth(date);
+		return jpa.findZj(yggh, b, e, zblb);
 	}
 
 
