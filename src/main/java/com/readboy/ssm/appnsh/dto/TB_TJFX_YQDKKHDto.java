@@ -1,6 +1,7 @@
 package com.readboy.ssm.appnsh.dto;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,9 +9,9 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 
 import com.readboy.ssm.appnsh.model.Org;
-import com.readboy.ssm.appnsh.model.TB_TJFX_CKDQKH;
 import com.readboy.ssm.appnsh.model.TB_TJFX_YQDKKH;
 import com.readboy.ssm.appnsh.service.OrgService;
+import com.readboy.ssm.utils.TimeUtil;
 
 public class TB_TJFX_YQDKKHDto {
 	private String jgmc	;//机构代码
@@ -23,6 +24,10 @@ public class TB_TJFX_YQDKKHDto {
 	private String lxfs	;//联系方式
 	private String dz	;//地址
 	private Integer khlx	;//客户类型
+	
+	private Integer wjflbz	;//五级分类标识
+	
+	private String yqts;//逾期天数
 	
 	
 	
@@ -143,6 +148,48 @@ public class TB_TJFX_YQDKKHDto {
 	public void setKhlx(Integer khlx) {
 		this.khlx = khlx;
 	}
+	
+	
+
+
+
+	public Integer getWjflbz() {
+		return wjflbz;
+	}
+
+
+
+	public void setWjflbz(Integer wjflbz) {
+		this.wjflbz = wjflbz;
+	}
+	
+	
+
+	
+
+
+
+
+
+
+
+
+	public String getYqts() {
+		return yqts;
+	}
+
+
+
+	public void setYqts(double yqts) {
+		if(yqts<1 && yqts>-1) {
+			String s = String.format("%.1f", yqts);
+			this.yqts = s;
+		}else {
+			DecimalFormat df = new DecimalFormat("#");
+			this.yqts = df.format(yqts);
+		}
+		
+	}
 
 
 
@@ -157,6 +204,10 @@ public class TB_TJFX_YQDKKHDto {
 			org = orgService.find(org);
 			if(org!=null) {
 				dto.setJgmc(org.getZzmc());
+			}
+			if(dto.getDqrq()!=null) {
+				double yqts = TimeUtil.getDaySpan(dto.getDqrq(), new Date());
+				dto.setYqts(yqts);
 			}
 			target.add(dto);
 		}

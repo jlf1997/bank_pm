@@ -42,6 +42,12 @@
      <logger name="org.springframework">
         <level value="error"/>
     </logger>
+     <logger name="io.swagger">
+        <level value="error"/>
+    </logger>
+    <logger name="springfox">
+        <level value="error"/>
+    </logger>
     
   
 

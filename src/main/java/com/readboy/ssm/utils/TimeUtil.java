@@ -101,6 +101,21 @@ public class TimeUtil {
 	}
 	
 	/**
+	 * date1 间隔date2 date2-date1
+	 * @param date1
+	 * @param date2
+	 * @return
+	 */
+	public static double getDaySpan(Date date1,Date date2) {
+		long range = date2.getTime() - date1.getTime();
+		double sec =  (double) (range/1000);//相隔秒数
+		double min = sec/60;
+		double hour = min/60;
+		double day = hour/24;
+		return day;
+	}
+	
+	/**
 	 * 获取当年的最后一天
 	 * @param date
 	 * @return
