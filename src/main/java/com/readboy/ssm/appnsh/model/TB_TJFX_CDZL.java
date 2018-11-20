@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Table(name="TB_TJFX_CDZL")
+@Table(name="tb_tjfx_cdzl")
 @Entity
 public class TB_TJFX_CDZL {
 

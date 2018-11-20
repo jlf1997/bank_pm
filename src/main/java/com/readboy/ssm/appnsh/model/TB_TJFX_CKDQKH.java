@@ -15,7 +15,7 @@ import javax.persistence.Table;
  * @author Administrator
  *
  */
-@Table(name="TB_TJFX_CKDQKH")
+@Table(name="tb_tjfx_ckdqkh")
 @Entity
 public class TB_TJFX_CKDQKH {
 

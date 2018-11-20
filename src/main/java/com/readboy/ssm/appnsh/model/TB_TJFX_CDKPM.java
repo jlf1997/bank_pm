@@ -13,7 +13,7 @@ import javax.persistence.Table;
  * @author Administrator
  *
  */
-@Table(name="TB_TJFX_CDKPM")
+@Table(name="tb_tjfx_cdkpm")
 @Entity
 public class TB_TJFX_CDKPM {
 	
