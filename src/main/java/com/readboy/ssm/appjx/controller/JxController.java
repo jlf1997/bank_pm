@@ -37,12 +37,17 @@ public class JxController {
 	 * @param gzrq 工作日期
 	 */
 	@RequestMapping(value="detail.action")
-	public List<YgjxMxDto> findYgyjMx(
+	public Map findYgyjMx(
 			@RequestParam("yggh") String yggh,
 			@RequestParam("zblb") Integer zblb,
 			@RequestParam("gzrq") Long gzrq
 			) {
-			return erpWageYgjxMxService.findMx(yggh, new Date(gzrq), zblb);
+			Map map = new HashMap<>();
+			BigDecimal zj = erpWageYgjxMxService.getZj(yggh, new Date(gzrq), zblb);
+			map.put("zj", zj);
+			List list = erpWageYgjxMxService.findMx(yggh, new Date(gzrq), zblb);
+			map.put("content", list);
+			return map;
 		
 	}
 	
