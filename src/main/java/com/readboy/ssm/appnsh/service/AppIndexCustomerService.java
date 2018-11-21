@@ -25,13 +25,9 @@ public class AppIndexCustomerService {
 	 * @return
 	 */
 	public List<TB_TJFX_CDKPM> getcdTop10(int ywlx,String yggh) {
-		Sort sort = new Sort(Direction.DESC,"je");
-		PageRequest pr = new PageRequest(0,10,sort);
-		TB_TJFX_CDKPM pm = new TB_TJFX_CDKPM();
-		pm.setYwlx(ywlx);
-		pm.setYggh(yggh);
-		Page<TB_TJFX_CDKPM>	page = tB_TJFX_CDKPMService.findAllPage(pr, pm);
-		return page.getContent();
+	
+		List<TB_TJFX_CDKPM> list = tB_TJFX_CDKPMService.findTop10(ywlx, yggh);
+		return list;
 		
 	}
 }

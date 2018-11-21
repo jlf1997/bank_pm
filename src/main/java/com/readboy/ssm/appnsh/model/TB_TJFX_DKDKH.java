@@ -15,21 +15,16 @@ import javax.persistence.Table;
  * @author Administrator
  *
  */
-@Table(name="tb_tjfx_dkdkh")
-@Entity
+
 public class TB_TJFX_DKDKH {
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
-	@Column(nullable=false)
+	
 	private String yggh	;//员工工号
-	@Column(nullable=false)
 	private String jgdm	;//机构代码
 	private String khmc	;//客户名称
 	private String dkzh	;//贷款账号
-	private Date ffrq	;//发放日期
-	private Date dqrq	;//到期日期
+	private Date zzffrq	;//发放日期
+	private Date zzdqrq	;//到期日期
 	private BigDecimal dkje	;//贷款金额
 	private BigDecimal dkye	;//贷款余额
 	private String ywzl	;//业务种类
@@ -42,11 +37,29 @@ public class TB_TJFX_DKDKH {
 	private Integer lrbz	;//录入标识
 	private Date lrsj	;//录入时间
 	private String lrr	;//录入人
-	public Long getId() {
-		return id;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public Date getZzffrq() {
+		return zzffrq;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setZzffrq(Date zzffrq) {
+		this.zzffrq = zzffrq;
+	}
+	public Date getZzdqrq() {
+		return zzdqrq;
+	}
+	public void setZzdqrq(Date zzdqrq) {
+		this.zzdqrq = zzdqrq;
 	}
 	public String getYggh() {
 		return yggh;
@@ -72,18 +85,7 @@ public class TB_TJFX_DKDKH {
 	public void setDkzh(String dkzh) {
 		this.dkzh = dkzh;
 	}
-	public Date getFfrq() {
-		return ffrq;
-	}
-	public void setFfrq(Date ffrq) {
-		this.ffrq = ffrq;
-	}
-	public Date getDqrq() {
-		return dqrq;
-	}
-	public void setDqrq(Date dqrq) {
-		this.dqrq = dqrq;
-	}
+	
 	public BigDecimal getDkje() {
 		return dkje;
 	}

@@ -1,5 +1,6 @@
 package com.readboy.ssm.appnsh.controller;
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -28,9 +29,10 @@ import com.readboy.ssm.appnsh.service.TB_TJFX_CKDQKHService;
 import com.readboy.ssm.appnsh.service.TB_TJFX_DKDKHService;
 import com.readboy.ssm.appnsh.service.TB_TJFX_DKDQKHService;
 import com.readboy.ssm.appnsh.service.TB_TJFX_YQDKKHService;
+import com.readboy.ssm.timetask.OnApplicationStarted;
 
 @RestController
-@RequestMapping("/mobile/customer")
+@RequestMapping("/demo/mobile/customer")
 public class AppIndexCustomerController {
 
 	@Autowired
@@ -53,20 +55,15 @@ public class AppIndexCustomerController {
 	@RequestMapping(value="/index/getInfo.action")
 	public CustomMobleIndexDto getAll(
 			@RequestParam("yggh") String yggh) {
-		//存贷总览
-		TB_TJFX_CDZL t = new TB_TJFX_CDZL();
-		t.setYggh(yggh);
+		
 		CustomMobleIndexDto res = new CustomMobleIndexDto();
 		//存贷总览
-		List<TB_TJFX_CDZL>  cdzlList = tB_TJFX_CDZLService.findAll(t);
-		if(cdzlList!=null && cdzlList.size()==1) {
-			CDZLDto dto = new CDZLDto();
-			List<TB_TJFX_CDZL> list = tB_TJFX_CDZLService.findAll(t);
-			if(list!=null && list.size()>0 && list.get(0)!=null) {
-				BeanUtils.copyProperties(list.get(0), dto);
-			}
-			res.setCdzl(dto);
+		CDZLDto dto = new CDZLDto();
+		List<TB_TJFX_CDZL> list = tB_TJFX_CDZLService.findByYggh(yggh);
+		if(list!=null && list.size()>0 && list.get(0)!=null) {
+			BeanUtils.copyProperties(list.get(0), dto);
 		}
+		res.setCdzl(dto);
 		//个人客户
 		CustomerTj grkh = new CustomerTj();
 		grkh.setBldkdkh(tB_TJFX_BLDKKHService.getCount(yggh, 1));
@@ -143,6 +140,18 @@ public class AppIndexCustomerController {
 			Integer khlx
 			) {
 		return tB_TJFX_YQDKKHService.getTB_TJFX_BLDKKHByYgghAndKHLX(yggh, khlx);
+	}
+	
+	@Autowired
+	private OnApplicationStarted onApplicationStarted;
+	
+	@RequestMapping(value="/index/test.action")
+	public void test(
+			
+			) {
+		File f = new File("C:\\Users\\Administrator\\Desktop\\TB_TJFX_CDZL.txt");
+		File[] files = new File[] {f};
+		onApplicationStarted.dataImort("20181121",files);
 	}
 	
 }

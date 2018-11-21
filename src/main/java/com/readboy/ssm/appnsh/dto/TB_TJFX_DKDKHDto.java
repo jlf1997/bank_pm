@@ -20,8 +20,8 @@ public class TB_TJFX_DKDKHDto {
 	private String jgmc	;//机构代码
 	private String khmc	;//客户名称
 	private String dkzh	;//贷款账号
-	private Date ffrq	;//发放日期
-	private Date dqrq	;//到期日期
+	private Date zzffrq	;//发放日期
+	private Date zzdqrq	;//到期日期
 	private BigDecimal dkje	;//贷款金额
 	private BigDecimal dkye	;//贷款余额
 	private String lxfs	;//联系方式
@@ -58,23 +58,26 @@ public class TB_TJFX_DKDKHDto {
 	}
 
 
-	public Date getFfrq() {
-		return ffrq;
+	
+
+
+	public Date getZzffrq() {
+		return zzffrq;
 	}
 
 
-	public void setFfrq(Date ffrq) {
-		this.ffrq = ffrq;
+	public void setZzffrq(Date zzffrq) {
+		this.zzffrq = zzffrq;
 	}
 
 
-	public Date getDqrq() {
-		return dqrq;
+	public Date getZzdqrq() {
+		return zzdqrq;
 	}
 
 
-	public void setDqrq(Date dqrq) {
-		this.dqrq = dqrq;
+	public void setZzdqrq(Date zzdqrq) {
+		this.zzdqrq = zzdqrq;
 	}
 
 

@@ -648,7 +648,11 @@ public class OnApplicationStarted implements InitializingBean{
 							|| fName.contains("erp_wage_dkmnlrgzmx_") || fName.equals("erp_wage_dkkhbsmx.txt")
 							|| fName.contains("erp_wage_ckaljcgzmx_") || fName.contains("erp_wage_ckyzkhgzmx_")
 							|| fName.contains("erp_wage_dkaljcgzmx_")|| fName.equals("erp_wage_dkkhhsmx.txt")
-							|| fName.equals("erp_wage_dydklxshmx.txt") || fName.equals("erp_wage_bmkkhhsmx.txt")){
+							|| fName.equals("erp_wage_dydklxshmx.txt") || fName.equals("erp_wage_bmkkhhsmx.txt")
+							
+							|| fName.equals("tb_tfjx_cdzl.txt") 
+							
+							){
 						try {
 							dataInfoService.deleteTableDataByrq(tableName, zd[1], ksrq, jsrq);
 						} catch (Exception e) {

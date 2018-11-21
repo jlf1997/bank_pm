@@ -2,53 +2,35 @@ package com.readboy.ssm.appnsh.service;
 
 import java.util.List;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import com.readboy.ssm.appnsh.jpa.TB_TJFX_CDKPMJpa;
 import com.readboy.ssm.appnsh.model.TB_TJFX_CDKPM;
-import com.readboy.ssm.appnsh.model.TB_TJFX_DKDQKH;
-import com.readboy.ssm.appnsh.util.Finder;
 
 @Service
-public class TB_TJFX_CDKPMService extends Finder<TB_TJFX_CDKPM, Long>{
+public class TB_TJFX_CDKPMService {
 	
 	@Autowired
-	private TB_TJFX_CDKPMJpa jpa;
+	private JdbcTemplate jdbcTemplate;
+	
 
-	@Override
-	public JpaSpecificationExecutor<TB_TJFX_CDKPM> specjpa() {
+	public List<TB_TJFX_CDKPM> findTop10(int ywlx, String yggh) {
 		// TODO Auto-generated method stub
-		return jpa;
+		String sql = "select * from tb_tjfx_cdkpm where yggh=? and ywlx=?  order by je desc limit 10";
+		
+		List<TB_TJFX_CDKPM> list = jdbcTemplate.query(sql, new Object[] {yggh,ywlx}
+		,new BeanPropertyRowMapper<TB_TJFX_CDKPM>(TB_TJFX_CDKPM.class));
+		
+		return list;
 	}
-
-	@Override
-	public JpaRepository<TB_TJFX_CDKPM, Long> jpa() {
-		// TODO Auto-generated method stub
-		return jpa;
-	}
+	
+	
 
 	
 
-	@Override
-	public void setSelect(TB_TJFX_CDKPM t) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void addWhere(Object[] t, List<Predicate> predicates, Root<TB_TJFX_CDKPM> root, CriteriaQuery<?> query,
-			CriteriaBuilder cb) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 
 

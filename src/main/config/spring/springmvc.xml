@@ -39,7 +39,12 @@
 	<bean id="ftpUtil" class="com.readboy.ssm.utils.FtpUtil" />
 	<context:component-scan base-package="com.readboy.ssm.utils.FtpUtil"></context:component-scan>
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
-    	<property name="location" value="classpath:ftp.properties"></property>  
+    	<property name="locations">
+    		<list> 
+	          <value>classpath:ftp.properties</value> 
+	          <value>classpath:db.properties</value> 
+	       </list> 
+    	</property>  
 	</bean>
 	<!-- 读取ftp服务器配置文件的配置END -->
 	
