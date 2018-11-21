@@ -31,6 +31,8 @@ public class TB_TJFX_BLDKKHDto {
 	private String dz	;//地址
 	private Integer khlx	;//客户类型
 	
+	private Integer wjflbz	;//五级分类标识
+	
 	public String getYggh() {
 		return yggh;
 	}
@@ -96,6 +98,14 @@ public class TB_TJFX_BLDKKHDto {
 	}
 	public void setKhlx(Integer khlx) {
 		this.khlx = khlx;
+	}
+	
+	
+	public Integer getWjflbz() {
+		return wjflbz;
+	}
+	public void setWjflbz(Integer wjflbz) {
+		this.wjflbz = wjflbz;
 	}
 	public static List<TB_TJFX_BLDKKHDto> copyList(List<TB_TJFX_BLDKKH> source,OrgService orgService) {
 		List<TB_TJFX_BLDKKHDto> target = new ArrayList<>();
