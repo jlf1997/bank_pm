@@ -32,7 +32,7 @@ import com.readboy.ssm.appnsh.service.TB_TJFX_YQDKKHService;
 import com.readboy.ssm.timetask.OnApplicationStarted;
 
 @RestController
-@RequestMapping("/demo/mobile/customer")
+@RequestMapping("/mobile/customer")
 public class AppIndexCustomerController {
 
 	@Autowired
