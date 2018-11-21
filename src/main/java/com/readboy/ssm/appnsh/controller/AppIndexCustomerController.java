@@ -97,7 +97,7 @@ public class AppIndexCustomerController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value="/index/detaiBLDK.action")
+	@RequestMapping(value="/index/detaiBLDKKH.action")
 	public List<TB_TJFX_BLDKKHDto> getBLDKDetai(
 			String yggh,
 			Integer khlx
