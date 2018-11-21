@@ -49,7 +49,7 @@ public class ErpAssessDataJgPhjfk {
 	private BigDecimal zbjg;//	指标结果
 	private BigDecimal zbdf;//	指标得分
 	private Integer lrbz;//	录入标识
-	private String lrsj;//	录入时间
+	private Date lrsj;//	录入时间
 	private String lrr;//	录入人
 	private Date tjrq;//	统计日期
 	private BigDecimal zhjzqz;//	支行竞争权重
@@ -100,10 +100,11 @@ public class ErpAssessDataJgPhjfk {
 	public void setLrbz(Integer lrbz) {
 		this.lrbz = lrbz;
 	}
-	public String getLrsj() {
+	
+	public Date getLrsj() {
 		return lrsj;
 	}
-	public void setLrsj(String lrsj) {
+	public void setLrsj(Date lrsj) {
 		this.lrsj = lrsj;
 	}
 	public String getLrr() {

@@ -90,8 +90,11 @@ public class ErpAssessDataJgPhjfkDto {
 			}
 			erpBasZbk = new ErpBasZbk();
 			erpBasZbk.setZBID(source.get(i).getZbid());
-			erpBasZbk = erpBasZbkService.find(erpBasZbk);
-			dto.setZbmc(erpBasZbk.getZBMC());
+			List<ErpBasZbk> list = erpBasZbkService.findAll(erpBasZbk);
+			if(list!=null && list.size()>0) {
+				dto.setZbmc(list.get(0).getZBMC());
+			}
+			
 			target.add(dto);
 		}
 		return target;

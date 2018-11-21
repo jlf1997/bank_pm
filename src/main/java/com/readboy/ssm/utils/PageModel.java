@@ -6,6 +6,11 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 
 public class PageModel {
+	
+	
+	public PageModel() {
+		
+	}
 
 	public PageModel(Page page) {
 		this.content = page.getContent();

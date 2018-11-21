@@ -6,64 +6,34 @@ import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.readboy.ssm.appjx.dto.ErpAssessDataJgPhjfkDto;
-import com.readboy.ssm.appjx.jpa.ErpAssessdataJgPhjfkJpa;
 import com.readboy.ssm.appjx.model.ErpAssessDataJgPhjfk;
-import com.readboy.ssm.appnsh.util.Finder;
+import com.readboy.ssm.appnsh.model.TB_TJFX_BLDKKH;
 import com.readboy.ssm.appnsh.util.SpringDataJpaFinder;
 import com.readboy.ssm.appnsh.util.SpringDateJpaOper;
-import com.readboy.ssm.po.StaffAndPost;
-import com.readboy.ssm.service.StaffAndPostService;
 import com.readboy.ssm.utils.PageModel;
 import com.readboy.ssm.utils.TimeUtil;
 
 @Service
-public class ErpAssessdataJgPhjfkService extends Finder<ErpAssessDataJgPhjfk, Long>{
+public class ErpAssessdataJgPhjfkService {
 	
 	
-	@Autowired
-	private ErpAssessdataJgPhjfkJpa jpa;
+	
 	@Autowired
 	private ErpBasZbkService erpBasZbkService;
 
 
-	@Override
-	public JpaSpecificationExecutor<ErpAssessDataJgPhjfk> specjpa() {
-		// TODO Auto-generated method stub
-		return jpa;
-	}
-
-	@Override
-	public JpaRepository<ErpAssessDataJgPhjfk, Long> jpa() {
-		// TODO Auto-generated method stub
-		return jpa;
-	}
-
-	
-
-	@Override
-	public void setSelect(ErpAssessDataJgPhjfk t) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void addWhere(Object[] t, List<Predicate> predicates, Root<ErpAssessDataJgPhjfk> root,
-			CriteriaQuery<?> query, CriteriaBuilder cb) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 
 	
 	/**
@@ -75,33 +45,49 @@ public class ErpAssessdataJgPhjfkService extends Finder<ErpAssessDataJgPhjfk, Lo
 	 * @return
 	 */
 	public PageModel findPage(String zbwd,Integer pageSize,Integer pageIndex,String zzbz,Date b,Date end) {
-		try {
-			
-			Page<ErpAssessDataJgPhjfk> page = this.findAllPage(new SpringDataJpaFinder<ErpAssessDataJgPhjfk>() {
-
-				@Override
-				public boolean where(List<Predicate> predicates, Root<ErpAssessDataJgPhjfk> root,
-						CriteriaQuery<?> query, CriteriaBuilder cb, Object... t) {
-					// TODO Auto-generated method stub
-//					root.join("erpBasZbk",JoinType.LEFT);
-					SpringDateJpaOper<ErpAssessDataJgPhjfk> springDateJpaOper = new SpringDateJpaOper<>(root,query,cb);
-					springDateJpaOper.between(predicates, "tjrq", t[1], t[2]);
-					springDateJpaOper.eq("zzbz", t[0]);
-					springDateJpaOper.eq("khwd", t[3]);
-					return false;
-				}
-				
-			}, pageSize, pageIndex, zzbz,b,end,zbwd);
-			PageModel pm = new PageModel(page);
-			List<ErpAssessDataJgPhjfkDto> list = ErpAssessDataJgPhjfkDto.copy(page.getContent(),erpBasZbkService);
-			
-			pm.setContent(list);
-			return pm;
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+		
+		String sql =  "SELECT * from erp_assessdata_jg_phjfk "
+				+ "where zzbz=? and tjrq >= ? and tjrq<=? and khwd= ? limit "+pageIndex*pageSize+","+pageSize ;
+		List<ErpAssessDataJgPhjfk> content = jdbcTemplate.query(sql, new Object[] {zzbz,b,end,zbwd}, new BeanPropertyRowMapper<ErpAssessDataJgPhjfk>(ErpAssessDataJgPhjfk.class));
+		PageModel pm = new PageModel();
+		List<ErpAssessDataJgPhjfkDto> list = ErpAssessDataJgPhjfkDto.copy(content,erpBasZbkService);
+		
+		pm.setContent(list);
+		
+		String countsizeSql = "SELECT count(*) from erp_assessdata_jg_phjfk "
+				+ "where zzbz=? and tjrq >= ? and tjrq<=? and khwd= ? ";
+		long totalSize = jdbcTemplate.queryForLong(countsizeSql,zzbz,b,end,zbwd);
+		int totalPages = (int) ((totalSize/pageSize)+0.5);
+		pm.setTotalPages(totalPages);
+		pm.setTotalSize(totalSize);
+		return pm;
+//		try {
+//			
+//			Page<ErpAssessDataJgPhjfk> page = this.findAllPage(new SpringDataJpaFinder<ErpAssessDataJgPhjfk>() {
+//
+//				@Override
+//				public boolean where(List<Predicate> predicates, Root<ErpAssessDataJgPhjfk> root,
+//						CriteriaQuery<?> query, CriteriaBuilder cb, Object... t) {
+//					// TODO Auto-generated method stub
+////					root.join("erpBasZbk",JoinType.LEFT);
+//					SpringDateJpaOper<ErpAssessDataJgPhjfk> springDateJpaOper = new SpringDateJpaOper<>(root,query,cb);
+//					springDateJpaOper.between(predicates, "tjrq", t[1], t[2]);
+//					springDateJpaOper.eq("zzbz", t[0]);
+//					springDateJpaOper.eq("khwd", t[3]);
+//					return false;
+//				}
+//				
+//			}, pageSize, pageIndex, zzbz,b,end,zbwd);
+//			PageModel pm = new PageModel(page);
+//			List<ErpAssessDataJgPhjfkDto> list = ErpAssessDataJgPhjfkDto.copy(page.getContent(),erpBasZbkService);
+//			
+//			pm.setContent(list);
+//			return pm;
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return null;
 		
 	}
 	
@@ -113,7 +99,9 @@ public class ErpAssessdataJgPhjfkService extends Finder<ErpAssessDataJgPhjfk, Lo
 	public String getDf(String zzbz,Date date) {
 		Date b = TimeUtil.getTheFirstDayOfMonth(date);
 		Date e = TimeUtil.getTheLastDayOfMonth(date);
-		BigDecimal res = jpa.getDfs(zzbz, b,e);
+		String sql =  "SELECT sum(zbdf) from erp_assessdata_jg_phjfk "
+				+ "where zzbz=? and tjrq >= ? and tjrq<=?";
+		BigDecimal res =  jdbcTemplate.queryForObject(sql, new Object[] {zzbz,b,e}, BigDecimal.class);
 		if(res==null) {
 			return "0";
 		}
