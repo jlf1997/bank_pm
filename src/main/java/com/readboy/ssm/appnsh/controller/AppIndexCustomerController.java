@@ -97,7 +97,7 @@ public class AppIndexCustomerController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value="/index/detaiBLDKKH.action")
+	@RequestMapping(value="/index/detaiBLDKDKH.action")
 	public List<TB_TJFX_BLDKKHDto> getBLDKDetai(
 			String yggh,
 			Integer khlx
@@ -137,7 +137,7 @@ public class AppIndexCustomerController {
 		return tB_TJFX_DKDQKHService.getTB_TJFX_BLDKKHByYgghAndKHLX(yggh, khlx);
 	}
 	
-	@RequestMapping(value="/index/detaiYQDKKH.action")
+	@RequestMapping(value="/index/detaiYQDKDKH.action")
 	public List<TB_TJFX_YQDKKHDto> getYQDKKHDetai(
 			String yggh,
 			Integer khlx
