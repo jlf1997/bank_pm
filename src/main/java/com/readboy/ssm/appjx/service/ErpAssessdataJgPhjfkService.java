@@ -57,7 +57,13 @@ public class ErpAssessdataJgPhjfkService {
 		String countsizeSql = "SELECT count(*) from erp_assessdata_jg_phjfk "
 				+ "where zzbz=? and tjrq >= ? and tjrq<=? and khwd= ? ";
 		long totalSize = jdbcTemplate.queryForLong(countsizeSql,zzbz,b,end,zbwd);
-		int totalPages = (int) ((totalSize/pageSize)+0.5);
+		int totalPages;
+		if(totalSize%pageSize==0) {
+			totalPages=(int) (totalSize/pageSize);
+		}else {
+			 totalPages = (int) ((totalSize/pageSize)+1);
+		}
+		
 		pm.setTotalPages(totalPages);
 		pm.setTotalSize(totalSize);
 		return pm;
