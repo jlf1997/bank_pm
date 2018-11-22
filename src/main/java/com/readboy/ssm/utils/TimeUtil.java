@@ -50,6 +50,14 @@ public class TimeUtil {
 		return date.getTime();
 	}
 	
+	public static boolean less(Date day,Date compare) {
+		Calendar dayc = Calendar.getInstance();
+		dayc.setTime(day);
+		Calendar compareC = Calendar.getInstance();
+		compareC.setTime(compare);
+		return dayc.before(compareC);
+	}
+	
 	/**
 	 * 获取一天开始时间
 	 * @return
@@ -317,6 +325,21 @@ public class TimeUtil {
 	public static boolean isInDay(Date date,Date range) {
 		Long t1 = getStartTime(range).getTime();
 		Long t2 = getEndTime(range).getTime();
+		if(date.getTime()>t1 && date.getTime()<t2) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * 判断时间是否在给定的日期当月
+	 * @param date
+	 * @param range
+	 * @return
+	 */
+	public static boolean isInMonth(Date date,Date range) {
+		Long t1 = getTheFirstDayOfMonth(range).getTime();
+		Long t2 = getTheLastDayOfMonth(range).getTime();
 		if(date.getTime()>t1 && date.getTime()<t2) {
 			return true;
 		}

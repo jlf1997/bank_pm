@@ -90,23 +90,22 @@ public class JxController {
 		try {
 			YgjxDto dto = new YgjxDto();
 			Date d = new Date(gzrq);
-			ErpWageYgjx now = erpWageYgjxService.findPerformance(d, yggh);
-			if(now!=null)
-				BeanUtils.copyProperties(now, dto);
-			BigDecimal dygz = erpWageYgjxService.getMonthZj(d, yggh);
-			dto.setDygz(dygz);
-			if(now!=null) {
-				dto.setDrgz(now.getGzhj());
-			}else {
-				dto.setDrgz(new BigDecimal("0"));
+			ErpWageYgjx jx = erpWageYgjxService.findPerformance(d, yggh);
+			if(jx!=null) {
+				BeanUtils.copyProperties(jx, dto);
 			}
 			
-			ErpWageYgjx lastDay = erpWageYgjxService.findPerformance(TimeUtil.getDay(d,-1), yggh);
-			if(lastDay!=null) {
-				dto.setGzzf(dto.getDrgz().subtract(lastDay.getGzhj()));
-			}else {
-				dto.setGzzf(dto.getDrgz());
-			}
+			//当日工资
+			BigDecimal drgz = erpWageYgjxService.getGz(d, yggh);
+			dto.setDrgz(drgz);
+			//上日工资
+			BigDecimal srgz = erpWageYgjxService.getGz(TimeUtil.getDay(d, -1), yggh);
+			dto.setGzzf(drgz.subtract(srgz));
+			//当月工资
+			BigDecimal dygz = erpWageYgjxService.getGzMonth(d, yggh);
+			dto.setDygz(dygz);
+			
+			
 			
 			return dto;
 		} catch (Exception e) {

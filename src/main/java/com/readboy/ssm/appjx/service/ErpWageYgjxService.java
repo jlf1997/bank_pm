@@ -70,6 +70,53 @@ public class ErpWageYgjxService extends Finder<ErpWageYgjx, JXPK>{
 		Date e = TimeUtil.getEndTime(day);
 		return jpa.findPerformance(b, e, yggh);
 	}
+	
+	/**
+	 * 获取真实工资
+	 * @param day
+	 * @param yggh
+	 * @return
+	 */
+	public BigDecimal getGz(Date day,String yggh) {
+		ErpWageYgjx ygjx = findPerformance(day,yggh);
+		BigDecimal ngz = new BigDecimal("0");
+		if(ygjx!=null) {
+			ngz = ygjx.getGzhj();
+		}
+		//判断day是否是第一天 如果是则直接返回
+		Date fdInMonth = TimeUtil.getTheFirstDayOfMonth(day);
+		boolean isFirstDay = TimeUtil.isInDay(day, fdInMonth);
+		if(isFirstDay) {
+			return ngz;
+		}
+		ErpWageYgjx lastDay = findPerformance(TimeUtil.getDay(day, -1),yggh);
+		BigDecimal ygz = new BigDecimal("0");
+		if(lastDay!=null) {
+			ygz = lastDay.getGzhj();
+		}
+		return ngz.subtract(ygz);
+	}
+	
+	public BigDecimal getGzMonth(Date day,String yggh) {
+		ErpWageYgjx ygjx;
+		Date now = new Date();
+		
+		//如果day是当前月 取现在时间的数据
+		if(TimeUtil.isInMonth(day, now)) {
+			 ygjx = findPerformance(day,yggh);
+		}else {//否则取day所在月最后一天的数据
+			 ygjx = findPerformance(TimeUtil.getTheLastDayOfMonth(day),yggh);
+		}
+		BigDecimal ngz = new BigDecimal("0");
+		if(ygjx!=null) {
+			ngz = ygjx.getGzhj();
+		}
+		return ngz;
+		
+		
+		
+		
+	}
 
 	@Override
 	public void addWhere(Object[] t, List<Predicate> predicates, Root<ErpWageYgjx> root, CriteriaQuery<?> query,

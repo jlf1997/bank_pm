@@ -2,12 +2,16 @@ package com.readboy.ssm.appnsh.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
+import com.readboy.ssm.appnsh.jpa.JdbcTemplatePageHelper;
+import com.readboy.ssm.appnsh.model.TB_TJFX_BLDKKH;
 import com.readboy.ssm.appnsh.model.TB_TJFX_CDZL;
 
 @Service
@@ -16,6 +20,9 @@ public class TB_TJFX_CDZLService {
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	private JdbcTemplatePageHelper jdbcTemplatePageHelper;
 
 	
 	
@@ -42,6 +49,7 @@ public class TB_TJFX_CDZLService {
 	}
 	
 	 
+
 
 
 }

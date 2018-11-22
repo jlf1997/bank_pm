@@ -1,12 +1,13 @@
 package com.readboy.ssm.appnsh.controller;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -102,12 +103,32 @@ public class AppIndexCustomerController {
 		return tB_TJFX_BLDKKHService.getTB_TJFX_BLDKKHByYgghAndKHLX(yggh, khlx);
 	}
 	
+	@RequestMapping(value="/index/detaiBLDKDKHPage.action")
+	public Map getBLDKDetaiPage(
+			String yggh,
+			Integer khlx,
+			Integer pageSize,
+			Integer pageIndex
+			) {
+		return tB_TJFX_BLDKKHService.getPages(yggh, khlx,pageSize,pageIndex);
+	}
+	
 	@RequestMapping(value="/index/detaiCKDKH.action")
 	public List<TB_TJFX_CKDKHDto> getCKDKHDetai(
 			String yggh,
 			Integer khlx
 			) {
 		return tB_TJFX_CKDKHService.getTB_TJFX_BLDKKHByYgghAndKHLX(yggh, khlx);
+	}
+	
+	@RequestMapping(value="/index/detaiCKDKHPage.action")
+	public Map getCKDKHDetaiPage(
+			String yggh,
+			Integer khlx,
+			Integer pageSize,
+			Integer pageIndex
+			) {
+		return tB_TJFX_CKDKHService.getPages(yggh, khlx,pageSize,pageIndex);
 	}
 	
 	@RequestMapping(value="/index/detaiCKDQKH.action")
@@ -118,12 +139,32 @@ public class AppIndexCustomerController {
 		return tB_TJFX_CKDQKHService.getTB_TJFX_BLDKKHByYgghAndKHLX(yggh, khlx);
 	}
 	
+	@RequestMapping(value="/index/detaiCKDQKHPage.action")
+	public Map getCKDQKHDetaiPage(
+			String yggh,
+			Integer khlx,
+			Integer pageSize,
+			Integer pageIndex
+			) {
+		return tB_TJFX_CKDQKHService.getPages(yggh, khlx,pageSize,pageIndex);
+	}
+	
 	@RequestMapping(value="/index/detaiDKDKH.action")
 	public List<TB_TJFX_DKDKHDto> getDKDKHDetai(
 			String yggh,
 			Integer khlx
 			) {
 		return tB_TJFX_DKDKHService.getTB_TJFX_BLDKKHByYgghAndKHLX(yggh, khlx);
+	}
+	
+	@RequestMapping(value="/index/detaiDKDKHPage.action")
+	public Map getDKDKHDetaiPage(
+			String yggh,
+			Integer khlx,
+			Integer pageSize,
+			Integer pageIndex
+			) {
+		return tB_TJFX_DKDKHService.getPages(yggh, khlx,pageSize,pageIndex);
 	}
 	
 	@RequestMapping(value="/index/detaiDKDQKH.action")
@@ -134,12 +175,32 @@ public class AppIndexCustomerController {
 		return tB_TJFX_DKDQKHService.getTB_TJFX_BLDKKHByYgghAndKHLX(yggh, khlx);
 	}
 	
+	@RequestMapping(value="/index/detaiDKDQKHPage.action")
+	public Map getDKDQKHDetaiPage(
+			String yggh,
+			Integer khlx,
+			Integer pageSize,
+			Integer pageIndex
+			) {
+		return tB_TJFX_DKDQKHService.getPages(yggh, khlx,pageSize,pageIndex);
+	}
+	
 	@RequestMapping(value="/index/detaiYQDKDKH.action")
 	public List<TB_TJFX_YQDKKHDto> getYQDKKHDetai(
 			String yggh,
 			Integer khlx
 			) {
 		return tB_TJFX_YQDKKHService.getTB_TJFX_BLDKKHByYgghAndKHLX(yggh, khlx);
+	}
+	
+	@RequestMapping(value="/index/detaiYQDKDKHPage.action")
+	public Map getYQDKKHDetaiPage(
+			String yggh,
+			Integer khlx,
+			Integer pageSize,
+			Integer pageIndex
+			) {
+		return tB_TJFX_YQDKKHService.getPages(yggh, khlx,pageSize,pageIndex);
 	}
 	
 	@Autowired
