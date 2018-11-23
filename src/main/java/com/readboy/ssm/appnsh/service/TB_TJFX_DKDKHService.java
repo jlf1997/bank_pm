@@ -45,7 +45,7 @@ public class TB_TJFX_DKDKHService {
 	}
 	
 	public List<TB_TJFX_DKDKHDto> getTB_TJFX_BLDKKHByYgghAndKHLX(String yggh,Integer khlx){
-		String sql = "select * from tb_tjfx_ckdkh where yggh=? and khlx=? ";
+		String sql = "select * from tb_tjfx_dkdkh where yggh=? and khlx=? order by dkye desc ";
 		List<TB_TJFX_DKDKH> list = jdbcTemplate.query(sql, new Object[] {yggh,khlx}
 		,new BeanPropertyRowMapper<TB_TJFX_DKDKH>(TB_TJFX_DKDKH.class));
 		return TB_TJFX_DKDKHDto.copyList(list,orgService);
@@ -55,10 +55,10 @@ public class TB_TJFX_DKDKHService {
 	
 	public Map getPages(String yggh, Integer khlx, Integer pageSize, Integer pageIndex) {
 		// TODO Auto-generated method stub
-		String sql = "select count(*) from tb_tjfx_ckdkh where yggh=? and khlx=? ";
+		String sql = "select count(*) from tb_tjfx_dkdkh where yggh=? and khlx=? ";
 		
-		String sqlPage = "select tb.*,org.ZZMC as jgmc from tb_tjfx_ckdkh tb "
-				+ "left join hr_bas_organization org on tb.jgdm = org.YWJGDM  where yggh=? and khlx=?";
+		String sqlPage = "select tb.*,org.ZZMC as jgmc from tb_tjfx_dkdkh tb "
+				+ "left join hr_bas_organization org on tb.jgdm = org.YWJGDM  where yggh=? and khlx=? order by dkye desc";
 		RowMapper<TB_TJFX_DKDKHDto> rowMap = new BeanPropertyRowMapper<TB_TJFX_DKDKHDto>(TB_TJFX_DKDKHDto.class);
 		Map map =  jdbcTemplatePageHelper.getPageMap(sqlPage,sql, pageIndex, pageSize, rowMap, yggh,khlx);
 	

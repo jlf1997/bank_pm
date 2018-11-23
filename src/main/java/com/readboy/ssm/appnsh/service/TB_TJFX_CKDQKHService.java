@@ -32,7 +32,7 @@ public class TB_TJFX_CKDQKHService {
 	
 
 	public int getCount(String yggh,int khlx) {
-		String sql = "select * from tb_tjfx_ckdqkh where yggh=? and khlx=? ";
+		String sql = "select * from tb_tjfx_ckdqkh where yggh=? and khlx=? order by dqrq asc";
 		List<TB_TJFX_CKDQKH> list = jdbcTemplate.query(sql, new Object[] {yggh,khlx}
 		,new BeanPropertyRowMapper<TB_TJFX_CKDQKH>(TB_TJFX_CKDQKH.class));
 		if(list!=null) {
@@ -43,7 +43,7 @@ public class TB_TJFX_CKDQKHService {
 	}
 
 	public List<TB_TJFX_CKDQKHDto> getTB_TJFX_BLDKKHByYgghAndKHLX(String yggh,Integer khlx){
-		String sql = "select * from tb_tjfx_ckdqkh where yggh=? and khlx=? ";
+		String sql = "select * from tb_tjfx_ckdqkh where yggh=? and khlx=? order by dqrq asc";
 		List<TB_TJFX_CKDQKH> list = jdbcTemplate.query(sql, new Object[] {yggh,khlx}
 		,new BeanPropertyRowMapper<TB_TJFX_CKDQKH>(TB_TJFX_CKDQKH.class));
 		return TB_TJFX_CKDQKHDto.copyList(list,orgService);
@@ -52,10 +52,10 @@ public class TB_TJFX_CKDQKHService {
 	
 	public Map getPages(String yggh, Integer khlx, Integer pageSize, Integer pageIndex) {
 		// TODO Auto-generated method stub
-		String sql = "select count(*) from tb_tjfx_ckdqkh where yggh=? and khlx=? ";
+		String sql = "select count(*) from tb_tjfx_ckdqkh where yggh=? and khlx=? order by dqrq asc";
 		
 		String sqlPage = "select tb.*,org.ZZMC as jgmc from tb_tjfx_ckdqkh tb "
-				+ "left join hr_bas_organization org on tb.jgdm = org.YWJGDM  where yggh=? and khlx=?";
+				+ "left join hr_bas_organization org on tb.jgdm = org.YWJGDM  where yggh=? and khlx=? order by dqrq asc";
 		RowMapper<TB_TJFX_CKDQKHDto> rowMap = new BeanPropertyRowMapper<TB_TJFX_CKDQKHDto>(TB_TJFX_CKDQKHDto.class);
 		Map map =  jdbcTemplatePageHelper.getPageMap(sqlPage,sql, pageIndex, pageSize, rowMap, yggh,khlx);
 	

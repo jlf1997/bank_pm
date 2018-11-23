@@ -44,7 +44,7 @@ public class TB_TJFX_DKDQKHService {
 	}
 	
 	public List<TB_TJFX_DKDQKHDto> getTB_TJFX_BLDKKHByYgghAndKHLX(String yggh,Integer khlx){
-		String sql = "select * from tb_tjfx_dkdqkh where yggh=? and khlx=? ";
+		String sql = "select * from tb_tjfx_dkdqkh where yggh=? and khlx=? order by dqrq asc ";
 		List<TB_TJFX_DKDQKH> list = jdbcTemplate.query(sql, new Object[] {yggh,khlx}
 		,new BeanPropertyRowMapper<TB_TJFX_DKDQKH>(TB_TJFX_DKDQKH.class));
 		return TB_TJFX_DKDQKHDto.copyList(list,orgService);
@@ -56,7 +56,7 @@ public class TB_TJFX_DKDQKHService {
 		String sql = "select count(*) from tb_tjfx_dkdqkh where yggh=? and khlx=? ";
 		
 		String sqlPage = "select tb.*,org.ZZMC as jgmc from tb_tjfx_dkdqkh tb "
-				+ "left join hr_bas_organization org on tb.jgdm = org.YWJGDM  where yggh=? and khlx=?";
+				+ "left join hr_bas_organization org on tb.jgdm = org.YWJGDM  where yggh=? and khlx=? order by dqrq asc";
 		RowMapper<TB_TJFX_DKDQKHDto> rowMap = new BeanPropertyRowMapper<TB_TJFX_DKDQKHDto>(TB_TJFX_DKDQKHDto.class);
 		Map map =  jdbcTemplatePageHelper.getPageMap(sqlPage,sql, pageIndex, pageSize, rowMap, yggh,khlx);
 	
