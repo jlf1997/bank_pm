@@ -102,11 +102,13 @@ public class ErpWageYgjxService extends Finder<ErpWageYgjx, JXPK>{
 		Date now = new Date();
 		
 		//如果day是当前月 取现在时间的数据
-		if(TimeUtil.isInMonth(day, now)) {
-			 ygjx = findPerformance(day,yggh);
-		}else {//否则取day所在月最后一天的数据
-			 ygjx = findPerformance(TimeUtil.getTheLastDayOfMonth(day),yggh);
-		}
+//		if(TimeUtil.isInMonth(day, now)) {
+//			 ygjx = findPerformance(day,yggh);
+//		}else {//否则取day所在月最后一天的数据
+//			 ygjx = findPerformance(TimeUtil.getTheLastDayOfMonth(day),yggh);
+//		}
+		
+		ygjx = findPerformance(day,yggh);
 		BigDecimal ngz = new BigDecimal("0");
 		if(ygjx!=null) {
 			ngz = ygjx.getGzhj();
