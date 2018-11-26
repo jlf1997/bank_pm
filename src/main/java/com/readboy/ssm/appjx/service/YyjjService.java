@@ -30,12 +30,13 @@ public class YyjjService {
 		public boolean setWhere(List<Predicate> predicates, SpringDateJpaOper<T> springDateJpaOper, Object... t) {
 			// TODO Auto-generated method stub
 			springDateJpaOper.eq(predicates,"yggh", t[0]);
-			//过期
-			if((int)t[1]<0) {
-				springDateJpaOper.lt(predicates, "yyrq", new Date());
-			}else {
-				springDateJpaOper.ge(predicates, "yyrq", new Date());
-			}
+			springDateJpaOper.eq(predicates, "sbzt",t[1]);
+//			//过期
+//			if((int)t[1]<0) {
+//				springDateJpaOper.lt(predicates, "sbzt", new Date());
+//			}else {
+//				springDateJpaOper.ge(predicates, "sbzt", new Date());
+//			}
 			return false;
 		}
 
@@ -54,7 +55,7 @@ public class YyjjService {
 	/**
 	 * 手机银行预约数
 	 * @param yggh 一员工工号
-	 * @param type 类型 1匹配 -1过期
+	 * @param type 类型 1匹配 0未匹配
 	 * @return
 	 */
 	public Long getKhgxglSjyhyxdjbServiceCount(String yggh,Integer type) {

@@ -178,7 +178,9 @@ public class DataIOController {
 								|| fName.contains("erp_wage_dkmnlrgzmx_") || fName.equals("erp_wage_dkkhbsmx.txt")
 								|| fName.contains("erp_wage_ckaljcgzmx_") || fName.contains("erp_wage_ckyzkhgzmx_")
 								|| fName.contains("erp_wage_dkaljcgzmx_")|| fName.equals("erp_wage_dkkhhsmx.txt")
-								|| fName.equals("erp_wage_dydklxshmx.txt") || fName.equals("erp_wage_bmkkhhsmx.txt")){
+								|| fName.equals("erp_wage_dydklxshmx.txt") || fName.equals("erp_wage_bmkkhhsmx.txt")
+								|| fName.equals("erp_assessdata_jg_phjfk.txt") || fName.equals("tb_tjfx_cdzl.txt")	
+										){
 							try {
 								dataInfoService.deleteTableDataByrq(tableName, zd[1], ksrq, jsrq);
 								message.add("表 "+tableName+"("+rq+")"+" 删除记录成功!");

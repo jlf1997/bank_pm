@@ -134,10 +134,10 @@ public class YjController {
 		Map<String,Object> map = new HashMap<>();
 		//存款
 		Long ckpp = yyjjService.getKhgxglCkkhyxdjbCount(yggh, 1);
-		Long ckgq = yyjjService.getKhgxglCkkhyxdjbCount(yggh, -1);
+		Long ckgq = yyjjService.getKhgxglCkkhyxdjbCount(yggh, 0);
 		//手机银行
 		Long sjpp = yyjjService.getKhgxglSjyhyxdjbServiceCount(yggh, 1);
-		Long sjgq = yyjjService.getKhgxglSjyhyxdjbServiceCount(yggh, -1);
+		Long sjgq = yyjjService.getKhgxglSjyhyxdjbServiceCount(yggh, 0);
 		map.put("ppxx", ckpp+sjpp);
 		map.put("gqxx", ckgq+sjgq);
 		return map;
