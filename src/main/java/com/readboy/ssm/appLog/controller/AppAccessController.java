@@ -20,7 +20,7 @@ public class AppAccessController {
 	private AppAccessService appAccessService;
 
 	//获取区域列表
-	@RequestMapping(value="/list")
+	@RequestMapping(value="/list.action")
 	public List<SysBasQypz> getSysBasQypzList(){
 		
 		
@@ -29,7 +29,7 @@ public class AppAccessController {
 	}
 	
 	//获取区域列表 分页
-	@RequestMapping(value="/page")
+	@RequestMapping(value="/page.action")
 	public Map getSysBasQypzPage(
 			Integer pageSize,
 			Integer pageIndex
@@ -37,7 +37,7 @@ public class AppAccessController {
 		return appAccessService.getSysBasQypzListPate(pageSize, pageIndex);
 		
 	}
-	@RequestMapping(value="/save")
+	@RequestMapping(value="/save.action")
 	public String save(SysBasQypz sysBasQypz){
 		 if(appAccessService.save(sysBasQypz)) {
 			 return Constants.SUCCESS_CODE1;

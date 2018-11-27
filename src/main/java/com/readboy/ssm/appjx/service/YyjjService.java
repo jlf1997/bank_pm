@@ -1,15 +1,21 @@
 package com.readboy.ssm.appjx.service;
 
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.criteria.Predicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
 import com.readboy.ssm.appjx.model.KhgxglCkkhyxdjb;
 import com.readboy.ssm.appjx.model.KhgxglSjyhyxdjb;
+import com.readboy.ssm.appjx.model.YyyjDetail;
+import com.readboy.ssm.appnsh.jpa.JdbcTemplatePageHelper;
 import com.readboy.ssm.appnsh.util.NormalSpringDataJpaFinder;
 import com.readboy.ssm.appnsh.util.SpringDateJpaOper;
 
@@ -22,6 +28,13 @@ public class YyjjService {
 	private KhgxglCkkhyxdjbService khgxglCkkhyxdjbService;
 	@Autowired
 	private KhgxglSjyhyxdjbService khgxglSjyhyxdjbService;
+	
+	
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	private JdbcTemplatePageHelper jdbcTemplatePageHelper;
 	
 	
 	public class khgxglSDJFinder<T> extends NormalSpringDataJpaFinder<T>{
@@ -60,6 +73,26 @@ public class YyjjService {
 	 */
 	public Long getKhgxglSjyhyxdjbServiceCount(String yggh,Integer type) {
 		return khgxglSjyhyxdjbService.count(new khgxglSDJFinder<KhgxglSjyhyxdjb>(), yggh,type);
+	}
+	
+	
+	public Map getYyyjDetailPage(Integer sbzt,String yggh, Integer pageSize, Integer pageIndex) {
+		
+		Map<String,Object> params = new HashMap<String,Object>();
+		params.put("yggh", yggh);
+		params.put("sbzt", sbzt);
+		String sql = " select Sum(c) from "
+				+ "(SELECT count(*) as c from khgxgl_sjyhyxdjb tb1  where yggh=? and sbzt=? "
+				+ "UNION  "
+				+ "select count(*) as c  from khgxgl_ckkhyxdjb tb2  where yggh=? and sbzt=? ) as t3"; 
+		
+		String sqlPage = "SELECT sbzt,yybh,khmc,sjhm,YYRQ,org.ZZMC as jgmc ,'sj' as type,yggh from khgxgl_sjyhyxdjb tb left JOIN hr_bas_organization org on tb.jgdm = org.YWJGDM where yggh=? and sbzt=? " + 
+				" UNION " + 
+				" select sbzt,yybh,khmc,sjhm,YYRQ,org.ZZMC as jgmc,'ck' as type ,yggh from khgxgl_ckkhyxdjb tb left JOIN hr_bas_organization org on tb.jgdm = org.YWJGDM where yggh=? and sbzt=? ";
+		
+		RowMapper<YyyjDetail> rowMap = new BeanPropertyRowMapper<YyyjDetail>(YyyjDetail.class);
+		Map map =  jdbcTemplatePageHelper.getPageMap(sqlPage,sql, pageIndex, pageSize, rowMap, yggh,sbzt,yggh,sbzt);
+		return map;
 	}
 	
 	

@@ -22,6 +22,8 @@ public class JdbcTemplatePageHelper {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
+	
+	
 	public  <T> Map<String,Object> getPageMap(String sql,String countSql,Integer pageIndex,Integer pageSize,RowMapper<T> rowMap,Object...args) {
 		Map<String,Object> map = new HashMap<>();
 		try {

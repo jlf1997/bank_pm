@@ -143,6 +143,28 @@ public class YjController {
 		return map;
 	}
 	
+	/**
+	 * 预约业绩详情
+	 * @param yggh
+	 * @param sfpp 是否匹配 0 未匹配 1已匹配
+	 * @param pageSize
+	 * @param pageIndex
+	 * @return
+	 */
+	
+	@RequestMapping(value="/yyyjDetailPage.action")
+	public Map getYyyjDetailPage(
+			@RequestParam("yggh") String yggh,
+			@RequestParam("sfpp") Integer sfpp,
+			@RequestParam("pageSize") Integer pageSize,
+			@RequestParam("pageIndex") Integer pageIndex
+			) {
+		
+		
+			return yyjjService.getYyyjDetailPage(sfpp,yggh,pageSize,pageIndex);
+		
+	}
+	
 	
 	
 	
