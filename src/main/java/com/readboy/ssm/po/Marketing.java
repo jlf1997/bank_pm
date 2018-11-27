@@ -20,7 +20,7 @@ public class Marketing{
 	private String khmc; 			//客户名称
 	private String sjhm;			//手机号码
 	private BigDecimal yxbl; 		//营销比例
-	private Integer sbzt; 				//申报状态
+	private Integer sbzt = 0; 				//申报状态
 	private String lrr;				//录入人
 	private Integer lrbz; 				//录入标志
 	private String lrsj; 		//录入时间

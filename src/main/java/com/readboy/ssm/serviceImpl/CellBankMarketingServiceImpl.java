@@ -36,6 +36,9 @@ public class CellBankMarketingServiceImpl implements CellBankMarketingService{
 	public long insertCellBankMarketing(CellBankMarketing cellBankMarketing)
 			throws Exception {
 		// TODO Auto-generated method stub
+//		if(cellBankMarketing!=null && cellBankMarketing.getSbzt()==null) {
+//			cellBankMarketing.setSbzt(0);
+//		}
 		long yybh = cellBankeMarketingMapper.insertCellBankMarketing(cellBankMarketing);
 		return yybh;
 	}
