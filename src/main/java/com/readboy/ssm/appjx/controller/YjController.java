@@ -75,7 +75,7 @@ public class YjController {
 			PageModel pm = erpAssessdataJgPhjfkService.findPage("DD",pageSize, pageIndex, snp.getZzbz(), b,e);
 			JGYJDto dto = new JGYJDto();
 			
-			dto.setDf(erpAssessdataJgPhjfkService.getDf(snp.getZzbz(), time));
+			dto.setDf(erpAssessdataJgPhjfkService.getDf(snp.getZzbz(), time,"DD"));
 			dto.setYjmx(pm);
 			return dto;
 		
@@ -105,7 +105,7 @@ public class YjController {
 			PageModel pm = erpAssessdataJgPhjfkService.findPage("MM",pageSize, pageIndex, snp.getZzbz(), b,e);
 			JGYJDto dto = new JGYJDto();
 			
-			dto.setDf(erpAssessdataJgPhjfkService.getDf(snp.getZzbz(), time));
+			dto.setDf(erpAssessdataJgPhjfkService.getDf(snp.getZzbz(), time,"MM"));
 			dto.setYjmx(pm);
 			return dto;
 		

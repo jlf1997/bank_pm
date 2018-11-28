@@ -100,14 +100,16 @@ public class ErpAssessdataJgPhjfkService {
 	
 	/**
 	 * 获取总得分
+	 * @param zzbz
+	 * @param date
 	 * @return
 	 */
-	public String getDf(String zzbz,Date date) {
+	public String getDf(String zzbz,Date date,String KHWD) {
 		Date b = TimeUtil.getTheFirstDayOfMonth(date);
 		Date e = TimeUtil.getTheLastDayOfMonth(date);
 		String sql =  "SELECT sum(zbdf) from erp_assessdata_jg_phjfk "
-				+ "where zzbz=? and tjrq >= ? and tjrq<=?";
-		BigDecimal res =  jdbcTemplate.queryForObject(sql, new Object[] {zzbz,b,e}, BigDecimal.class);
+				+ "where zzbz=? and tjrq >= ? and tjrq<=? and khwd=?";
+		BigDecimal res =  jdbcTemplate.queryForObject(sql, new Object[] {zzbz,b,e,KHWD}, BigDecimal.class);
 		if(res==null) {
 			return "0";
 		}
