@@ -30,8 +30,7 @@ public class YyjjService {
 	private KhgxglSjyhyxdjbService khgxglSjyhyxdjbService;
 	
 	
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	
 	
 	@Autowired
 	private JdbcTemplatePageHelper jdbcTemplatePageHelper;

@@ -13,7 +13,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.readboy.ssm.appjx.dto.JGYJDto;
+import com.readboy.ssm.appjx.dto.KhgxglCkkhyxdjbDto;
+import com.readboy.ssm.appjx.dto.KhgxglSjyhyxdjbDto;
+import com.readboy.ssm.appjx.model.KhgxglCkkhyxdjb;
+import com.readboy.ssm.appjx.model.KhgxglSjyhyxdjb;
 import com.readboy.ssm.appjx.service.ErpAssessdataJgPhjfkService;
+import com.readboy.ssm.appjx.service.KhgxglCkkhyxdjbService;
+import com.readboy.ssm.appjx.service.KhgxglSjyhyxdjbService;
 import com.readboy.ssm.appjx.service.YyjjService;
 import com.readboy.ssm.appnsh.dto.CDZLDto;
 import com.readboy.ssm.appnsh.model.TB_TJFX_CDZL;
@@ -38,6 +44,11 @@ public class YjController {
 	private StaffAndPostService staffAndPostService;
 	@Autowired
 	private YyjjService yyjjService;
+	
+	@Autowired
+	private KhgxglCkkhyxdjbService khgxglCkkhyxdjbService;
+	@Autowired
+	private KhgxglSjyhyxdjbService khgxglSjyhyxdjbService;
 	
 	
 	/**
@@ -163,6 +174,36 @@ public class YjController {
 		
 			return yyjjService.getYyyjDetailPage(sfpp,yggh,pageSize,pageIndex);
 		
+	}
+	
+	/**
+	 * 根据预约编号查询手机预约详情
+	 * @param yybh
+	 * @return
+	 */
+	@RequestMapping(value="/findSjyyByYybh.action")
+	public KhgxglSjyhyxdjbDto getSj(@RequestParam("yybh") Long yybh) {
+		
+		List<KhgxglSjyhyxdjbDto> list=  khgxglSjyhyxdjbService.getSj(yybh);
+		if(list!=null && list.size()>0) {
+			return list.get(0);
+		}
+		return new KhgxglSjyhyxdjbDto();
+	
+	}
+	/**
+	 * 根据预约编号查询存款预约详情
+	 * @param yybh
+	 * @return
+	 */
+	@RequestMapping(value="/findCkyyByYybh.action")
+	public KhgxglCkkhyxdjbDto getCk(@RequestParam("yybh") Long yybh) {
+	
+		List<KhgxglCkkhyxdjbDto> list = khgxglCkkhyxdjbService.getCk(yybh);
+		if(list!=null && list.size()>0) {
+			return list.get(0);
+		}
+		return new KhgxglCkkhyxdjbDto();
 	}
 	
 	
