@@ -82,12 +82,12 @@ public class YyjjService {
 		params.put("sbzt", sbzt);
 		String sql = " select Sum(c) from "
 				+ "(SELECT count(*) as c from khgxgl_sjyhyxdjb tb1  where yggh=? and sbzt=? "
-				+ "UNION  "
+				+ "UNION  ALL "
 				+ "select count(*) as c  from khgxgl_ckkhyxdjb tb2  where yggh=? and sbzt=? ) as t3"; 
 		
-		String sqlPage = "SELECT sbzt,yybh,khmc,sjhm,YYRQ,org.ZZMC as jgmc ,'sj' as type,yggh from khgxgl_sjyhyxdjb tb left JOIN hr_bas_organization org on tb.jgdm = org.YWJGDM where yggh=? and sbzt=? " + 
-				" UNION " + 
-				" select sbzt,yybh,khmc,sjhm,YYRQ,org.ZZMC as jgmc,'ck' as type ,yggh from khgxgl_ckkhyxdjb tb left JOIN hr_bas_organization org on tb.jgdm = org.YWJGDM where yggh=? and sbzt=? ";
+		String sqlPage = "select * from (SELECT sbzt,yybh,khmc,sjhm,YYRQ,org.ZZMC as jgmc ,'sj' as type,yggh from khgxgl_sjyhyxdjb tb left JOIN hr_bas_organization org on tb.jgdm = org.YWJGDM where yggh=? and sbzt=? " + 
+				" UNION ALL " + 
+				" select sbzt,yybh,khmc,sjhm,YYRQ,org.ZZMC as jgmc,'ck' as type ,yggh from khgxgl_ckkhyxdjb tb left JOIN hr_bas_organization org on tb.jgdm = org.YWJGDM where yggh=? and sbzt=? ) as uu ";
 		
 		RowMapper<YyyjDetail> rowMap = new BeanPropertyRowMapper<YyyjDetail>(YyyjDetail.class);
 		Map map =  jdbcTemplatePageHelper.getPageMap(sqlPage,sql, pageIndex, pageSize, rowMap, yggh,sbzt,yggh,sbzt);

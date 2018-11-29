@@ -27,7 +27,7 @@ public class JdbcTemplatePageHelper {
 	public  <T> Map<String,Object> getPageMap(String sql,String countSql,Integer pageIndex,Integer pageSize,RowMapper<T> rowMap,Object...args) {
 		Map<String,Object> map = new HashMap<>();
 		try {
-			String pageSql = sql+" limit "+pageIndex*pageSize+","+pageSize;
+			String pageSql = "("+sql+" ) limit "+pageIndex*pageSize+","+pageSize;
 			List<T> content = jdbcTemplate.query(pageSql,args,rowMap);
 			long totalSize = jdbcTemplate.queryForLong(countSql,args);
 			int totalPages;
