@@ -48,6 +48,9 @@ public class LoginInterceptor implements HandlerInterceptor{
 		if(url.indexOf("/demo/") >= 0) {
 			return true;
 		}
+		if(url.indexOf("/mobile/qyoz/list.action") >= 0 || url.indexOf("/mobile/qyoz/page.action") >= 0) {
+			return true;
+		}
 		
 //		if(url.indexOf("/UploadApkView") >= 0){
 //			return true;
