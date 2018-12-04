@@ -203,7 +203,7 @@ public class TB_TJFX_YQDKKHDto {
 			org.setYwjgdm(source.get(i).getJgdm());
 			org = orgService.find(org);
 			if(org!=null) {
-				dto.setJgmc(org.getZzmc());
+				dto.setJgmc(org.getZzjc());
 			}
 			if(dto.getDqrq()!=null) {
 				double yqts = TimeUtil.getDaySpan(dto.getDqrq(), new Date());

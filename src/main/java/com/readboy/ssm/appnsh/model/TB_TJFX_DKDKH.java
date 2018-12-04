@@ -15,10 +15,13 @@ import javax.persistence.Table;
  * @author Administrator
  *
  */
-
+@Table(name="tb_tjfx_dkdkh")
+@Entity
 public class TB_TJFX_DKDKH {
 	
-	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
 	private String yggh	;//员工工号
 	private String jgdm	;//机构代码
 	private String khmc	;//客户名称

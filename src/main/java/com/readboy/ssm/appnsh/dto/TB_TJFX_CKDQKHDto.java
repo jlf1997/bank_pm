@@ -40,7 +40,7 @@ public class TB_TJFX_CKDQKHDto {
 			org.setYwjgdm(source.get(i).getJgdm());
 			org = orgService.find(org);
 			if(org!=null) {
-				dto.setJgmc(org.getZzmc());
+				dto.setJgmc(org.getZzjc());
 			}
 			target.add(dto);
 		}
