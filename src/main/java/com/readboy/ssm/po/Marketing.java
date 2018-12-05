@@ -1,15 +1,24 @@
 package com.readboy.ssm.po;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Size;
 
 import com.readboy.ssm.controller.validation.MarketingValidationGroup;
+import com.readboy.ssm.utils.TimeUtil;
 
 @MappedSuperclass
 public class Marketing{
+	
+	private String getCurrentTime() {
+		Date time = new Date();
+		 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		 return sdf.format(time);
+	}
 	
 	//将次校验划到校验分组:MarketingValidationGroup中去
 	@Size(min=1,message="{marketing.jgdm.error}",groups=MarketingValidationGroup.class)
@@ -19,11 +28,11 @@ public class Marketing{
 	private String zjhm; 			//证件号码
 	private String khmc; 			//客户名称
 	private String sjhm;			//手机号码
-	private BigDecimal yxbl; 		//营销比例
+	private BigDecimal yxbl =new BigDecimal("100"); 		//营销比例
 	private Integer sbzt = 0; 				//申报状态
-	private String lrr;				//录入人
-	private Integer lrbz; 				//录入标志
-	private String lrsj; 		//录入时间
+	private String lrr ="system";				//录入人
+	private Integer lrbz = 0; 				//录入标志
+	private String lrsj = getCurrentTime(); 		//录入时间
 	private String yyrq;			//预约日期
 	@Id
 	private Long yybh; 				//预约编号,主键
