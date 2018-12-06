@@ -4,7 +4,10 @@ import java.io.IOException;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;import org.apache.log4j.Logger;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -16,7 +19,7 @@ import com.alibaba.fastjson.JSONObject;
 public class SpringWebSocketHandler extends TextWebSocketHandler {
 	//后面改成Map存
 	private static final Map<String,WebSocketSession> users;
-    private static Logger logger = Logger.getLogger(SpringWebSocketHandler.class);
+    private static Logger logger = LoggerFactory.getLogger(SpringWebSocketHandler.class);
     static {
         users = new HashMap<String,WebSocketSession>();
     }

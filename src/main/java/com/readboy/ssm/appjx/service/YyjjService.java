@@ -87,7 +87,7 @@ public class YyjjService {
 		
 		String sqlPage = "select * from (SELECT sbzt,yybh,khmc,sjhm,YYRQ,org.ZZJC as jgmc ,'sj' as type,yggh from khgxgl_sjyhyxdjb tb left JOIN hr_bas_organization org on tb.jgdm = org.YWJGDM where yggh=? and sbzt=? " + 
 				" UNION ALL " + 
-				" select sbzt,yybh,khmc,sjhm,YYRQ,org.ZZJC as jgmc,'ck' as type ,yggh from khgxgl_ckkhyxdjb tb left JOIN hr_bas_organization org on tb.jgdm = org.YWJGDM where yggh=? and sbzt=? ) as uu ";
+				" select sbzt,yybh,khmc,sjhm,YYRQ,org.ZZJC as jgmc,'ck' as type ,yggh from khgxgl_ckkhyxdjb tb left JOIN hr_bas_organization org on tb.jgdm = org.YWJGDM where yggh=? and sbzt=? ) as uu order by yyrq desc ";
 		
 		RowMapper<YyyjDetail> rowMap = new BeanPropertyRowMapper<YyyjDetail>(YyyjDetail.class);
 		Map map =  jdbcTemplatePageHelper.getPageMap(sqlPage,sql, pageIndex, pageSize, rowMap, yggh,sbzt,yggh,sbzt);

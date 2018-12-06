@@ -10,14 +10,16 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.readboy.ssm.mapper.UploadMapper;
 import com.readboy.ssm.po.UploadModel;
+import com.readboy.ssm.websocket.SpringWebSocketHandler;
 
 
 public class UploadModelService {
-	static Logger logger = Logger.getLogger(UploadModelService.class);
+	private static Logger logger = LoggerFactory.getLogger(SpringWebSocketHandler.class);
 	public static SqlSessionFactory sqlSessionFactory;
 	public static Reader reader;
 	public static InputStream inputStream = null;

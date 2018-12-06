@@ -42,7 +42,7 @@ public class KhgxglCkkhyxdjbService extends DefaultFinder<KhgxglCkkhyxdjb, Long>
 	public List<KhgxglCkkhyxdjbDto> getCk(Long yybh) {
 		// TODO Auto-generated method stub
 		String sql = "SELECT tb.*,org.ZZJC as jgmc  from khgxgl_ckkhyxdjb tb left JOIN hr_bas_organization org on tb.jgdm = org.YWJGDM"
-				+ " where yybh=? ";
+				+ " where yybh=?  ";
 		
 		RowMapper<KhgxglCkkhyxdjbDto> rowMapper = new BeanPropertyRowMapper<KhgxglCkkhyxdjbDto>(KhgxglCkkhyxdjbDto.class);
 		
