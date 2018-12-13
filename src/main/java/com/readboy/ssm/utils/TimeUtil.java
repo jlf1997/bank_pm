@@ -325,7 +325,7 @@ public class TimeUtil {
 	public static boolean isInDay(Date date,Date range) {
 		Long t1 = getStartTime(range).getTime();
 		Long t2 = getEndTime(range).getTime();
-		if(date.getTime()>t1 && date.getTime()<t2) {
+		if(date.getTime()>=t1 && date.getTime()<=t2) {
 			return true;
 		}
 		return false;
