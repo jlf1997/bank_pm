@@ -99,8 +99,16 @@ public class JxController {
 			BigDecimal drgz = erpWageYgjxService.getGz(d, yggh);
 			dto.setDrgz(drgz);
 			//上日工资
-			BigDecimal srgz = erpWageYgjxService.getGz(TimeUtil.getDay(d, -1), yggh);
-			dto.setGzzf(drgz.subtract(srgz));
+			Date fdInMonth = TimeUtil.getTheFirstDayOfMonth(d);
+			boolean isFirstDay = TimeUtil.isInDay(d, fdInMonth);
+			if(isFirstDay) {
+				dto.setGzzf(new BigDecimal("0"));
+			}else {
+				BigDecimal srgz = erpWageYgjxService.getGz(TimeUtil.getDay(d, -1), yggh);
+				dto.setGzzf(drgz.subtract(srgz));
+			}
+			
+			
 			//当月工资
 			BigDecimal dygz = erpWageYgjxService.getGzMonth(d, yggh);
 			dto.setDygz(dygz);
