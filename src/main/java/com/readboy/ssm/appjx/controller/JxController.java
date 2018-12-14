@@ -67,12 +67,12 @@ public class JxController {
 			@RequestParam("pageIndex") Integer pageIndex
 			) {
 			BigDecimal zj = erpWageYgjxMxService.getZj(yggh, new Date(gzrq), zblb);
-			PageModel p =  erpWageYgjxMxService.findMxPage(pageSize,pageIndex,yggh, new Date(gzrq), zblb);
-			Map map = new HashMap<>();
+			Map map =  erpWageYgjxMxService.findMxPage(pageSize,pageIndex,yggh, new Date(gzrq), zblb);
+//			Map map = new HashMap<>();
 			map.put("zj", zj);
-			map.put("content", p.getContent());
-			map.put("totalPages", p.getTotalPages());
-			map.put("totalSize", p.getTotalSize());
+//			map.put("content", p.getContent());
+//			map.put("totalPages", p.getTotalPages());
+//			map.put("totalSize", p.getTotalSize());
 			return map;
 	}
 	
