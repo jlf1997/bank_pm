@@ -630,6 +630,7 @@ public class OnApplicationStarted implements InitializingBean{
 					if(fName.equals(fileNames[0]) || fName.equals(fileNames[1]) 
 							|| fName.equals(fileNames[2]) || fName.equals(fileNames[3])){
 						try {
+							//删除所有非手机端数据
 							dataInfoService.deleteMarketingData(tableName, minNum);
 							
 						} catch (Exception e) {
@@ -740,6 +741,7 @@ public class OnApplicationStarted implements InitializingBean{
 					//判断要求yybh字段长度至少12
 					List<DepositMarketing> list = new ArrayList<DepositMarketing>();
 					try {
+						//只导出非手机端新增数据
 						list = depositMarketingService.findDepositMarketingByPrefix("99", 12);
 					} catch (Exception e) {
 						log.error(LogsUtil.getStackTrace(e));
