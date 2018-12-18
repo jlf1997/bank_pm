@@ -1,7 +1,9 @@
 package com.readboy.ssm.serviceImpl;
 
+import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.readboy.ssm.appjx.dto.MyInfo;
@@ -24,6 +26,13 @@ public class StaffAndPostServiceImpl implements StaffAndPostService{
 	public StaffAndPost findStaffAndPostByYggh(String yggh) throws Exception {
 		// TODO Auto-generated method stub
 		return staffAndPostMapper.findStaffAndPostByYggh(yggh);
+	}
+	
+	@Override
+	public StaffAndPost findStaffAndPostByYgghAndTjrq(String yggh, Date fd,
+			 Date ed) throws Exception {
+		// TODO Auto-generated method stub
+		return staffAndPostMapper.findStaffAndPostByYgghAndTjrq(yggh,fd,ed);
 	}
 
 	@Override

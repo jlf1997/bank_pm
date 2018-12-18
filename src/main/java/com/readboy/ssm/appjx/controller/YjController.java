@@ -65,13 +65,14 @@ public class YjController {
 			@RequestParam("pageSize") Integer pageSize,
 			@RequestParam("pageIndex") Integer pageIndex
 			) throws Exception {
-			StaffAndPost snp = staffAndPostService.findStaffAndPostByYggh(yggh);
-			if(snp==null) {
-				return new JGYJDto();
-			}
 			Date time  = new Date(tjrq);
 			Date b = TimeUtil.getTheFirstDayOfMonth(time);
 			Date e = TimeUtil.getTheLastDayOfMonth(time);
+			StaffAndPost snp = staffAndPostService.findStaffAndPostByYgghAndTjrq(yggh,b,e);
+			if(snp==null) {
+				return new JGYJDto();
+			}
+			
 			PageModel pm = erpAssessdataJgPhjfkService.findPage("DD",pageSize, pageIndex, snp.getZzbz(), b,e);
 			JGYJDto dto = new JGYJDto();
 			
@@ -95,13 +96,13 @@ public class YjController {
 			@RequestParam("pageSize") Integer pageSize,
 			@RequestParam("pageIndex") Integer pageIndex
 			) throws Exception {
-			StaffAndPost snp = staffAndPostService.findStaffAndPostByYggh(yggh);
-			if(snp==null) {
-				return new JGYJDto();
-			}
 			Date time  = new Date(tjrq);
 			Date b = TimeUtil.getTheFirstDayOfMonth(time);
 			Date e = TimeUtil.getTheLastDayOfMonth(time);
+			StaffAndPost snp = staffAndPostService.findStaffAndPostByYgghAndTjrq(yggh,b,e);
+			if(snp==null) {
+				return new JGYJDto();
+			}
 			PageModel pm = erpAssessdataJgPhjfkService.findPage("MM",pageSize, pageIndex, snp.getZzbz(), b,e);
 			JGYJDto dto = new JGYJDto();
 			

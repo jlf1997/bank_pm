@@ -1,5 +1,6 @@
 package com.readboy.ssm.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -21,4 +22,8 @@ public interface StaffAndPostService {
 	
 	public MyInfo findStaffAndPostsByYgghNow(
 			@Param("yggh") String yggh) throws Exception;
+	
+	public StaffAndPost findStaffAndPostByYgghAndTjrq(@Param("yggh") String yggh,
+			@Param("fd") Date fd,
+			@Param("ed") Date ed) throws Exception;
 }

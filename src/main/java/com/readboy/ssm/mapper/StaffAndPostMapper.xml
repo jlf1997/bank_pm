@@ -13,6 +13,11 @@
   	<select id="findStaffAndPostByYggh" resultType="StaffAndPost">
 		select * from hr_bas_staff_post as a where rgrq = (select max(b.rgrq) from hr_bas_staff_post  as b where b.yggh = #{yggh}) and yggh=#{yggh}
  	</select>
+ 	
+ 	<select id="findStaffAndPostByYgghAndTjrq" resultType="StaffAndPost">
+		 <![CDATA[ select * from hr_bas_staff_post as a where rgrq <= #{ed} and (lgrq is null or lgrq = '0000-00-00 00:00:00' or lgrq>= #{fd}) and yggh=#{yggh}  ]]>
+ 	</select>
+ 	
  	<!-- 根据员工工号查询员工职位历史 -->
  	<select id="findStaffAndPostsByYggh" resultType="com.readboy.ssm.appjx.dto.MyInfo">
 		select a.*,base.GWMC,s.ygxm,org.ZZMC from hr_bas_staff_post as a left join hr_bas_post base on a.GWBZ = base.GWBZ 
