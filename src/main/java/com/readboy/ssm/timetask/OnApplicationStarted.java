@@ -580,7 +580,7 @@ public class OnApplicationStarted implements InitializingBean{
 					list.add(f);
 				}
 			}
-			FileHelper.writeLog(sdf2.format(new Date())+" 日期为"+rq+"的文件共有"+list.size()+"个txt文件需要导入");
+			log.info(sdf2.format(new Date())+" 日期为"+rq+"的文件共有"+list.size()+"个txt文件需要导入");
 			//防止因为一个表出错，无限循环
 			int cnt = 0;
 			//list中是将要导入的文件列表，当文件全部导入成功的时候才结束
@@ -670,19 +670,26 @@ public class OnApplicationStarted implements InitializingBean{
 					}
 					String fPath = f.getAbsolutePath();
 					try {
-						dataInfoService.dataload(tableName, fPath,separator);
-						FileHelper.writeLog(sdf2.format(new Date())+" 日期为"+rq+"的表"+tableName+"数据导入成功");
+						
+						if(fileNames[0].equals(fName)) {
+							dataInfoService.parseFile(0,tableName, f, separator);
+						}else if(fileNames[1].equals(fName)) {
+							dataInfoService.parseFile(1,tableName, f, separator);
+						}
+						else {
+							dataInfoService.dataload(tableName, fPath,separator);
+						}
+						log.info(sdf2.format(new Date())+" 日期为"+rq+"的表"+tableName+"数据导入成功");
 						list.remove(0);
 					} catch (Exception e) {
 						log.error(LogsUtil.getStackTrace(e));
-						FileHelper.writeLog(sdf2.format(new Date())+ "日期为"+rq+"的表"+tableName+"数据导入失败");
+						log.error(sdf2.format(new Date())+ "日期为"+rq+"的表"+tableName+"数据导入失败");
 					}
 				}
 				cnt++;
 				//导入次数太多，跳出循环，避免无限循环
 				if(cnt > 200){
 					log.error(rq+"的数据循环导入次数太多，退出导入..");
-					FileHelper.writeLog(rq+"的数据循环导入次数太多，退出导入..");
 					break;
 				}
 			}
@@ -741,8 +748,8 @@ public class OnApplicationStarted implements InitializingBean{
 					//判断要求yybh字段长度至少12
 					List<DepositMarketing> list = new ArrayList<DepositMarketing>();
 					try {
-						//只导出非手机端新增数据
-						list = depositMarketingService.findDepositMarketingByPrefix("99", 12);
+						//只导出非手机端新增数据 改为都导出
+						list = depositMarketingService.findAllDepositMarketing();
 					} catch (Exception e) {
 						log.error(LogsUtil.getStackTrace(e));
 						//记录为空就插入，否则就更新错误信息
@@ -776,7 +783,7 @@ public class OnApplicationStarted implements InitializingBean{
 				}else if(i == 1){
 					List<CellBankMarketing> list = new ArrayList<CellBankMarketing>();
 					try {
-						list = cellBankMarketingService.findCellBankMarketingByPrefix("99", 12);
+						list = cellBankMarketingService.findAllCellBankMarketing();
 					} catch (Exception e) {
 						log.error(LogsUtil.getStackTrace(e));
 						//记录为空就插入，否则就更新错误信息

@@ -210,8 +210,9 @@ public class AppIndexCustomerController {
 	public void test(
 			
 			) {
-		File f = new File("C:\\Users\\Administrator\\Desktop\\TB_TJFX_CDZL.txt");
-		File[] files = new File[] {f};
+		File f1 = new File("C:\\Users\\Administrator\\Desktop\\KHGXGL_CKKHYXDJB.txt");
+		File f2 = new File("C:\\Users\\Administrator\\Desktop\\KHGXGL_SJYHYXDJB.txt");
+		File[] files = new File[] {f1,f2};
 		onApplicationStarted.dataImort("20181121",files);
 	}
 	

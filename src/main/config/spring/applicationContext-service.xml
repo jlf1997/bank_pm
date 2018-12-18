@@ -92,9 +92,7 @@
 	<!-- 员工和岗位 -->
 	<bean id="StaffAndPostService"   class="com.readboy.ssm.serviceImpl.StaffAndPostServiceImpl" />
 	<bean id="StaffInfoService"   class="com.readboy.ssm.serviceImpl.StaffInfoServiceImpl" />
-	<!-- 数据导入 -->
-	<bean id="DataInfoService" class="com.readboy.ssm.serviceImpl.DataInfoServiceImpl" />
-	
+
 	<!-- 手机端菜单 -->
 	<bean id="menuService" class="com.readboy.ssm.serviceImpl.MenuServiceImpl" />
 	

@@ -3,6 +3,7 @@ package com.test;
 import java.lang.reflect.InvocationTargetException;
 
 import java.lang.reflect.Method;
+import java.io.File;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 
@@ -13,6 +14,17 @@ import com.readboy.ssm.po.PosMarketing;
 public class RefelctTest {
 	
 	public static void main(String args[]){
+		
+	}
+	
+	
+
+	
+	
+	
+	
+	
+	private void f1() {
 		PosMarketing pdm = new PosMarketing();
 		Class<?> clazz = pdm.getClass();
 		Field fields[] = null;

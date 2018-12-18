@@ -47,6 +47,12 @@ public class KhgxglSjyhyxdjbService extends DefaultFinder<KhgxglSjyhyxdjb, Long>
 		return jdbcTemplate.query(sql, rowMapper,yybh);
 	}
 
+	public void update(Integer sbzt, Long yybh) {
+		// TODO Auto-generated method stub
+		String sql = "update khgxgl_sjyhyxdjb set sbzt = ? where yybh=?";
+		jdbcTemplate.update(sql,sbzt,yybh);
+	}
+
 
 
 

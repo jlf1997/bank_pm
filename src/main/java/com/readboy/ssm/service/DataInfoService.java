@@ -1,5 +1,7 @@
 package com.readboy.ssm.service;
 
+import java.io.File;
+
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -27,5 +29,8 @@ public interface DataInfoService {
 	
 	//查询表是否存在
 	public String findWheatherTableExist(String tableName) throws Exception;
+	
+	//逐条解析文件
+	public long parseFile(int type,String tableName,File f,String separator) throws Exception;
 	
 }
