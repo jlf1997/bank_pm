@@ -123,7 +123,7 @@ public class OnApplicationStarted implements InitializingBean{
 			public void run() {
 				// TODO Auto-generated method stub
 				//自动数据导入导出
-				FileHelper.writeLog("["+sdf2.format(new Date())+"] "+"dealWithData()执行一次");
+				log.info("["+sdf2.format(new Date())+"] "+"dealWithData()执行一次");
 				try {
 					calendarImport1();
 				} catch (Exception e) {
@@ -278,94 +278,94 @@ public class OnApplicationStarted implements InitializingBean{
 		return flag;
     }
     
-	//生成日历表导入数据
-	public void calendarImport() throws Exception{
-		System.out.println("进入数据处理...");
-		String startDateTime = ftpUtil.start_date;
-		//数据导入开始和结束的日期
-		Date startDate = sdf.parse(startDateTime);
-		Date originalDate = startDate;
-		//初始化日历
-		Calendar c = Calendar.getInstance();
-		c.setTime(startDate);
-		while(true){
-			//当前日期作为日历表最后日期
-			Date endDate = sdf.parse(sdf.format(new Date()));
-			//走完一遍日历表，重头再开始
-			if(startDate.getTime() > endDate.getTime()){
-				startDate = originalDate;
-				c.setTime(startDate);
-				continue;
-			}
-			while(startDate.getTime() <= endDate.getTime()){
-				//查询当前日期的数据是否已经有了
-				String date_time = sdf.format(startDate);
-				DataCalendar dataCalendar = null;
-				//由于网络原因，这里查询可能出错
-				boolean queryException = true;
-				while(queryException){
-					try{
-						dataCalendar = dataCalendarService.findDataCalendarByCond(date_time,1, 1);
-						queryException = false;
-					}catch(Exception e){
-						e.printStackTrace();
-						System.out.println(date_time+"数据库查询失败，休息3s ...");
-						Thread.sleep(3000);
-					}
-				}
-				boolean importFlag = false;
-				//各种格式日期初始化
-				String yearMonth = DateHelper.getYearAndMonth(startDate);
-				String yearMonthDay = DateHelper.getYearAndMonthAndDay(startDate);
-				String rq = sdf.format(startDate);
-				if(dataCalendar == null){
-					//数据导入
-					importFlag = dataImport(yearMonthDay,yearMonth,rq);
-					//如果数据导入成功了，把ftp上的文件移动到download目录下
-					if(importFlag){
-						System.out.println(rq+"数据导入成功");
-						String zipFileName = "app_"+yearMonthDay+".zip";
-						boolean res = FtpUtil.moveFiles(ftpUtil.ftpHost, ftpUtil.ftpUserName, ftpUtil.ftpPassword, 
-								ftpUtil.ftpPort,ftpUtil.ftpPath, ftpUtil.downloadPath, yearMonth, zipFileName);
-						//若文件移动失败，休息5s再尝试移动
-						while(res == false){
-							Thread.sleep(5000);
-							res = FtpUtil.moveFiles(ftpUtil.ftpHost, ftpUtil.ftpUserName, ftpUtil.ftpPassword, 
-									ftpUtil.ftpPort,ftpUtil.ftpPath, ftpUtil.downloadPath, yearMonth, zipFileName);
-							FileHelper.writeLog(sdf2.format(new Date())+" "+rq+"数据文件移动到"+ftpUtil.downloadPath+yearMonth+"下失败");
-						}
-						FileHelper.writeLog(sdf2.format(new Date())+" "+rq+"数据文件移动到"+ftpUtil.downloadPath+yearMonth+"下成功");
-						FileHelper.writeLog("");
-					}
-				}else{ 
-					//已经导入过
-					//查看是否当前日期文件是否有更新
-					System.out.println(rq+"数据已成功导入过...");
-					boolean isExist = FtpUtil.judgeFileExist(ftpUtil.ftpHost, ftpUtil.ftpUserName, 
-							ftpUtil.ftpPassword, ftpUtil.ftpPort, ftpUtil.ftpPath, yearMonth,yearMonthDay);
-					//以前导入成功过，但是有新文件更新，就将导入状态标记设置为2，意思为需要再导入，到下一次循环的时候再去导入
-					if(isExist){
-						//若有文件更新,把这天的导入状态设为0,下次循环的时候再去导入
-						 dataCalendarService.updateDataCalendar(date_time, 1, 0);
-						 FileHelper.writeLog(sdf2.format(new Date())+" "+rq+"数据需要重新导入");
-					}
-				}
-				if(importFlag){
-					//导入完成，日期增加1
-					c.add(Calendar.DAY_OF_MONTH, 1);
-					startDate = c.getTime();
-				}
-				//如果startDate是今天，并且导入失败，就不循环这一天，因为要去检测更新
-				if(!importFlag && startDate.getTime() == endDate.getTime()){
-					c.add(Calendar.DAY_OF_MONTH, 1);
-					startDate = c.getTime();
-					System.out.println(rq+"数据导入失败...暂停30秒");
-					Thread.sleep(30*1000);
-				}
-				//如果导入失败且日期不是当日，什么也不做，即日期不变再次尝试
-			}
-		}
-	}
+//	//生成日历表导入数据
+//	public void calendarImport() throws Exception{
+//		log.info("进入数据处理...");
+//		String startDateTime = ftpUtil.start_date;
+//		//数据导入开始和结束的日期
+//		Date startDate = sdf.parse(startDateTime);
+//		Date originalDate = startDate;
+//		//初始化日历
+//		Calendar c = Calendar.getInstance();
+//		c.setTime(startDate);
+//		while(true){
+//			//当前日期作为日历表最后日期
+//			Date endDate = sdf.parse(sdf.format(new Date()));
+//			//走完一遍日历表，重头再开始
+//			if(startDate.getTime() > endDate.getTime()){
+//				startDate = originalDate;
+//				c.setTime(startDate);
+//				continue;
+//			}
+//			while(startDate.getTime() <= endDate.getTime()){
+//				//查询当前日期的数据是否已经有了
+//				String date_time = sdf.format(startDate);
+//				DataCalendar dataCalendar = null;
+//				//由于网络原因，这里查询可能出错
+//				boolean queryException = true;
+//				while(queryException){
+//					try{
+//						dataCalendar = dataCalendarService.findDataCalendarByCond(date_time,1, 1);
+//						queryException = false;
+//					}catch(Exception e){
+//						e.printStackTrace();
+//						System.out.println(date_time+"数据库查询失败，休息3s ...");
+//						Thread.sleep(3000);
+//					}
+//				}
+//				boolean importFlag = false;
+//				//各种格式日期初始化
+//				String yearMonth = DateHelper.getYearAndMonth(startDate);
+//				String yearMonthDay = DateHelper.getYearAndMonthAndDay(startDate);
+//				String rq = sdf.format(startDate);
+//				if(dataCalendar == null){
+//					//数据导入
+//					importFlag = dataImport(yearMonthDay,yearMonth,rq);
+//					//如果数据导入成功了，把ftp上的文件移动到download目录下
+//					if(importFlag){
+//						System.out.println(rq+"数据导入成功");
+//						String zipFileName = "app_"+yearMonthDay+".zip";
+//						boolean res = FtpUtil.moveFiles(ftpUtil.ftpHost, ftpUtil.ftpUserName, ftpUtil.ftpPassword, 
+//								ftpUtil.ftpPort,ftpUtil.ftpPath, ftpUtil.downloadPath, yearMonth, zipFileName);
+//						//若文件移动失败，休息5s再尝试移动
+//						while(res == false){
+//							Thread.sleep(5000);
+//							res = FtpUtil.moveFiles(ftpUtil.ftpHost, ftpUtil.ftpUserName, ftpUtil.ftpPassword, 
+//									ftpUtil.ftpPort,ftpUtil.ftpPath, ftpUtil.downloadPath, yearMonth, zipFileName);
+//							FileHelper.writeLog(sdf2.format(new Date())+" "+rq+"数据文件移动到"+ftpUtil.downloadPath+yearMonth+"下失败");
+//						}
+//						FileHelper.writeLog(sdf2.format(new Date())+" "+rq+"数据文件移动到"+ftpUtil.downloadPath+yearMonth+"下成功");
+//						FileHelper.writeLog("");
+//					}
+//				}else{ 
+//					//已经导入过
+//					//查看是否当前日期文件是否有更新
+//					System.out.println(rq+"数据已成功导入过...");
+//					boolean isExist = FtpUtil.judgeFileExist(ftpUtil.ftpHost, ftpUtil.ftpUserName, 
+//							ftpUtil.ftpPassword, ftpUtil.ftpPort, ftpUtil.ftpPath, yearMonth,yearMonthDay);
+//					//以前导入成功过，但是有新文件更新，就将导入状态标记设置为2，意思为需要再导入，到下一次循环的时候再去导入
+//					if(isExist){
+//						//若有文件更新,把这天的导入状态设为0,下次循环的时候再去导入
+//						 dataCalendarService.updateDataCalendar(date_time, 1, 0);
+//						 FileHelper.writeLog(sdf2.format(new Date())+" "+rq+"数据需要重新导入");
+//					}
+//				}
+//				if(importFlag){
+//					//导入完成，日期增加1
+//					c.add(Calendar.DAY_OF_MONTH, 1);
+//					startDate = c.getTime();
+//				}
+//				//如果startDate是今天，并且导入失败，就不循环这一天，因为要去检测更新
+//				if(!importFlag && startDate.getTime() == endDate.getTime()){
+//					c.add(Calendar.DAY_OF_MONTH, 1);
+//					startDate = c.getTime();
+//					System.out.println(rq+"数据导入失败...暂停30秒");
+//					Thread.sleep(30*1000);
+//				}
+//				//如果导入失败且日期不是当日，什么也不做，即日期不变再次尝试
+//			}
+//		}
+//	}
 	
 	public void calendarExport() throws ParseException{
 		String startDateTime = ftpUtil.start_date;

@@ -3,12 +3,14 @@ package com.readboy.ssm.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,7 +22,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import com.readboy.ssm.po.*;
+
+import com.readboy.ssm.po.CellBankMarketing;
+import com.readboy.ssm.po.DepositMarketing;
+import com.readboy.ssm.po.EtcMarketing;
+import com.readboy.ssm.po.PosMarketing;
 import com.readboy.ssm.service.CellBankMarketingService;
 import com.readboy.ssm.service.DataInfoService;
 import com.readboy.ssm.service.DataLogService;
@@ -32,6 +38,7 @@ import com.readboy.ssm.service.PerformanceCkmnlrgzMxService;
 import com.readboy.ssm.service.PerformanceDkAljcgzMxService;
 import com.readboy.ssm.service.PerformanceDkmnlrgzMxService;
 import com.readboy.ssm.service.PosMarketingService;
+import com.readboy.ssm.timetask.OnApplicationStarted;
 import com.readboy.ssm.utils.Constants;
 import com.readboy.ssm.utils.Zipper;
 /**
@@ -64,6 +71,8 @@ public class DataIOController {
 	private PerformanceCkYzkhgzMxService performanceCkYzkhgzMxService;
 	@Autowired 
 	private DataLogService dataLogService;
+	@Autowired
+	private OnApplicationStarted onApplicationStarted;
 	private final long minNum = 99000000000L;
 	private final String separator = System.getProperty("line.separator","\n");
 	private final String fileNames[] = {"khgxgl_ckkhyxdjb.txt","khgxgl_sjyhyxdjb.txt",
@@ -71,13 +80,17 @@ public class DataIOController {
 	
 	private final String zd[] = {"gzrq","tjrq"};
 	
+	private static final Logger log = LoggerFactory.getLogger(DataIOController.class);
+	
 	@RequestMapping(value = "/dataImport.action", method = {
 			RequestMethod.POST, RequestMethod.GET })
 	public ModelAndView importData(HttpServletRequest request,
 			@RequestParam(value = "file", required = true) MultipartFile file,
 			ModelAndView modelAndView) {
 		String fileName = file.getOriginalFilename();
+		log.info("开始导入数据："+fileName);
 		if(fileName.length() < 12){
+			log.error("文件名字长度有错");
 			modelAndView.addObject("message", "文件名字长度有错！");
 			modelAndView.setViewName("fail");
 			return modelAndView;
@@ -107,7 +120,9 @@ public class DataIOController {
 				e.printStackTrace();
 			}
 			String dirPath = dir.getAbsolutePath();
+			log.info("开始解压"+dirPath);
 			Zipper.unzip(dirPath, dir.getParentFile().getAbsolutePath());
+			log.info("解压完成");
 			if (upload.isDirectory()){
 				File files[] = upload.listFiles();
 				for (File f : files) {
@@ -122,6 +137,7 @@ public class DataIOController {
 							} catch (Exception e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
+								log.error("创建表erp_wage_dkmnlrgzmx异常");
 							}
 						}else if (tableName.contains(Constants.table_ckmnlrgzmx)) {
 							try {
@@ -129,27 +145,28 @@ public class DataIOController {
 							} catch (Exception e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
+								log.error("创建表erp_wage_ckmnlrgzmx异常");
 							}
 						}else if(tableName.contains("erp_wage_ckaljcgzmx")){
 							try {
 								performanceCkAljcgzMxService.createTable(tableName);
 							} catch (Exception e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
+								log.error("创建表erp_wage_ckaljcgzmx异常");
 							}
 						}else if(tableName.contains("erp_wage_ckyzkhgzmx")){
 							try {
 								performanceCkYzkhgzMxService.createTable(tableName);
 							} catch (Exception e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
+								log.error("创建表erp_wage_ckyzkhgzmx异常");
 							}
 						}else if(tableName.contains("erp_wage_dkaljcgzmx")){
 							try {
 								performanceDkAljcgzMxService.createTable(tableName);
 							} catch (Exception e) {
-								// TODO Auto-generated catch block
 								e.printStackTrace();
+								log.error("创建表erp_wage_dkaljcgzmx异常");
 							}
 						}
 						
@@ -180,6 +197,7 @@ public class DataIOController {
 								|| fName.contains("erp_wage_dkaljcgzmx_")|| fName.equals("erp_wage_dkkhhsmx.txt")
 								|| fName.equals("erp_wage_dydklxshmx.txt") || fName.equals("erp_wage_bmkkhhsmx.txt")
 								|| fName.equals("erp_assessdata_jg_phjfk.txt") || fName.equals("tb_tjfx_cdzl.txt")	
+								|| fName.equals("tb_tfjx_cdzl.txt") 
 										){
 							try {
 								dataInfoService.deleteTableDataByrq(tableName, zd[1], ksrq, jsrq);
@@ -193,31 +211,46 @@ public class DataIOController {
 							try {
 								dataInfoService.deleteTableData(tableName);
 								message.add("表 "+tableName+" 删除记录成功!");
+								log.info("表 "+tableName+" 删除记录成功!");
 								deleteCount++;
 							} catch (Exception e) {
 								// TODO Auto-generated catch block
 								message.add("表 "+tableName+" 删除记录失败!");
+								log.error("表 "+tableName+" 删除记录成功!");
 								e.printStackTrace();
 							}
 						}
 						String fPath = f.getAbsolutePath();
 						try {
-							dataInfoService.dataload(tableName, fPath,separator);
+							if(fileNames[0].equals(fName)) {
+								dataInfoService.parseFile(0,tableName, f, separator);
+							}else if(fileNames[1].equals(fName)) {
+								dataInfoService.parseFile(1,tableName, f, separator);
+							}
+							else {
+								dataInfoService.dataload(tableName, fPath,separator);
+							}
 							message.add("表 "+tableName+" 导入成功！");
+							log.info("表 "+tableName+" 导入成功!");
 							importCount++;
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							message.add("表 "+tableName + " 导入失败！");
+							log.error("表 "+tableName+" 导入失败!");
 							e.printStackTrace();
 						}
+					}else {
+						log.error("文件不是以txt结尾");
 					}
 				}
+			}else {
+				log.error("upload 不是文件夹");
 			}
 			//删除upload文件夹
 			if(upload.exists()){
 				Zipper.deleteAllFile(upload);
 			}
-			System.out.println("upload文件夹下内容删除成功!");
+			log.info("upload文件夹下内容删除成功!");
 		}
 		modelAndView.addObject("message", message);
 		modelAndView.addObject("importCount", importCount);
@@ -243,7 +276,7 @@ public class DataIOController {
 			//查询以99开头的
 			if(i == 0){
 				//判断要求yybh字段长度至少12
-				List<DepositMarketing> list = depositMarketingService.findDepositMarketingByPrefix("99", 12);
+				List<DepositMarketing> list = depositMarketingService.findAllDepositMarketing();
 				for(int j = 0; j < list.size(); j++){
 					StringBuilder sb = new StringBuilder();
 					DepositMarketing one = list.get(j);
@@ -265,7 +298,7 @@ public class DataIOController {
 							.append(one.getSjhm() == null ? "" : one.getSjhm()).append(separator).toString();
 				}
 			}else if(i == 1){
-				List<CellBankMarketing> list = cellBankMarketingService.findCellBankMarketingByPrefix("99", 12);
+				List<CellBankMarketing> list = cellBankMarketingService.findAllCellBankMarketing();
 				for(int j = 0; j < list.size(); j++){
 					StringBuilder sb = new StringBuilder();
 					CellBankMarketing one = list.get(j);
