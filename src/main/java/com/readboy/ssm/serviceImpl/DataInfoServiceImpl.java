@@ -171,7 +171,7 @@ public class DataInfoServiceImpl implements DataInfoService{
 	}
 	//处理KHGXGL_SJYHYXDJB
 	private void parsesKHGXGL_SJYHYXDJB(String tempString,List<String> list) {
-		String[] filds = tempString.split("|");
+		String[] filds = tempString.split("\\|");
 		Integer sbzt = Integer.parseInt(filds[6]);
 		String yybhStr = filds[11];
 		Long yybh = Long.parseLong(yybhStr);
