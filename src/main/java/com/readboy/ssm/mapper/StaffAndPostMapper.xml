@@ -20,14 +20,14 @@
  	
  	<!-- 根据员工工号查询员工职位历史 -->
  	<select id="findStaffAndPostsByYggh" resultType="com.readboy.ssm.appjx.dto.MyInfo">
-		select a.*,base.GWMC,s.ygxm,org.ZZMC from hr_bas_staff_post as a left join hr_bas_post base on a.GWBZ = base.GWBZ 
+		select a.*,base.GWMC,s.ygxm,org.ZZJC as ZZMC from hr_bas_staff_post as a left join hr_bas_post base on a.GWBZ = base.GWBZ 
 		left join hr_bas_staff s  on a.yggh=s.yggh  left JOIN hr_bas_organization org on a.ZZBZ =org.ZZBZ
  		where  a.yggh=#{yggh}
  	</select>
  	
  		<!-- 根据员工工号查询员工职位历史 -->
  	<select id="findStaffAndPostsByYgghNow" resultType="com.readboy.ssm.appjx.dto.MyInfo">
-		select a.*,base.GWMC,s.ygxm,org.ZZMC from hr_bas_staff_post as a left join hr_bas_post base on a.GWBZ = base.GWBZ 
+		select a.*,base.GWMC,s.ygxm,org.ZZJC as ZZMC from hr_bas_staff_post as a left join hr_bas_post base on a.GWBZ = base.GWBZ 
 		left join hr_bas_staff s  on a.yggh=s.yggh  left JOIN hr_bas_organization org on a.ZZBZ =org.ZZBZ
  		where  a.yggh=#{yggh} 
  		and rgrq = (select max(bs.rgrq) from hr_bas_staff_post  as bs where bs.yggh = #{yggh})

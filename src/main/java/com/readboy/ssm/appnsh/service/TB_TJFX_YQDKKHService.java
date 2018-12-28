@@ -55,7 +55,7 @@ public class TB_TJFX_YQDKKHService {
 		// TODO Auto-generated method stub
 		String sql = "select count(*) from tb_tjfx_yqdkkh where yggh=? and khlx=? ";
 		
-		String sqlPage = "select tb.*,org.ZZMC as jgmc from tb_tjfx_yqdkkh tb "
+		String sqlPage = "select tb.*,org.ZZJC as jgmc from tb_tjfx_yqdkkh tb "
 				+ "left join hr_bas_organization org on tb.jgdm = org.YWJGDM  where yggh=? and khlx=? order by yqts desc";
 		RowMapper<TB_TJFX_YQDKKHDto> rowMap = new BeanPropertyRowMapper<TB_TJFX_YQDKKHDto>(TB_TJFX_YQDKKHDto.class);
 		Map map =  jdbcTemplatePageHelper.getPageMap(sqlPage,sql, pageIndex, pageSize, rowMap, yggh,khlx);
