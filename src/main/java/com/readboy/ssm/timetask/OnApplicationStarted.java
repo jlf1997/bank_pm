@@ -749,7 +749,7 @@ public class OnApplicationStarted implements InitializingBean{
 					List<DepositMarketing> list = new ArrayList<DepositMarketing>();
 					try {
 						//只导出非手机端新增数据 改为都导出
-						list = depositMarketingService.findAllDepositMarketing();
+						list = depositMarketingService.findDepositMarketingByPrefix("99", 12);
 					} catch (Exception e) {
 						log.error(LogsUtil.getStackTrace(e));
 						//记录为空就插入，否则就更新错误信息
@@ -783,7 +783,7 @@ public class OnApplicationStarted implements InitializingBean{
 				}else if(i == 1){
 					List<CellBankMarketing> list = new ArrayList<CellBankMarketing>();
 					try {
-						list = cellBankMarketingService.findAllCellBankMarketing();
+						list = cellBankMarketingService.findCellBankMarketingByPrefix("99", 12);
 					} catch (Exception e) {
 						log.error(LogsUtil.getStackTrace(e));
 						//记录为空就插入，否则就更新错误信息
