@@ -276,7 +276,7 @@ public class DataIOController {
 			//查询以99开头的
 			if(i == 0){
 				//判断要求yybh字段长度至少12
-				List<DepositMarketing> list = depositMarketingService.findAllDepositMarketing();
+				List<DepositMarketing> list = depositMarketingService.findDepositMarketingByPrefix("99", 12);
 				for(int j = 0; j < list.size(); j++){
 					StringBuilder sb = new StringBuilder();
 					DepositMarketing one = list.get(j);
@@ -298,7 +298,7 @@ public class DataIOController {
 							.append(one.getSjhm() == null ? "" : one.getSjhm()).append(separator).toString();
 				}
 			}else if(i == 1){
-				List<CellBankMarketing> list = cellBankMarketingService.findAllCellBankMarketing();
+				List<CellBankMarketing> list = cellBankMarketingService.findCellBankMarketingByPrefix("99", 12);
 				for(int j = 0; j < list.size(); j++){
 					StringBuilder sb = new StringBuilder();
 					CellBankMarketing one = list.get(j);
