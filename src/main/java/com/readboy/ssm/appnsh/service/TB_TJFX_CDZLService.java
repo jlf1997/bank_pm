@@ -40,7 +40,8 @@ public class TB_TJFX_CDZLService {
 
 
 	public List<TB_TJFX_CDZL> findByYggh(String yggh) {
-		String sql = "select * from tb_tjfx_cdzl where yggh=? ";
+		//tjrq 选最大的
+		String sql = "select * from tb_tjfx_cdzl where yggh=? order by tjrq desc limit 1";
 		
 		List<TB_TJFX_CDZL> list = jdbcTemplate.query(sql, new Object[] {yggh}
 		,new BeanPropertyRowMapper<TB_TJFX_CDZL>(TB_TJFX_CDZL.class));
