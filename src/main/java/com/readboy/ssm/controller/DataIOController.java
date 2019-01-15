@@ -40,6 +40,7 @@ import com.readboy.ssm.service.PerformanceDkmnlrgzMxService;
 import com.readboy.ssm.service.PosMarketingService;
 import com.readboy.ssm.timetask.OnApplicationStarted;
 import com.readboy.ssm.utils.Constants;
+import com.readboy.ssm.utils.LogsUtil;
 import com.readboy.ssm.utils.Zipper;
 /**
  * @author:	   	LCL
@@ -205,7 +206,7 @@ public class DataIOController {
 								deleteCount++;
 							} catch (Exception e) {
 								// TODO Auto-generated catch block
-								e.printStackTrace();
+								log.error(LogsUtil.getStackTrace(e));
 							}
 						}else{
 							try {
