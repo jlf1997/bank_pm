@@ -41,21 +41,21 @@ public class TB_TJFX_CDZLService {
 
 
 
-	public List<TB_TJFX_CDZL> findByYggh(String yggh) {
-		List<TB_TJFX_CDZL> list = null;
-		try {
-			//tjrq 选最大的
-			String sql = "select * from tb_tjfx_cdzl where yggh=? order by tjrq desc limit 1";
-			
-			list = jdbcTemplate.query(sql, new Object[] {yggh}
-			,new BeanPropertyRowMapper<TB_TJFX_CDZL>(TB_TJFX_CDZL.class));
-		}catch(Exception e ) {
-			log.error("发生异常："+LogsUtil.getStackTrace(e));
-		}
-		
-		
-		return list;
-	}
+//	public List<TB_TJFX_CDZL> findByYggh(String yggh) {
+//		List<TB_TJFX_CDZL> list = null;
+//		try {
+//			//tjrq 选最大的
+//			String sql = "select * from tb_tjfx_cdzl where yggh=? order by tjrq desc limit 1";
+//			
+//			list = jdbcTemplate.query(sql, new Object[] {yggh}
+//			,new BeanPropertyRowMapper<TB_TJFX_CDZL>(TB_TJFX_CDZL.class));
+//		}catch(Exception e ) {
+//			log.error("发生异常："+LogsUtil.getStackTrace(e));
+//		}
+//		
+//		
+//		return list;
+//	}
 	
 	 
 
