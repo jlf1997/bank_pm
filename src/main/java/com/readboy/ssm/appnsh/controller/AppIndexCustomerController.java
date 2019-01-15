@@ -22,9 +22,11 @@ import com.readboy.ssm.appnsh.dto.TB_TJFX_DKDKHDto;
 import com.readboy.ssm.appnsh.dto.TB_TJFX_DKDQKHDto;
 import com.readboy.ssm.appnsh.dto.TB_TJFX_YQDKKHDto;
 import com.readboy.ssm.appnsh.model.TB_TJFX_CDZL;
+import com.readboy.ssm.appnsh.model.TB_TJFX_CDZL_N;
 import com.readboy.ssm.appnsh.service.AppIndexCustomerService;
 import com.readboy.ssm.appnsh.service.TB_TJFX_BLDKKHService;
 import com.readboy.ssm.appnsh.service.TB_TJFX_CDZLService;
+import com.readboy.ssm.appnsh.service.TB_TJFX_CDZL_NService;
 import com.readboy.ssm.appnsh.service.TB_TJFX_CKDKHService;
 import com.readboy.ssm.appnsh.service.TB_TJFX_CKDQKHService;
 import com.readboy.ssm.appnsh.service.TB_TJFX_DKDKHService;
@@ -33,13 +35,13 @@ import com.readboy.ssm.appnsh.service.TB_TJFX_YQDKKHService;
 import com.readboy.ssm.timetask.OnApplicationStarted;
 
 @RestController
-@RequestMapping("/mobile/customer")
+@RequestMapping("/demo/mobile/customer")
 public class AppIndexCustomerController {
 
 	@Autowired
 	private AppIndexCustomerService customerService;
 	@Autowired
-	private TB_TJFX_CDZLService tB_TJFX_CDZLService;
+	private TB_TJFX_CDZL_NService tB_TJFX_CDZL_NService;
 	@Autowired
 	private TB_TJFX_BLDKKHService tB_TJFX_BLDKKHService;
 	@Autowired
@@ -60,7 +62,7 @@ public class AppIndexCustomerController {
 		CustomMobleIndexDto res = new CustomMobleIndexDto();
 		//存贷总览
 		CDZLDto dto = new CDZLDto();
-		List<TB_TJFX_CDZL> list = tB_TJFX_CDZLService.findByYggh(yggh);
+		List<TB_TJFX_CDZL_N> list = tB_TJFX_CDZL_NService.findByYggh(yggh);
 		if(list!=null && list.size()>0 && list.get(0)!=null) {
 			BeanUtils.copyProperties(list.get(0), dto);
 		}
