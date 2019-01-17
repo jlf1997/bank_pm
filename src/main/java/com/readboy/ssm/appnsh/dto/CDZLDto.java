@@ -13,10 +13,10 @@ public class CDZLDto {
 	
 	private Integer dkhs;
 	
-//	//经办业务笔数
-//	private Integer jbywbs;
-//	//经办现金流量
-//	private BigDecimal jbxjll;
+	//经办业务笔数
+	private Integer jbywbs;
+	//经办现金流量
+	private BigDecimal jbxjll;
 
 	public BigDecimal getDkze() {
 		return dkze;
@@ -50,21 +50,21 @@ public class CDZLDto {
 		this.dkhs = dkhs;
 	}
 
-//	public Integer getJbywbs() {
-//		return jbywbs;
-//	}
-//
-//	public void setJbywbs(Integer jbywbs) {
-//		this.jbywbs = jbywbs;
-//	}
-//
-//	public BigDecimal getJbxjll() {
-//		return jbxjll;
-//	}
-//
-//	public void setJbxjll(BigDecimal jbxjll) {
-//		this.jbxjll = jbxjll;
-//	}
+	public Integer getJbywbs() {
+		return jbywbs;
+	}
+
+	public void setJbywbs(Integer jbywbs) {
+		this.jbywbs = jbywbs;
+	}
+
+	public BigDecimal getJbxjll() {
+		return jbxjll;
+	}
+
+	public void setJbxjll(BigDecimal jbxjll) {
+		this.jbxjll = jbxjll;
+	}
 	
 	
 	
