@@ -77,4 +77,10 @@ public class DepositMarketingServiceImpl implements DepositMarketingService{
 		return depositeMarketingMapper.findDepoditMarketingExits(jgdm, zjhm, yyrq);
 	}
 	
+	@Override
+	public DepositMarketing findDepoditMarketingExitsForNewVersion(String jgdm, String khmc,String zjhm, String yyrq) throws Exception {
+		// TODO Auto-generated method stub
+		return depositeMarketingMapper.findDepoditMarketingExitsForNewVersion(jgdm, khmc,zjhm, yyrq);
+	}
+	
 }

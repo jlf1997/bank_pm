@@ -38,5 +38,10 @@ public interface DepositMarketingMapper {
 	//查询一个机构的客户当前的预约日期是否存在记录
 	public DepositMarketing findDepoditMarketingExits(@Param("jgdm") String jgdm,
 			@Param("zjhm") String zjhm ,@Param("yyrq")String yyrq) throws Exception;
+	
+	//查询一个机构的客户当前的预约日期是否存在记录
+		public DepositMarketing findDepoditMarketingExitsForNewVersion(@Param("jgdm") String jgdm,
+				@Param("khmc") String khmc,
+				@Param("zjhm") String zjhm ,@Param("yyrq")String yyrq) throws Exception;
 
 }

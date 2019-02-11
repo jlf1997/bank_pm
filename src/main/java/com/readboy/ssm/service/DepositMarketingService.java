@@ -34,4 +34,8 @@ public interface DepositMarketingService {
 	public List<DepositMarketing> findDepositMarketingByPrefix(String prefix,int len) throws Exception;
 	
 	public DepositMarketing findDepoditMarketingExits(String jgdm,String zjhm,String yyrq) throws Exception;
+	
+	public DepositMarketing findDepoditMarketingExitsForNewVersion(String jgdm,String khmc,String zjhm,String yyrq) throws Exception;
+	
+	
 }

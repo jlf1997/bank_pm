@@ -54,6 +54,19 @@
  		select * from khgxgl_ckkhyxdjb where jgdm = #{jgdm} and zjhm = #{zjhm} and yyrq = #{yyrq}
  	</select>
  	
+ 	
+ 	<select id="findDepoditMarketingExitsForNewVersion" resultType="DepositMarketing">
+ 		select * from khgxgl_ckkhyxdjb where jgdm = #{jgdm} and yyrq = #{yyrq}
+ 		<if test="khmc != null  and khmc != '' ">
+ 			 and khmc = #{khmc} 
+ 		</if>
+ 		
+ 		<if test="zjhm != null  and zjhm != '' ">
+ 			 and zjhm = #{zjhm} 
+ 		</if>
+ 		
+ 	</select>
+ 	
  	<!-- 插入数据返回自增的主键 -->
  	<insert id="insertDepositMarketing" parameterType="DepositMarketing" useGeneratedKeys="true">
   		<!-- 在插入之后返回自增生成的id -->

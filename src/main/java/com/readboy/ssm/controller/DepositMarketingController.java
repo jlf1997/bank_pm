@@ -70,7 +70,7 @@ public class DepositMarketingController {
 			return Constants.ERROR_CODE1;
 			//return "预约日期必须大于当前日期";
 		}
-		DepositMarketing one = depositMarketingService.findDepoditMarketingExits(depositMarketing.getJgdm(),depositMarketing.getZjhm()
+		DepositMarketing one = depositMarketingService.findDepoditMarketingExitsForNewVersion(depositMarketing.getJgdm(),depositMarketing.getKhmc(),depositMarketing.getZjhm()
 				,depositMarketing.getYyrq());
 		if(one != null){
 			return Constants.ERROR_CODE2;
@@ -84,6 +84,16 @@ public class DepositMarketingController {
 			return Constants.ERROR_CODE3;
 		}
 	}
+	
+	
+//	@ResponseBody
+//	@RequestMapping(value="demo/getDepositMarketing",method={RequestMethod.POST,RequestMethod.GET})
+//	public DepositMarketing getDepositMarketing(String jgdm,String khmc,String zjhm) throws Exception{
+//		
+//		DepositMarketing one = depositMarketingService.findDepoditMarketingExitsForNewVersion(jgdm,khmc,zjhm
+//				,"2018-05-06");
+//		return one;
+//	}
 	
 	//删除一条手机营销记录
 	@ResponseBody
