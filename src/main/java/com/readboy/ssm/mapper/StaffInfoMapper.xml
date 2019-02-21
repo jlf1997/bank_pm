@@ -9,6 +9,6 @@
  		select hr_bas_organization.zzjc,hr_bas_post.gwmc,hr_bas_staff.ygxm
  		from hr_bas_organization,hr_bas_post,hr_bas_staff
  		where hr_bas_organization.zzbz = #{zzbz} and hr_bas_post.gwbz = #{gwbz}
- 		and hr_bas_staff.yggh = #{yggh}
+ 		and hr_bas_staff.yggh = #{yggh} limit 1
  	</select>
 </mapper>
