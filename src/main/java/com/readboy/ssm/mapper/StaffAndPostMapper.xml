@@ -23,7 +23,7 @@
  	<select id="findStaffAndPostsByYggh" resultType="com.readboy.ssm.appjx.dto.MyInfo">
 		select a.*,base.GWMC,s.ygxm,org.ZZJC as ZZMC from hr_bas_staff_post as a left join hr_bas_post base on a.GWBZ = base.GWBZ 
 		left join hr_bas_staff s  on a.yggh=s.yggh  left JOIN hr_bas_organization org on a.ZZBZ =org.ZZBZ
- 		where  a.yggh=#{yggh}
+ 		where  a.yggh=#{yggh} and  (lgrq is null or lgrq = '0000-00-00 00:00:00' or lgrq>=rgrq )
  	</select>
  	
  		<!-- 根据员工工号查询员工职位历史 -->
