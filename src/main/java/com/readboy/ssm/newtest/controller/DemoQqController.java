@@ -1,5 +1,6 @@
 package com.readboy.ssm.newtest.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class DemoQqController {
 	@RequestMapping("/insert")
 	public int insert()  {
 		DemoQq demoQq = new DemoQq();
+		demoQq.setDatePart(new Date());
+		demoQq.setDoublePart(33.4);
+		demoQq.setStrPart("str");
 		return demoQqService.insertDemoQq(demoQq);
 	}
 	
@@ -44,6 +48,7 @@ public class DemoQqController {
 	@RequestMapping("/list")
 	public List<DemoQq> list()  {
 		Assist assist = new Assist();
+//		assist.setRequires(Assist.andEq("str_part", "str"));
 		return demoQqService.selectListCommon(assist);
 	}
 	
@@ -62,34 +67,25 @@ public class DemoQqController {
 	@RequestMapping("/updateObjCommon ")
 	public int updateObjCommon()  {
 		Assist assist = new Assist();
-		assist.setRequires(Assist.andEq("id", 3));
+		assist.setRequires(Assist.andEq("str_part", "str"));
 		DemoQq demoQq = new DemoQq();
-		demoQq.setStrPart("22");
-		
-		
+		demoQq.setDatePart(new Date());
 		return demoQqService.updateObjCommon(demoQq, assist);
 	}
 	
 	
+	
 	/**
-	* 根据id更新
+	* 条件删除
 	*/
-	@RequestMapping("/updateDemoQq")
-	public int updateDemoQq(int id)  {
-		DemoQq demoQq = new DemoQq();
-		demoQq.setId(id);
-		demoQq.setStrPart("dfdf");
-		return demoQqService.updateDemoQq(demoQq);
+	@RequestMapping("/deleteObjCommon ")
+	public int deleteObjCommon()  {
+		Assist assist = new Assist();
+		assist.setRequires(Assist.andEq("str_part", "str1"));
+		return demoQqService.deleteObjCommon(assist);
 	}
 	
 	
-	/**
-	* 根据id删除
-	*/
-	@RequestMapping("/deleteDemoQqByIds ")
-	public int deleteDemoQqByIds(String ids)  {
-		return demoQqService.deleteDemoQqByIds(ids);
-	}
 	
 	
 }

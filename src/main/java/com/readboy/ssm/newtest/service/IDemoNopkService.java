@@ -1,6 +1,6 @@
 package com.readboy.ssm.newtest.service;
 
-import com.readboy.ssm.newtest.domain.DemoQq;
+import com.readboy.ssm.newtest.domain.DemoNopk;
 import java.util.List;
 import com.readboy.ssm.newtest.util.domain.PageData;
 import com.readboy.ssm.newtest.util.domain.Assist;
@@ -11,26 +11,26 @@ import com.readboy.ssm.newtest.util.domain.Assist;
  * @author xiangy
  * @date 2019-04-29
  */
-public interface IDemoQqService 
+public interface IDemoNopkService 
 {
 	/**
      * 新增
      * 
-     * @param demoQq 信息
+     * @param demoNopk 信息
      * @return 结果
      */
-	public int insertDemoQq(DemoQq demoQq);
+	public int insertDemoNopk(DemoNopk demoNopk);
 	
 	
 	/**
 	* 	条件查询
 	*/
-	public List<DemoQq> selectListCommon(Assist assist);
+	public List<DemoNopk> selectListCommon(Assist assist);
 	
 	/**
 	* 	分页查询
 	*/
-	public PageData<DemoQq> selectPageCommon(Assist assist, int page, int limit) ;
+	public PageData<DemoNopk> selectPageCommon(Assist assist, int page, int limit) ;
 	
 	
 	/**
@@ -46,7 +46,7 @@ public interface IDemoQqService
 	 * @param assist
 	 * @return
 	 */
-     public int updateObjCommon(DemoQq value, Assist assist);
+     public int updateObjCommon(DemoNopk value, Assist assist);
      
      
       /**
@@ -58,20 +58,5 @@ public interface IDemoQqService
      
      
      
-	/**
-     * 删除信息
-     * 
-     * @param ids 需要删除的数据ID
-     * @return 结果
-     */
-	public int deleteDemoQqByIds(String ids);
-	
-	/**
-     * 查询信息
-     * 
-     * @param id ID
-     * @return 信息
-     */
-	public DemoQq selectDemoQqById(Integer id);
 	
 }

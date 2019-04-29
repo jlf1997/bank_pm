@@ -2,15 +2,13 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.readboy.ssm.newtest.dao.DemoQqMapper">
+<mapper namespace="com.readboy.ssm.newtest.dao.DemoNopkMapper">
     
-    <resultMap type="com.readboy.ssm.newtest.domain.DemoQq" id="DemoQqResult">
-        <result property="id"    column="id"    />
-        <result property="strPart"    column="str_part"    />
-        <result property="intPart"    column="int_part"    />
-        <result property="datePart"    column="date_part"    />
-        <result property="textPart"    column="text_part"    />
-        <result property="doublePart"    column="double_part"    />
+    <resultMap type="com.readboy.ssm.newtest.domain.DemoNopk" id="DemoNopkResult">
+        <result property="t1"    column="t1"    />
+        <result property="te"    column="te"    />
+        <result property="dfsd"    column="dfsd"    />
+        <result property="dfdf"    column="dfdf"    />
     </resultMap>
     
     <!-- Assist用于辅助工具类setRequires设置的条件,${req.require}表示列名,#{req.value}表示值它是防SQL注入的 -->
@@ -46,14 +44,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </sql>
     
-    <sql id="selectDemoQqVo">
-        select id, str_part, int_part, date_part, text_part, double_part from demo_qq
+    <sql id="selectDemoNopkVo">
+        select t1, te, dfsd, dfdf from demo_nopk
     </sql>
     
     
      <!-- 通用列表查询-->
-    <select id="selectListCommon" parameterType="com.readboy.ssm.newtest.util.domain.Assist" resultMap="DemoQqResult">
-        <include refid="selectDemoQqVo" /> 
+    <select id="selectListCommon" parameterType="com.readboy.ssm.newtest.util.domain.Assist" resultMap="DemoNopkResult">
+        <include refid="selectDemoNopkVo" /> 
         <if test="require!=null"><include refid="Assist" /></if>
         <if test="order !=null">
         	 ${order}
@@ -65,14 +63,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <!-- 条件删除-->
     <delete id="deleteObjCommon" parameterType="com.readboy.ssm.newtest.util.domain.Assist" >
-        delete from demo_qq
+        delete from demo_nopk
         <if test="require!=null"><include refid="Assist" /></if>
     </delete>
     
     
     <!--获得类名为:对应的数据库表的数据总行数 -->
     <select id="getObjRowCountCommon" parameterType="com.readboy.ssm.newtest.util.domain.Assist" resultType="java.lang.Long">
-        select count(*)  from demo_qq
+        select count(*)  from demo_nopk
         <if test="require!=null"><include refid="Assist" /></if>
     </select>
     
@@ -80,13 +78,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    
     <!--条件更新 -->
     <update id="updateObjCommon" parameterType="map">
-        update demo_qq
+        update demo_nopk
         <trim prefix="SET" suffixOverrides=",">
-            <if test="value.strPart != null  and value.strPart != ''  ">str_part = #{value.strPart},</if>
-            <if test="value.intPart != null  ">int_part = #{value.intPart},</if>
-            <if test="value.datePart != null  ">date_part = #{value.datePart},</if>
-            <if test="value.textPart != null  and value.textPart != ''  ">text_part = #{value.textPart},</if>
-            <if test="value.doublePart != null  ">double_part = #{value.doublePart},</if>
+            <if test="value.t1 != null  and value.t1 != ''  ">t1 = #{value.t1},</if>
+            <if test="value.te != null  and value.te != ''  ">te = #{value.te},</if>
+            <if test="value.dfsd != null  and value.dfsd != ''  ">dfsd = #{value.dfsd},</if>
+            <if test="value.dfdf != null  and value.dfdf != ''  ">dfdf = #{value.dfdf},</if>
         </trim>
         <if test="assist!=null and assist.require!=null"><include refid="updateAssist" /></if>
     </update>
@@ -94,42 +91,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
       <!--新增 -->  
-    <insert id="insertDemoQq" parameterType="com.readboy.ssm.newtest.domain.DemoQq">
-        insert into demo_qq
+    <insert id="insertDemoNopk" parameterType="com.readboy.ssm.newtest.domain.DemoNopk">
+        insert into demo_nopk
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="id != null  ">id,</if>
-			<if test="strPart != null  and strPart != ''  ">str_part,</if>
-			<if test="intPart != null  ">int_part,</if>
-			<if test="datePart != null  ">date_part,</if>
-			<if test="textPart != null  and textPart != ''  ">text_part,</if>
-			<if test="doublePart != null  ">double_part,</if>
+			<if test="t1 != null  and t1 != ''  ">t1,</if>
+			<if test="te != null  and te != ''  ">te,</if>
+			<if test="dfsd != null  and dfsd != ''  ">dfsd,</if>
+			<if test="dfdf != null  and dfdf != ''  ">dfdf,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="id != null  ">#{id},</if>
-			<if test="strPart != null  and strPart != ''  ">#{strPart},</if>
-			<if test="intPart != null  ">#{intPart},</if>
-			<if test="datePart != null  ">#{datePart},</if>
-			<if test="textPart != null  and textPart != ''  ">#{textPart},</if>
-			<if test="doublePart != null  ">#{doublePart},</if>
+			<if test="t1 != null  and t1 != ''  ">#{t1},</if>
+			<if test="te != null  and te != ''  ">#{te},</if>
+			<if test="dfsd != null  and dfsd != ''  ">#{dfsd},</if>
+			<if test="dfdf != null  and dfdf != ''  ">#{dfdf},</if>
          </trim>
     </insert>
 	 
 
     
     
-	<!-- 根据id查询-->
-	 <select id="selectDemoQqById" parameterType="Integer" resultMap="DemoQqResult">
-        <include refid="selectDemoQqVo"/>
-        where id = #{id}
-    </select>
-    
-	<!-- 根据id批量删除-->
-    <delete id="deleteDemoQqByIds" parameterType="String">
-        delete from demo_qq where id in 
-        <foreach item="id" collection="array" open="(" separator="," close=")">
-            #{id}
-        </foreach>
-    </delete>
     
 
     
