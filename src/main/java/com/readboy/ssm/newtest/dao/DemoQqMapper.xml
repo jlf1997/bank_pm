@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.readboy.ssm.newtest.dao.DemoQqMapper">
+    
+    <resultMap type="com.readboy.ssm.newtest.domain.DemoQq" id="DemoQqResult">
+        <result property="id"    column="id"    />
+        <result property="strPart"    column="str_part"    />
+        <result property="intPart"    column="int_part"    />
+        <result property="datePart"    column="date_part"    />
+        <result property="textPart"    column="text_part"    />
+        <result property="doublePart"    column="double_part"    />
+    </resultMap>
+    
+    <!-- Assist用于辅助工具类setRequires设置的条件,${req.require}表示列名,#{req.value}表示值它是防SQL注入的 -->
+    <sql id="Assist">
+        <where>
+            <foreach collection="require" item="req" separator=" ">
+                ${req.require} 
+                <if test="req.value != null"> #{req.value}</if> 
+                <if test="req.values != null">
+                    <foreach collection="req.values" item="val" separator=","> 
+                         #{val}
+                    </foreach> 
+                </if> 
+                <if test="req.suffix != null"> ${req.suffix}</if> 
+            </foreach>
+        </where>
+    </sql>
+    
+     <!-- updateAssist用于更新数据的使用它拓展自Assist,用于辅助工具类setRequires设置的条件,${req.require}表示列名,#{req.value}表示值它是防SQL注入的 -->
+    <sql id="updateAssist">
+        <where>
+            <foreach collection="assist.require" item="req" separator=" ">
+                ${req.require} 
+                <if test="req.value != null"> #{req.value}</if> 
+                <if test="req.values != null">
+                    <foreach collection="req.values" item="val" separator=","> 
+                        #{val} 
+                    </foreach> 
+                </if> 
+                <if test="req.suffix != null"> ${req.suffix}</if> 
+            </foreach>
+        </where>
+    </sql>
+    
+    
+    
+    
+     <!-- 通用列表查询-->
+    <select id="selectListCommon" parameterType="com.readboy.ssm.newtest.util.domain.Assist" resultMap="DemoQqResult">
+        <include refid="selectDemoQqVo" /> 
+        <if test="require!=null"><include refid="Assist" /></if>
+        <if test="order !=null">
+        	 ${order}
+        </if>
+        <if test="startRow !=null and rowSize !=null">
+            LIMIT  #{startRow},#{rowSize}
+        </if>
+    </select>
+    
+    
+    <!--获得类名为:对应的数据库表的数据总行数 -->
+    <select id="getObjRowCountCommon" parameterType="com.readboy.ssm.newtest.util.domain.Assist" resultType="java.lang.Long">
+        select count(*)  from demo_qq
+        <if test="require!=null"><include refid="Assist" /></if>
+    </select>
+    
+    <!--条件更新 -->
+    <update id="updateObjCommon" parameterType="map">
+        update demo_qq
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="value.strPart != null  and value.strPart != ''  ">str_part = #{value.strPart},</if>
+            <if test="value.intPart != null  ">int_part = #{value.intPart},</if>
+            <if test="value.datePart != null  ">date_part = #{value.datePart},</if>
+            <if test="value.textPart != null  and value.textPart != ''  ">text_part = #{value.textPart},</if>
+            <if test="value.doublePart != null  ">double_part = #{value.doublePart},</if>
+        </trim>
+        <if test="assist!=null and assist.require!=null"><include refid="updateAssist" /></if>
+    </update>
+    
+    
+	
+	<sql id="selectDemoQqVo">
+        select id, str_part, int_part, date_part, text_part, double_part from demo_qq
+    </sql>
+	
+    <select id="selectDemoQqList" parameterType="com.readboy.ssm.newtest.domain.DemoQq" resultMap="DemoQqResult">
+        <include refid="selectDemoQqVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="strPart != null  and strPart != '' "> and str_part = #{strPart}</if>
+             <if test="intPart != null "> and int_part = #{intPart}</if>
+             <if test="datePart != null "> and date_part = #{datePart}</if>
+             <if test="textPart != null  and textPart != '' "> and text_part = #{textPart}</if>
+             <if test="doublePart != null "> and double_part = #{doublePart}</if>
+         </where>
+    </select>
+    
+    <select id="selectDemoQqById" parameterType="Integer" resultMap="DemoQqResult">
+        <include refid="selectDemoQqVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertDemoQq" parameterType="com.readboy.ssm.newtest.domain.DemoQq">
+        insert into demo_qq
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null  ">id,</if>
+			<if test="strPart != null  and strPart != ''  ">str_part,</if>
+			<if test="intPart != null  ">int_part,</if>
+			<if test="datePart != null  ">date_part,</if>
+			<if test="textPart != null  and textPart != ''  ">text_part,</if>
+			<if test="doublePart != null  ">double_part,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null  ">#{id},</if>
+			<if test="strPart != null  and strPart != ''  ">#{strPart},</if>
+			<if test="intPart != null  ">#{intPart},</if>
+			<if test="datePart != null  ">#{datePart},</if>
+			<if test="textPart != null  and textPart != ''  ">#{textPart},</if>
+			<if test="doublePart != null  ">#{doublePart},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateDemoQq" parameterType="com.readboy.ssm.newtest.domain.DemoQq">
+        update demo_qq
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="strPart != null  and strPart != ''  ">str_part = #{strPart},</if>
+            <if test="intPart != null  ">int_part = #{intPart},</if>
+            <if test="datePart != null  ">date_part = #{datePart},</if>
+            <if test="textPart != null  and textPart != ''  ">text_part = #{textPart},</if>
+            <if test="doublePart != null  ">double_part = #{doublePart},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteDemoQqById" parameterType="Integer">
+        delete from demo_qq where id = #{id}
+    </delete>
+	
+    <delete id="deleteDemoQqByIds" parameterType="String">
+        delete from demo_qq where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+    
+
+    
+</mapper>

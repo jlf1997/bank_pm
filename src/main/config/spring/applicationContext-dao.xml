@@ -46,7 +46,7 @@
 	<!-- 加载mapper扫描器 -->
 	<bean  class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<!-- 扫描包路径，若有多个用","隔开 -->
-		<property name="basePackage" value="com.readboy.ssm.mapper"/>
+		<property name="basePackage" value="com.readboy.ssm.mapper,com.readboy.ssm.*.dao"/>
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
 	</bean>
 	

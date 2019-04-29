@@ -95,7 +95,7 @@
 	<!-- 校验器End -->
 		
 	<!-- 组件扫描配置注解的Handler -->
-	<context:component-scan base-package="com.readboy.ssm.websocket,com.readboy.ssm.controller">
+	<context:component-scan base-package="com.readboy.ssm,com.readboy.ssm.websocket,com.readboy.ssm.controller">
 	</context:component-scan>
 	
 	<!-- 自定义参数绑定 -->
